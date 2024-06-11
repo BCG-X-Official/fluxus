@@ -37,7 +37,7 @@ repos:
     rev: v1.10.0
     hooks:
       - id: mypy
-        entry: mypy src/ test/ src-legacy/
+        entry: mypy src/ test/
         args: [--config-file, pyproject.toml]
         files: \.pyi?$
         language: python
