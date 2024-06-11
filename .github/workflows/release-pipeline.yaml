@@ -143,7 +143,7 @@ jobs:
 
   # conda_tox_essential:
   #   runs-on: ubuntu-latest
-  #   needs: detect_build_config_changes
+  #   needs: [detect_build_config_changes, code_quality_checks]
   #   if: ${{ needs.detect_build_config_changes.outputs.conda_build_config_changed == '1' && github.event_name != 'schedule' && !startsWith(github.ref, 'refs/heads/dev/') && !startsWith(github.ref, 'refs/heads/release/') }}
   #   strategy:
   #     matrix:
@@ -207,6 +207,7 @@ jobs:
 
   conda_tox_matrix:
     runs-on: ubuntu-latest
+    needs: [detect_build_config_changes, code_quality_checks]
     # if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/dev/') || startsWith(github.ref, 'refs/heads/release/') || github.event_name == 'schedule'
     strategy:
       matrix:
