@@ -47,5 +47,4 @@ from ._producer import *
 from ._transformer import *
 from ._warning import *
 
-# private modules that we don't import here are marked with a trailing underscore
-# in the filename
+__version__ = "1.0rc0"
