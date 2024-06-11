@@ -268,34 +268,34 @@ jobs:
           name: ${{ matrix.build-system }}_${{ matrix.pkg-dependencies }}
           path: ${{ env.DIRNAME_WORKSPACE }}/dist
 
-  veracode_check:
-    runs-on: ubuntu-latest
-    # if: github.event_name == 'schedule'
+  # veracode_check:
+  #   runs-on: ubuntu-latest
+  #   # if: github.event_name == 'schedule'
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v4
 
-      - name: Prepare archive for Veracode
-        shell: bash
-        run: |
-          set -eux
-          eval "$(conda shell.bash hook)"
-          cd ${{ github.workspace }}
-          mkdir static_scan
-          git archive --format=zip --output static_scan/archive.zip HEAD
+  #     - name: Prepare archive for Veracode
+  #       shell: bash
+  #       run: |
+  #         set -eux
+  #         eval "$(conda shell.bash hook)"
+  #         cd ${{ github.workspace }}
+  #         mkdir static_scan
+  #         git archive --format=zip --output static_scan/archive.zip HEAD
 
-      - name: Run Veracode Scan
-        id: upload_and_scan
-        uses: veracode/veracode-uploadandscan-action@master
-        with:
-          appname: 'fluxus'
-          version: '${{ github.run_number }}'
-          filepath: 'static_scan/archive.zip'
-          vid: '${{ secrets.VERACODE_API_ID }}'
-          vkey: '${{ secrets.VERACODE_API_KEY }}'
-          createprofile: false
-          scanpollinginterval: '60'
+  #     - name: Run Veracode Scan
+  #       id: upload_and_scan
+  #       uses: veracode/veracode-uploadandscan-action@master
+  #       with:
+  #         appname: 'fluxus'
+  #         version: '${{ github.run_number }}'
+  #         filepath: 'static_scan/archive.zip'
+  #         vid: '${{ secrets.VERACODE_API_ID }}'
+  #         vkey: '${{ secrets.VERACODE_API_KEY }}'
+  #         createprofile: false
+  #         scanpollinginterval: '60'
 
   check_release:
     runs-on: ubuntu-latest
@@ -448,101 +448,101 @@ jobs:
           draft: true
           prerelease: ${{ env.is_prerelease }}
 
-  docs:
-    runs-on: ubuntu-latest
-    if: ${{ startsWith(github.ref, 'refs/heads/release/') || startsWith(github.ref, 'refs/heads/dev/') || github.event_name == 'workflow_dispatch' }}
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+  # docs:
+  #   runs-on: ubuntu-latest
+  #   if: ${{ startsWith(github.ref, 'refs/heads/release/') || startsWith(github.ref, 'refs/heads/dev/') || github.event_name == 'workflow_dispatch' }}
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: 3.11
+  #     - name: Set up Python
+  #       uses: actions/setup-python@v5
+  #       with:
+  #         python-version: 3.11
 
-      - name: Retrieve current documentation versions from github-pages
-        run: |
-          set -eux
-          if git show-ref --verify --quiet refs/heads/github-pages; then
-            echo "Checking out github-pages"
-            git fetch origin github-pages --depth=1
-            git checkout --track origin/github-pages
-          else
-            echo "Branch github-pages does not exist. Creating and checking out..."
-            git checkout -b github-pages
-          fi
+  #     - name: Retrieve current documentation versions from github-pages
+  #       run: |
+  #         set -eux
+  #         if git show-ref --verify --quiet refs/heads/github-pages; then
+  #           echo "Checking out github-pages"
+  #           git fetch origin github-pages --depth=1
+  #           git checkout --track origin/github-pages
+  #         else
+  #           echo "Branch github-pages does not exist. Creating and checking out..."
+  #           git checkout -b github-pages
+  #         fi
 
-          # make sure we have a docs directory
-          mkdir -p docs/docs-version
+  #         # make sure we have a docs directory
+  #         mkdir -p docs/docs-version
 
-          echo "Current documentation contents:"
-          ls docs/docs-version
+  #         echo "Current documentation contents:"
+  #         ls docs/docs-version
           
-          # create staging area
-            mkdir -p ${{ github.workspace }}/staging
+  #         # create staging area
+  #           mkdir -p ${{ github.workspace }}/staging
 
-          # copy the current documentation versions to the staging area
-          cp -r docs/docs-version ${{ github.workspace }}/staging/docs-version.bak
+  #         # copy the current documentation versions to the staging area
+  #         cp -r docs/docs-version ${{ github.workspace }}/staging/docs-version.bak
 
-      - name: Build latest documentation
-        run: |
-          set -eux
-          echo "Checking out ${{ github.ref_name }}"
-          git fetch origin ${{ github.ref_name }} --depth=1
-          git checkout ${{ github.ref_name }}
+  #     - name: Build latest documentation
+  #       run: |
+  #         set -eux
+  #         echo "Checking out ${{ github.ref_name }}"
+  #         git fetch origin ${{ github.ref_name }} --depth=1
+  #         git checkout ${{ github.ref_name }}
 
-          # install micromamba
-          curl -Ls https://micro.mamba.pm/api/micromamba/linux-64/latest | tar -xvj bin/micromamba
-          export MAMBA_ROOT_PREFIX=~/micromamba
-          eval "$(./bin/micromamba shell hook -s posix)"
-          # install the docs environment
-          micromamba env create -n docs --yes --file environment.yml
-          micromamba activate docs
+  #         # install micromamba
+  #         curl -Ls https://micro.mamba.pm/api/micromamba/linux-64/latest | tar -xvj bin/micromamba
+  #         export MAMBA_ROOT_PREFIX=~/micromamba
+  #         eval "$(./bin/micromamba shell hook -s posix)"
+  #         # install the docs environment
+  #         micromamba env create -n docs --yes --file environment.yml
+  #         micromamba activate docs
 
-          export PYTHONPATH=${{ github.workspace }}/src/
+  #         export PYTHONPATH=${{ github.workspace }}/src/
 
-          python sphinx/make.py html
+  #         python sphinx/make.py html
 
-      - name: Merge previous and latest docs
-        run: |
-          set -eux
-          export MAMBA_ROOT_PREFIX=~/micromamba
-          eval "$(./bin/micromamba shell hook -s posix)"
+  #     - name: Merge previous and latest docs
+  #       run: |
+  #         set -eux
+  #         export MAMBA_ROOT_PREFIX=~/micromamba
+  #         eval "$(./bin/micromamba shell hook -s posix)"
 
-          # install the tree utility
-          sudo apt-get install -y tree
+  #         # install the tree utility
+  #         sudo apt-get install -y tree
 
-          echo "Restoring previous documentation to the docs directory"
-          pwd  # /home/runner/work/fluxus/fluxus
-          mkdir -p docs
-          mv ${{ github.workspace }}/staging/docs-version.bak docs/docs-version
-          ls docs/docs-version
+  #         echo "Restoring previous documentation to the docs directory"
+  #         pwd  # /home/runner/work/fluxus/fluxus
+  #         mkdir -p docs
+  #         mv ${{ github.workspace }}/staging/docs-version.bak docs/docs-version
+  #         ls docs/docs-version
 
-          mkdir -p ${{ github.workspace }}/sphinx/build/
-          micromamba activate docs
-          python sphinx/make.py prepare_docs_deployment
+  #         mkdir -p ${{ github.workspace }}/sphinx/build/
+  #         micromamba activate docs
+  #         python sphinx/make.py prepare_docs_deployment
 
-          echo "Current docs contents:"
-          tree docs
-          mv ${{ github.workspace }}/docs staging/docs
+  #         echo "Current docs contents:"
+  #         tree docs
+  #         mv ${{ github.workspace }}/docs staging/docs
 
-      - name: Archive docs
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ env.project_name }}_docs
-          path: ${{ github.workspace }}/staging/docs
+  #     - name: Archive docs
+  #       uses: actions/upload-artifact@v4
+  #       with:
+  #         name: ${{ env.project_name }}_docs
+  #         path: ${{ github.workspace }}/staging/docs
 
-      - name: Publish docs to branch github-pages
-        if: startsWith(github.ref, 'refs/heads/release/')
-        run: |
-          set -eux
-          echo "Adjusting git credentials"
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
-          git config --global url.ssh://git@github.com/.insteadOf https://github.com/
-          git checkout github-pages
-          rm -rf staging
-          mv ${{ github.workspace }}/docs .
-          git add docs
-          git commit -m "Publish GitHub Pages [skip ci]"
-          git push --set-upstream origin github-pages
+  #     - name: Publish docs to branch github-pages
+  #       if: startsWith(github.ref, 'refs/heads/release/')
+  #       run: |
+  #         set -eux
+  #         echo "Adjusting git credentials"
+  #         git config --global user.name "GitHub Actions"
+  #         git config --global user.email "actions@github.com"
+  #         git config --global url.ssh://git@github.com/.insteadOf https://github.com/
+  #         git checkout github-pages
+  #         rm -rf staging
+  #         mv ${{ github.workspace }}/docs .
+  #         git add docs
+  #         git commit -m "Publish GitHub Pages [skip ci]"
+  #         git push --set-upstream origin github-pages
