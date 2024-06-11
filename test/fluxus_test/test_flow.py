@@ -8,13 +8,13 @@ from io import StringIO
 from typing import Any, cast
 
 import pytest
+
 from fluxus import AsyncConsumer, Consumer, Passthrough, Producer, Transformer
 from fluxus.base import Conduit
 from fluxus.base.producer import ConcurrentProducer
 from fluxus.base.transformer import BaseTransformer, ConcurrentTransformer
 from fluxus.functional import parallel
 from fluxus.viz import FlowGraph, FlowGraphStyle, FlowTextStyle
-
 from pytools.expression import freeze
 from pytools.expression.atomic import Id
 from pytools.viz.color import RgbColor

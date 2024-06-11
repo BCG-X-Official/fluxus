@@ -8,6 +8,7 @@ import logging
 from collections.abc import Iterator
 
 import pytest
+
 from fluxus.lineage import (
     HasLineage,
     LabelingProducer,
