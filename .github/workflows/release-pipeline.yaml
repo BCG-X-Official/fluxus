@@ -54,10 +54,10 @@ jobs:
           python -m pip install mypy
           # add package dependencies for mypy
           dependencies=(
-            gamma-pytools>=3.0rc,<4.0
-            pandas-stubs
-            pytest
-            types-PyYAML
+            "gamma-pytools>=3.0rc,<4.0"
+            "pandas-stubs"
+            "pytest"
+            "types-PyYAML"
           )
           pip install "${dependencies[@]}"
           python -m mypy src --config-file pyproject.toml
