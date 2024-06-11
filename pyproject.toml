@@ -1,0 +1,52 @@
+[tool.black]
+required-version = '24.4.2'
+line-length = 88
+target_version = ['py310']
+include = '\.pyi?$'
+exclude = '''
+(
+  /(
+      \.eggs         # exclude a few common directories in the
+    | \.git          # root of the project
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | data
+    | docs
+    | notebooks
+    | sphinx
+  )/
+)
+'''
+
+[tool.mypy]
+show_error_codes = true
+strict = true
+untyped_calls_exclude = [
+    'IPython',
+]
+#
+# Additional options for migration to other libraries:
+#
+# The temporary path to the source code of the library being migrated to, as an alias
+# in the root of this repository. This is used to resolve imports from the library.
+#
+mypy_path = '../fluxus/src'
+#
+# We set the follow_imports option to "silent" to avoid mypy errors when importing
+# from the library being migrated to. This is because the library being migrated to
+# may require additional type hints from 3rd party libraries that are not in the scope
+# of this repository.
+#
+follow_imports = "silent"
+
+[[tool.mypy.overrides]]
+module = [
+    "graphviz.*",
+    "IPython.*",
+    "sphinx.*",
+    "typing_inspect.*",
+    "matplotlib.*",
+]
+ignore_missing_imports = true

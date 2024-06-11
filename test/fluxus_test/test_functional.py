@@ -12,9 +12,9 @@ from typing import Any
 
 import pandas as pd
 import pytest
+
 from fluxus.functional import RunResult, chain, parallel, passthrough, run, step
 from fluxus.functional.product import DictProduct
-
 from pytools.asyncio import iter_async_to_sync, iter_sync_to_async
 
 log = logging.getLogger(__name__)
