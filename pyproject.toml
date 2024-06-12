@@ -1,7 +1,71 @@
+[build-system]
+requires = ["flit_core >=2,<4"]
+build-backend = "flit_core.buildapi"
+
+[tool.flit.sdist]
+exclude = [".idea", "tmp", "dist", ".tox", ".pytest_cache"]
+
+[tool.flit.metadata]
+module = "fluxus"
+author = "Boston Consulting Group (BCG)"
+home-page = "https://github.com/BCG-X-Official/fluxus"
+description-file = "pypi_description.rst"
+dist-name = "fluxus"
+license = "Apache Software License v2.0"
+
+requires = [
+    "aiolimiter        ==1.1.0",
+    "matplotlib        >=3.0",
+    "pandas            >=1",
+    "gamma-pytools     ==3.0rc1",
+    "typing_inspect    >=0.7",
+]
+
+requires-python = ">=3.11,<3.13"
+
+[tool.flit.metadata.requires-extra]
+testing = [
+    "pytest ~= 7.1",
+    "pytest-cov ~= 2.12",
+    "pytest-asyncio ~=0.23.7",
+    "aiofiles ~=23.2.1",
+    "openai ~=1.33.0",
+    "anthropic ~=0.28.0",
+    "groq ~=0.8.0",
+    "aiohttp ~=3.9.5",
+    "pyyaml ~=6.0.1",
+    "transformers ~=4.41.2",
+    "torch ~=2.3.0"
+]
+
+[tool.flit.metadata.urls]
+Documentation = "https://bcg-x-official.github.io/fluxus/"
+Repository = "https://github.com/BCG-X-Official/fluxus"
+
+[build]
+# comma-separated list of packages to be built from source in pip min builds
+no-binary.min = ["matplotlib"]
+
+[build.matrix.min]
+aiolimiter        = "==1.1.0"
+matplotlib        = "==3.7.1"
+pandas            = "~=2.1"
+python            = "==3.11"
+gamma-pytools     = "==3.0rc1"
+typing_inspect    = "==0.7.1"
+
+[build.matrix.max]
+aiolimiter        = "==1.1.0"
+matplotlib        = ">=3.8,<4a"
+pandas            = ">=2.2,<3a"
+python            = ">=3.12,<4a"
+gamma-pytools     = "==3.0rc1"
+typing_inspect    = ">=0.9,<1a"
+
 [tool.black]
 required-version = '24.4.2'
 line-length = 88
-target_version = ['py310']
+target_version = ['py311']
 include = '\.pyi?$'
 exclude = '''
 (
@@ -26,27 +90,20 @@ strict = true
 untyped_calls_exclude = [
     'IPython',
 ]
-#
-# Additional options for migration to other libraries:
-#
-# The temporary path to the source code of the library being migrated to, as an alias
-# in the root of this repository. This is used to resolve imports from the library.
-#
-mypy_path = '../fluxus/src'
-#
-# We set the follow_imports option to "silent" to avoid mypy errors when importing
-# from the library being migrated to. This is because the library being migrated to
-# may require additional type hints from 3rd party libraries that are not in the scope
-# of this repository.
-#
-follow_imports = "silent"
 
 [[tool.mypy.overrides]]
 module = [
+    "anthropic.*",
+    "google.*",
     "graphviz.*",
+    "groq.*",
+    "huggingface_hub.*",
     "IPython.*",
+    "setuptools.*",
     "sphinx.*",
+    "toml.*",
+    "torch.*",
+    "transformers.*",
     "typing_inspect.*",
-    "matplotlib.*",
 ]
 ignore_missing_imports = true

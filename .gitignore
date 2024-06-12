@@ -4,7 +4,7 @@ build
 env/
 .venv/
 venv/
-/artkit
+/fluxus
 
 # environment variables
 .env
@@ -25,4 +25,3 @@ coverage.xml
 
 # vscode
 .vscode
-artkit2
