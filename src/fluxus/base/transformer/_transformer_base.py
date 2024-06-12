@@ -136,7 +136,7 @@ class BaseTransformer(
             product_type = get_common_generic_base(
                 (self.product_type, other.product_type)
             )
-        from ...simple import SimpleConcurrentTransformer
+        from . import SimpleConcurrentTransformer
 
         return SimpleConcurrentTransformer[
             input_type, product_type  # type: ignore[valid-type]
@@ -149,7 +149,7 @@ class BaseTransformer(
             for transformer in self.iter_concurrent_conduits():
                 _validate_concurrent_passthrough(transformer)
 
-            from ...simple import SimpleConcurrentTransformer
+            from . import SimpleConcurrentTransformer
 
             return SimpleConcurrentTransformer[
                 self.input_type, self.product_type  # type: ignore[name-defined]
