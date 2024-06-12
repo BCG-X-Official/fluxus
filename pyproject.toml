@@ -49,7 +49,7 @@ no-binary.min = ["matplotlib"]
 [build.matrix.min]
 aiolimiter        = "==1.1.0"
 matplotlib        = "==3.7.1"
-pandas            = "~=2.0.3"
+pandas            = "~=2.2"
 python            = "==3.11"
 gamma-pytools     = "==3.0rc1"
 typing_inspect    = "==0.7.1"
