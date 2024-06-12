@@ -13,7 +13,7 @@ from pytools.meta import SingletonABCMeta
 
 # Special import from private submodule to avoid circular imports
 # noinspection PyProtectedMember
-from .base._conduit import SerialConduit
+from .core._conduit import SerialConduit
 
 log = logging.getLogger(__name__)
 

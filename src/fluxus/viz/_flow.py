@@ -13,7 +13,7 @@ from pytools.api import inheritdoc
 from pytools.viz import ColoredStyle, Drawer, TextStyle
 from pytools.viz.color import ColorScheme
 
-from ..base import Conduit
+from ..core import Conduit
 from ._graph import FlowGraph
 from .base import FlowStyle
 

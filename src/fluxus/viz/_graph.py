@@ -13,9 +13,9 @@ from pytools.api import inheritdoc
 from pytools.viz.color import RgbColor, RgbaColor
 
 from .. import Consumer, Producer
-from ..base import Conduit, SerialConduit
-from ..base.producer import BaseProducer
-from ..base.transformer import BaseTransformer
+from ..core import Conduit, SerialConduit
+from ..core.producer import BaseProducer
+from ..core.transformer import BaseTransformer
 from ..util import simplify_repr_attributes
 
 log = logging.getLogger(__name__)

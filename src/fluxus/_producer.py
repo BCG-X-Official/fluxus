@@ -12,8 +12,8 @@ from typing import Any, Generic, TypeVar, final
 from pytools.api import inheritdoc
 from pytools.asyncio import arun, iter_async_to_sync
 
-from .base import AtomicConduit, SerialConduit
-from .base.producer import SerialProducer
+from .core import AtomicConduit, SerialConduit
+from .core.producer import SerialProducer
 
 log = logging.getLogger(__name__)
 

@@ -19,7 +19,7 @@ from pytools.api import inheritdoc, subsdoc
 
 from .._producer import Producer
 from .._transformer import Transformer
-from ..base import SerialSource
+from ..core import SerialSource
 from ._lineage import HasLineage
 
 log = logging.getLogger(__name__)
