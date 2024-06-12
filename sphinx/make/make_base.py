@@ -348,8 +348,6 @@ class PrepareDocsDeployment(Command):
     def _run(self) -> None:
         # we expect to find all previous documentation in docs/
         # and the newly built documentation in sphinx/build/
-        if not is_azure_build():
-            raise RuntimeError("only implemented for Azure Pipelines")
 
         # copy the new docs version to the deployment path
         self._copy_new_documentation()
@@ -588,18 +586,6 @@ def quote_path(path: str) -> str:
         return f'"{path}"'
     else:
         return path
-
-
-def is_azure_build() -> bool:
-    """
-    Check if this is an Azure DevOps pipelines build
-    """
-    is_azure = "BUILD_REASON" in os.environ
-
-    if is_azure:
-        log("Azure build detected")
-
-    return is_azure
 
 
 def version_string_to_url(version: pkg_version.Version) -> str:
