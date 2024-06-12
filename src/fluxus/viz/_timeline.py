@@ -69,6 +69,8 @@ class TimelineDrawer(Drawer[RunResult, TimelineStyle]):
                     step_result[DictProduct.KEY_END_TIME],
                 )
                 for step, step_result in output.items()
+                if DictProduct.KEY_START_TIME in step_result
+                and DictProduct.KEY_START_TIME in step_result
             ]
             for path_index, output in (
                 (path_index, output)
