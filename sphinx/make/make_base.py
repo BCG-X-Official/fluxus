@@ -282,23 +282,6 @@ class HomeDoc(Command):
             r"^.+?\n=+\n", "Home\n====\n", readme_data, count=1, flags=re.S
         )
 
-        # Attempt to replace the first paragraph. This regex looks for the first title,
-        # skips it, and captures the first paragraph
-        # Adjust the regex based on your document's structure if needed
-        pattern = r"(Home\n====\n\n)(.*?)(\n\n)"
-        replacement = (
-            r"\1**ARTKIT: Automated Red Teaming (ART) and testing toolkit** is a "
-            r"Python framework developed by `BCG X <https://www.bcg.com/x>`_ for "
-            r"automating prompt-based testing and evaluation of Gen AI applications."
-            r"\n\n"
-        )
-        readme_data = re.sub(pattern, replacement, readme_data, count=1, flags=re.S)
-
-        # Define regex to match "Getting started" and all lines until the next section
-        # Remove matched section, matching lazily until next anchor or end of string
-        pattern = r"\n\nGetting started\n---------------\n.*?(?=\n\n\.\. _|\Z)"
-        readme_data = re.sub(pattern, "", readme_data, flags=re.DOTALL)
-
         with open(os.path.join(DIR_SPHINX_GENERATED, "release_notes.rst"), "w") as dst:
             dst.write(".. _release-notes:\n\n")
             with open(os.path.join(DIR_REPO_ROOT, "RELEASE_NOTES.rst")) as src:
