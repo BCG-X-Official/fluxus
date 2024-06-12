@@ -223,6 +223,12 @@ class Step(DictConduit, AsyncTransformer[DictProduct, DictProduct]):
             **kwargs,
         }
 
+        # Measure the start time of the step. We are interested in CPU time, not wall
+        # time, so we use time.perf_counter() instead of time.time().
+        start_time = time.perf_counter()
+
+        # Call the function of this step with the input arguments. This may return the
+        # actual result, an iterable of results, or an async iterable of results.
         attribute_iterable = self._function(**input_args)
 
         if isinstance(attribute_iterable, Mapping):
@@ -239,10 +245,6 @@ class Step(DictConduit, AsyncTransformer[DictProduct, DictProduct]):
                 f"return a dictionary, an iterable of dictionaries, or an async "
                 f"iterable of dictionaries, not {type(attribute_iterable)}"
             )
-
-        # Measure the start time of the step. We are interested in CPU time, not wall
-        # time, so we use time.perf_counter() instead of time.time().
-        start_time = time.perf_counter()
 
         async for attributes in attribute_iterable:
             # Measure the end time of the step.
