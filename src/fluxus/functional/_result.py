@@ -202,7 +202,7 @@ class RunResult(HasExpressionRepr):
             permissible_style_names = TimelineDrawer.get_named_styles()
             if style not in permissible_style_names:
                 raise ValueError(
-                    f"arg style must be one of: "
+                    "arg style must be one of: "
                     + ", ".join(map(repr, permissible_style_names))
                 )
             style_arg = style
