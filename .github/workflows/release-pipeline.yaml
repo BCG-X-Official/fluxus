@@ -10,7 +10,7 @@ on:
       - 1.0.x
       - release/*
   schedule:  # run tests and full conda/tox build matrix every night at 2am
-    - cron: "0 2 * * 1-5" # Every weekday at 2 AM only if branch is "*.*.*"  # Uncomment schedule once done testing
+    - cron: "0 2 * * 1-5" # Every weekday at 2 AM only if branch is "*.*.*"
 
 env:
   project_name: fluxus
@@ -395,15 +395,17 @@ jobs:
       - name: Publish to PyPi (Tox)
         if: ${{ startsWith(github.ref, 'refs/heads/release/') }}
         env:
-          FLIT_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
+          FLIT_PASSWORD: ${{ secrets.TEST_PYPI_API_TOKEN }}
           FLIT_USERNAME: __token__
         run: |
           set -eux
           cd ${{ github.workspace }}/${{ env.project_name }}
           pip install flit
           flit install -s
-          flit publish
-          echo "pypi_published=True" >> $GITHUB_ENV
+          # flit publish
+          # echo "pypi_published=True" >> $GITHUB_ENV
+          flit publish --repository testpypi
+          echo "test_pypi_published=True" >> $GITHUB_ENV
 
       - name: Publish to Anaconda (Conda)
         if: ${{ startsWith(github.ref, 'refs/heads/release/') }}
@@ -416,7 +418,7 @@ jobs:
           eval "$(conda shell.bash hook)"
           conda install -y anaconda-client
           anaconda login --username "${CONDA_USERNAME}" --password "${CONDA_PASSWORD}"
-          anaconda upload --user BCG_Gamma --force ${{ github.workspace }}/dist/conda_default/conda/noarch/${{ env.package_name }}-*.tar.bz2
+          anaconda upload --user BCG_X --force ${{ github.workspace }}/dist/conda_default/conda/noarch/${{ env.package_name }}-*.tar.bz2
           anaconda logout
           echo "conda_published=True" >> $GITHUB_ENV
 
