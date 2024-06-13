@@ -33,7 +33,7 @@ Within a *fluxus* flow, there are three main types of conduits:
 
 
 A Simple Example
----------------
+----------------
 
 Consider a simple flow that takes a greeting message, converts it to different cases
 (uppercase, lowercase), and then annotates each message with the case change that

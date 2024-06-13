@@ -6,32 +6,17 @@ channels:
 dependencies:
   # Python version
   - python                   ~= 3.11
-  - pip
   # Additional libraries
-  - aiofiles
   - gamma-pytools            ~= 3.0rc1
   - pandas
-  - python-dotenv
-  - PyYAML
-  - toml
   # Graphviz
   - graphviz                 ~= 9.0
   - python-graphviz
-  - pytorch
-  - transformers
-  # pip-only dependencies
-  # - pip:
-      # Optional LLM supoprt packages:
-      # - anthropic
-      # - google-generativeai
-      # - huggingface_hub
-      # - openai
-      # - qroq
-  # sphinx
+  # Sphinx documentation build
   - nbsphinx                 ~= 0.9
   - sphinx                   ~= 7.2
   - sphinx-autodoc-typehints ~= 1.19
-  - pydata-sphinx-theme      ~= 0.8.1
+  - pydata-sphinx-theme      ~= 0.15.1
   - packaging                
   # notebooks
   - ipywidgets               ~= 8.0
