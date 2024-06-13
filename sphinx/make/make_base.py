@@ -509,11 +509,13 @@ def get_versions() -> Versions:
     minor_versions: list[pkg_version.Version] = [
         max(versions) for versions in versions_by_minor_version.values()
     ]
+    # condition: if minor versions are not found, use the current version
+    if not minor_versions:
+        minor_versions = [PACKAGE_VERSION]
 
     log(f"Found minor versions: {', '.join(map(str, minor_versions))}")
 
-    _versions = Versions(minor_versions)
-    return _versions
+    return Versions(minor_versions)
 
 
 def make() -> None:
