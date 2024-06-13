@@ -450,7 +450,7 @@ jobs:
 
   docs:
     runs-on: ubuntu-latest
-    if: ${{ startsWith(github.ref, 'refs/heads/release/') || startsWith(github.ref, 'refs/heads/dev/') || github.event_name == 'workflow_dispatch' }}
+    if: ${{ startsWith(github.ref, 'refs/heads/release/') || startsWith(github.ref, 'refs/heads/dev/') }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
