@@ -1,5 +1,5 @@
 """
-Implementation of conduit base classes.
+Implementation of producers.
 """
 
 from __future__ import annotations

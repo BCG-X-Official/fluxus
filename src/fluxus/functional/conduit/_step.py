@@ -1,5 +1,5 @@
 """
-Implementation of ``MyClass``.
+Implementation of ``Step``.
 """
 
 from __future__ import annotations
@@ -65,7 +65,7 @@ class Step(DictConduit, AsyncTransformer[DictProduct, DictProduct]):
     Dictionary attributes that are not matched to an argument name of the function are
     ignored.
 
-    If the function allows arbitrary keyword arguments using `**` notation, all
+    If the function allows arbitrary keyword arguments using ``**`` notation, all
     attributes of the source product are passed to the function.
 
     The `Step` object may define additional fixed keyword arguments that are passed to
@@ -87,8 +87,8 @@ class Step(DictConduit, AsyncTransformer[DictProduct, DictProduct]):
         def add_one(x):
             return dict(x=x + 1)
 
-    The function `add_one` takes a single argument `x` and returns a dictionary with the
-    key `x` and the value `x + 1`. The step could be defined as follows:
+    The function ``add_one`` takes a single argument ``x`` and returns a dictionary
+    with the key ``x`` and the value ``x + 1``. The step could be defined as follows:
 
     .. code-block:: python
 

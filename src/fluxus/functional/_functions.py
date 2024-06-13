@@ -125,7 +125,7 @@ def step(
 ) -> DictProducer | Step:
     # noinspection GrazieInspection
     """
-    Create a step in a flow that applies a function to a mapping.
+    Create a step in a flow.
 
     Takes two positional-only arguments, followed by an arbitrary number of fixed
     keyword arguments.
@@ -137,27 +137,19 @@ def step(
     a `producer` step that produces the given data.
 
     If the second argument is a function, then that function must return a single
-    mapping, or a synchronous or asynchronous iterable of mappings.
+    mapping, or a synchronous or asynchronous iterable of mappings. If the function
+    takes no arguments, then the step is a `producer` step that produces the data
+    returned by the function. If the function takes one or more keyword arguments, then
+    the step is a `transformer` step that applies the function to the input data and
+    produces one or more dictionaries based on the input data.
 
-    If the function does not accept any arguments, then the step is a `producer` step
-    that produces the data returned by the function.
-
-    If the second argument is a function that accepts one or more keyword arguments,
-    then the result is a `transformer` step that applies the function to the input
-    data and produces one or more dictionaries based on the input data.
-
-    In that case, the input data comprises all dictionary items that were produced
-    by any of the preceding steps further upstream in the flow, plus any fixed keyword
-    arguments associated with any of the preceding steps or the current step.
-    If multiple steps use the same names for fixed keyword arguments or for dictionary
+    All arguments to the function must be keyword arguments. The values passed for these
+    arguments are determined by the dictionary items produced by the preceding steps in
+    the flow that match the names of the arguments, plus any fixed keyword arguments
+    associated with any of the preceding steps or the current step. If multiple
+    preceding steps use the same names for fixed keyword arguments or for dictionary
     items produced by their functions, then the value of the latest step in the flow
     takes precedence for that attribute.
-
-    If the function of a step returns an attribute value that is identical with an
-    ingoing attribute value (i.e., the same object), then a :warning:`FlowWarning` is
-    raised during the execution of the flow as this is not adding any new information
-    to the flow and is likely a mistake.
-
 
     Code examples:
 
@@ -208,7 +200,7 @@ def step(
         and returns a single mapping, or a synchronous or asynchronous iterable of
         mappings
     :param kwargs: additional keyword arguments to pass to the function
-    :return: the step
+    :return: the step object
     :raises TypeError: if the signature of the function is invalid, or if additional
         keyword arguments are provided while the function does not accept any
     """
@@ -468,7 +460,9 @@ def parallel(
     If all arguments are producers, then the result is a `concurrent producer`.
 
     If all arguments are transformers, with or without an additional passthrough step,
-    then the result is a `concurrent transformer`.
+    then the result is a `concurrent transformer`. At most one passthrough step is
+    allowed in a group of parallel steps, since additional passthroughs would result in
+    duplicate output.
 
     Mixing producers and transformers is not allowed.
 
@@ -621,8 +615,8 @@ def run(
     Run the given steps.
 
     If the given steps do not include a leading :func:`input`, then the input
-    can be provided as an additional argument. If the flow requires no input but none
-    is provided, then the flow will be executed with an empty dictionary as input.
+    can be provided as an additional argument. If the flow requires an input but none
+    is provided, then the flow will be run with an empty dictionary as input.
 
     See :class:`.RunResult` for details on the output format.
 

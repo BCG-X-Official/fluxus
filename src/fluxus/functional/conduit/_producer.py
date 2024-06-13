@@ -1,5 +1,5 @@
 """
-Implementation of ``MyClass``.
+Implementation of ``DictProducer``.
 """
 
 from __future__ import annotations

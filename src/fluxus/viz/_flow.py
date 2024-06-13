@@ -58,10 +58,10 @@ class FlowGraphStyle(FlowStyle, ColoredStyle[T_ColorScheme], Generic[T_ColorSche
     """
     A style for rendering flows as graphs.
 
-    The graph is rendered using the `graphviz` package, which must be installed
+    The graph is rendered using the ``graphviz`` package, which must be installed
     for this style to work.
 
-    If no filename is given, displays the graph using the `IPython.display`
+    If no filename is given, displays the graph using the ``IPython.display``
     package which, when used in a Jupyter notebook, will display the graph
     inline.
 

@@ -8,7 +8,6 @@ Table of Contents
 
    Home <_generated/home>
    User Guide <user_guide/index>
-   Examples <examples/index>
    API Reference <apidoc/fluxus>
    Contributor Guide <contributor_guide/index>
    FAQ <faq>

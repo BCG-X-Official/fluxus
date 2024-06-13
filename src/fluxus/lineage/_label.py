@@ -3,7 +3,7 @@ Implementation of class ``LabelingProducer``.
 
 The ``LabelingProducer`` and ``LabelingTransformer`` classes are designed to add
 labels to the products produced by a producer or transformer. These classes are
-subclass the ``Producer`` and ``Transformer`` classes, respectively, as well as the
+subclasses of the ``Producer`` and ``Transformer`` classes, respectively, as well as the
 ``_Delegator`` class, which delegates attribute access to a wrapped object, unless the
 dictionary of the wrapped object includes the attribute.
 """
@@ -64,6 +64,7 @@ _NOT_FOUND = object()
 #
 
 
+@inheritdoc(match="""[see superclass]""")
 class _Labeler(SerialSource[T_Product_ret], Generic[T_Product_ret], metaclass=ABCMeta):
     """
     A mixin class, adding the ``label`` method to a producer or transformer to allow
@@ -215,6 +216,7 @@ class LabelingTransformer(
         )
 
 
+@inheritdoc(match="""[see superclass]""")
 class _LabeledSource(_Labeler[Any], Generic[T_Source], metaclass=ABCMeta):
     """
     A producer or transformer with added labels. Delegates attribute access to a wrapped

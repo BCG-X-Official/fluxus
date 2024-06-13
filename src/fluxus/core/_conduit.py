@@ -199,8 +199,8 @@ class Conduit(HasExpressionRepr, Generic[T_Output_ret], metaclass=ABCMeta):
         Make an expression representing this conduit.
 
         :param compact: if ``True``, use a compact representation using only the subset
-            of conduit attributes from :meth:`.get_repr_attributes`; if ``False``,
-            generate the full representation using all attributes
+            of conduit attributes from :meth:`~.SerialConduit.get_repr_attributes`;
+            if ``False``, generate the full representation using all attributes
         :return: the expression representing this conduit
         """
 

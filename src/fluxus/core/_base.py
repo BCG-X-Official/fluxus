@@ -1,5 +1,8 @@
 """
-Implementation of ``MyClass``.
+Implementation of `source` and `processor` base classes.
+
+- Producers and transformers are `sources` because they generate outputs.
+- Transformers and consumers are `processors` because they consume inputs.
 """
 
 from __future__ import annotations
