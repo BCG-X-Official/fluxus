@@ -479,7 +479,7 @@ jobs:
           ls docs/docs-version
           
           # create staging area
-            mkdir -p ${{ github.workspace }}/staging
+          mkdir -p ${{ github.workspace }}/staging
 
           # copy the current documentation versions to the staging area
           cp -r docs/docs-version ${{ github.workspace }}/staging/docs-version.bak
@@ -542,7 +542,7 @@ jobs:
           git config --global url.ssh://git@github.com/.insteadOf https://github.com/
           git checkout github-pages
           rm -rf staging
-          mv ${{ github.workspace }}/docs .
+          mv ${{ github.workspace }}/staging/docs .
           git add docs
           git commit -m "Publish GitHub Pages [skip ci]"
           git push --set-upstream origin github-pages
