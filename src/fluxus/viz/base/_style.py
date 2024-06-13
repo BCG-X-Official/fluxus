@@ -11,7 +11,7 @@ from typing import Any
 
 from pytools.viz import DrawingStyle
 
-from ...base import Conduit
+from ...core import Conduit
 
 log = logging.getLogger(__name__)
 

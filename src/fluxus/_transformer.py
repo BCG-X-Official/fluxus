@@ -13,8 +13,8 @@ from pytools.asyncio import arun, iter_async_to_sync
 from pytools.typing import issubclass_generic
 
 from ._passthrough import Passthrough
-from .base import AtomicConduit
-from .base.transformer import SerialTransformer
+from .core import AtomicConduit
+from .core.transformer import SerialTransformer
 
 log = logging.getLogger(__name__)
 

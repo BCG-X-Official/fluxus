@@ -23,10 +23,14 @@ from typing import Any, TypeVar, cast, overload
 from pytools.asyncio import arun
 
 from .. import Passthrough
-from ..base import Conduit
-from ..base.producer import BaseProducer, ConcurrentProducer
-from ..base.transformer import BaseTransformer, ConcurrentTransformer, SerialTransformer
-from ..simple import SimpleConcurrentProducer, SimpleConcurrentTransformer
+from ..core import Conduit
+from ..core.producer import BaseProducer, ConcurrentProducer, SimpleConcurrentProducer
+from ..core.transformer import (
+    BaseTransformer,
+    ConcurrentTransformer,
+    SerialTransformer,
+    SimpleConcurrentTransformer,
+)
 from ._result import RunResult
 from .conduit import DictConsumer, DictProducer, Step
 from .product import DictProduct

@@ -15,6 +15,8 @@ from pytools.api import inheritdoc
 from pytools.expression import Expression, HasExpressionRepr
 from pytools.expression.atomic import Id
 
+from .product import DictProduct
+
 log = logging.getLogger(__name__)
 
 __all__ = [
@@ -85,6 +87,10 @@ class RunResult(HasExpressionRepr):
     _step_results: tuple[list[dict[str, dict[str, Any]]], ...]
 
     def __init__(self, *step_results: list[dict[str, dict[str, Any]]]) -> None:
+        """
+        :param step_results: the results of running the flow, as a list of nested
+            dictionaries for each distinct path through the flow
+        """
         for step_result in step_results:
             if not isinstance(step_result, list):
                 raise TypeError(
@@ -168,6 +174,18 @@ class RunResult(HasExpressionRepr):
         :param out: the output stream to write the timeline to, if style is ``"text"``
             (defaults to :obj:`sys.stdout`)
         """
+
+        if not any(
+            DictProduct.KEY_START_TIME in step_output
+            and DictProduct.KEY_END_TIME in step_output
+            for path in self._step_results
+            for execution_output in path
+            for step_output in execution_output.values()
+        ):
+            raise ValueError(
+                "Results do not include timestamps; re-run the flow with using "
+                "function 'run' with argument 'timestamps=True'"
+            )
         from ..viz import TimelineDrawer, TimelineTextStyle
 
         style_arg: TimelineTextStyle | str
@@ -180,7 +198,13 @@ class RunResult(HasExpressionRepr):
                 raise ValueError(
                     f"arg out is only supported with arg style={text_style_name!r}"
                 )
-        else:  # pragma: no cover
+        else:
+            permissible_style_names = TimelineDrawer.get_named_styles()
+            if style not in permissible_style_names:
+                raise ValueError(
+                    f"arg style must be one of: "
+                    + ", ".join(map(repr, permissible_style_names))
+                )
             style_arg = style
 
         TimelineDrawer(style=style_arg).draw(self, title="Timeline")

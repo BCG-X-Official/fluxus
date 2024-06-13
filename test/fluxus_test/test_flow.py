@@ -10,9 +10,9 @@ from typing import Any, cast
 import pytest
 
 from fluxus import AsyncConsumer, Consumer, Passthrough, Producer, Transformer
-from fluxus.base import Conduit
-from fluxus.base.producer import ConcurrentProducer
-from fluxus.base.transformer import BaseTransformer, ConcurrentTransformer
+from fluxus.core import Conduit
+from fluxus.core.producer import ConcurrentProducer
+from fluxus.core.transformer import BaseTransformer, ConcurrentTransformer
 from fluxus.functional import parallel
 from fluxus.viz import FlowGraph, FlowGraphStyle, FlowTextStyle
 from pytools.expression import freeze

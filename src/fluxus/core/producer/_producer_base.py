@@ -85,7 +85,7 @@ class BaseProducer(Source[T_Product_ret], Generic[T_Product_ret], metaclass=ABCM
     ) -> ConcurrentProducer[T_Product_ret]:
 
         if isinstance(other, BaseProducer):
-            from ...simple import SimpleConcurrentProducer
+            from . import SimpleConcurrentProducer
 
             # We determine the type hint at runtime, and use a type cast to
             # indicate the type for static type checks

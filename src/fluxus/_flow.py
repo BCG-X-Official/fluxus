@@ -9,7 +9,7 @@ from abc import ABCMeta, abstractmethod
 from typing import Any, Generic, TypeVar
 
 from ._consumer import Consumer
-from .base import Conduit
+from .core import Conduit
 
 log = logging.getLogger(__name__)
 

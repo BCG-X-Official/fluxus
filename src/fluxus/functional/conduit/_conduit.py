@@ -10,7 +10,7 @@ from typing import final
 
 from pytools.api import inheritdoc
 
-from ...base import Conduit
+from ...core import Conduit
 from ..product import DictProduct
 
 log = logging.getLogger(__name__)

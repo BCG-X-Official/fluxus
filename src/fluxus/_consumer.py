@@ -11,7 +11,7 @@ from typing import Generic, TypeVar, final
 
 from pytools.asyncio import arun, iter_sync_to_async
 
-from .base import AtomicConduit, SerialProcessor
+from .core import AtomicConduit, SerialProcessor
 
 log = logging.getLogger(__name__)
 
