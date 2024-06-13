@@ -54,7 +54,9 @@ class Passthrough(SerialConduit[Any], metaclass=SingletonABCMeta):
 
     def get_final_conduits(self) -> Iterator[Never]:
         """
-        :return: An empty iterator; passthroughs do not define a final conduit.
+        Returns an empty iterator since passthroughs do not define a final conduit.
+
+        :return: an empty iterator
         """
         # Passthrough conduits are transparent, so we return an empty iterator
         yield from ()
@@ -69,8 +71,8 @@ class Passthrough(SerialConduit[Any], metaclass=SingletonABCMeta):
         Fails with a :class:`NotImplementedError` since passthroughs are transparent in
         flows and therefore connections are not defined.
 
-        :param ingoing: The ingoing conduits (ignored)
-        :return: Nothing; passthroughs do not define connections
-        :raises NotImplementedError: Passthroughs do not define connections
+        :param ingoing: the ingoing conduits (ignored)
+        :return: nothing; passthroughs do not define connections
+        :raises NotImplementedError: passthroughs do not define connections
         """
         raise NotImplementedError("Connections are not defined for passthroughs")

@@ -30,11 +30,11 @@ The module also provides classes for concurrent groups of producers
 for handling asynchronous operations (:class:`.AsyncProducer`,
 :class:`.AsyncTransformer`, :class:`.AsyncConsumer`).
 
-The `>>` operator is overloaded in these classes to allow for easy chaining of
+The ``>>`` operator is overloaded in these classes to allow for easy chaining of
 operations. For example, a producer can be connected to a transformer, which can then
 be connected to a consumer, forming a complete data flow.
 
-Groups of concurrent producers or transformers can be created using the `&` operator.
+Groups of concurrent producers or transformers can be created using the ``&`` operator.
 
 The :mod:`.core.flow` package is designed to be flexible and extensible, allowing for
 complex data processing pipelines to be built with relative ease.

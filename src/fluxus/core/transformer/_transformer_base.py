@@ -56,7 +56,7 @@ class BaseTransformer(
 ):
     """
     A conduit that transforms products from a source – this is either a
-    :class:`.SerialTransformer` or a :class:`.TransformerGroup`.
+    :class:`.SerialTransformer` or a :class:`.ConcurrentTransformer`.
     """
 
     @abstractmethod

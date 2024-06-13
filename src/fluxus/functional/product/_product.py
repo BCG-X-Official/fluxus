@@ -20,7 +20,7 @@ __all__ = [
 ]
 
 
-@inheritdoc(match="[see superclass]")
+@inheritdoc(match="""[see superclass]""")
 class DictProduct(HasLineage["DictProduct | None"], Mapping[str, Any], HasDictRepr):
     """
     A flow product that consists of an attribute-value mapping.

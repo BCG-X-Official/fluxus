@@ -1,5 +1,5 @@
 """
-Implementation of ``MyClass``.
+Implementation of ``ConcurrentConduit``.
 """
 
 from __future__ import annotations
@@ -7,6 +7,8 @@ from __future__ import annotations
 import logging
 from abc import ABCMeta
 from typing import Any, Generic, Self, TypeVar, final
+
+from pytools.api import inheritdoc
 
 from ._conduit import Conduit
 
@@ -32,14 +34,15 @@ T_Product_ret = TypeVar("T_Product_ret", covariant=True)
 #
 
 
+@inheritdoc(match="[see superclass]")
 class ConcurrentConduit(
     Conduit[T_Product_ret], Generic[T_Product_ret], metaclass=ABCMeta
 ):
     """
     A conduit made up of multiple concurrent conduits.
 
-    This includes producer groups (see :class:`.ProducerGroup`) and transformer groups
-    (see :class:`.TransformerGroup`).
+    This includes concurrent producers (see :class:`.ConcurrentProducer`) and concurrent
+    transformers (see :class:`.ConcurrentTransformer`).
     """
 
     @property

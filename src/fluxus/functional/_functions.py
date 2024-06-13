@@ -133,7 +133,7 @@ def step(
     The first positional argument is the name of the step, and the second positional
     argument is either a function, or a mapping or iterable of mappings.
 
-    If the second argument is a mapping, an iterable of mappings, then the step is
+    If the second argument is a mapping or an iterable of mappings, then the step is
     a `producer` step that produces the given data.
 
     If the second argument is a function, then that function must return a single
@@ -460,7 +460,9 @@ def parallel(
     If all arguments are producers, then the result is a `concurrent producer`.
 
     If all arguments are transformers, with or without an additional passthrough step,
-    then the result is a `concurrent transformer`.
+    then the result is a `concurrent transformer`. At most one passthrough step is
+    allowed in a group of parallel steps, since additional passthroughs would result in
+    duplicate output.
 
     Mixing producers and transformers is not allowed.
 
@@ -613,8 +615,8 @@ def run(
     Run the given steps.
 
     If the given steps do not include a leading :func:`input`, then the input
-    can be provided as an additional argument. If the flow requires no input but none
-    is provided, then the flow will be executed with an empty dictionary as input.
+    can be provided as an additional argument. If the flow requires an input but none
+    is provided, then the flow will be run with an empty dictionary as input.
 
     See :class:`.RunResult` for details on the output format.
 

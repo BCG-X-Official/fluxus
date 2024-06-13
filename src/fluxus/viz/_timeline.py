@@ -27,7 +27,7 @@ __all__ = [
 ]
 
 
-@inheritdoc(match="[see superclass]")
+@inheritdoc(match="""[see superclass]""")
 class TimelineDrawer(Drawer[RunResult, TimelineStyle]):
     """
     A drawer for rendering timelines.

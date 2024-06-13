@@ -514,6 +514,7 @@ class _BaseBufferedProducer(
         return self.source.product_type
 
     def get_final_conduits(self) -> Iterator[SerialConduit[T_Output_ret]]:
+        """[see superclass]"""
         return self.source.get_final_conduits()
 
     def get_connections(

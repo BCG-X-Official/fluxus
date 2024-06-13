@@ -145,7 +145,7 @@ class RunResult(HasExpressionRepr):
         :param path: the index of the path to convert to a frame; if not specified, the
             output will be a frame for all paths
         :param simplify: if ``True``, convert complex types to strings using
-            :func:`simplify_complex_types`; if ``False``, leave objects with complex
+            :func:`.simplify_complex_types`; if ``False``, leave objects with complex
             types as they are (default: ``False``)
         :return: this run result
         """
@@ -242,7 +242,7 @@ def _dicts_to_frame(
     :param dicts: the dictionaries or mappings to convert, either as a single iterable
         or as a nested iterable
     :param simplify: if ``True``, convert complex types to strings using
-        :func:`simplify_complex_types`; if ``False``, leave objects with complex types
+        :func:`.simplify_complex_types`; if ``False``, leave objects with complex types
         as they are
     :param max_levels: the maximum number of levels in the resulting multi-level index;
         if ``None``, the number of levels is not limited (default: ``None``)
@@ -306,7 +306,7 @@ def _dict_to_series(
 
     :param d: the dictionary or mapping to convert
     :param simplify: if ``True``, convert complex types to strings using
-        :func:`simplify_complex_types`; if ``False``, leave objects with complex types
+        :func:`.simplify_complex_types`; if ``False``, leave objects with complex types
         as they are
     :param max_levels: the maximum number of levels in the resulting multi-level index;
         if ``None``, the number of levels is not limited (default: ``None``)
