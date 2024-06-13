@@ -542,7 +542,7 @@ jobs:
           git config --global url.ssh://git@github.com/.insteadOf https://github.com/
           git checkout github-pages
           rm -rf staging
-          mv ${{ github.workspace }}/staging/docs .
+          mv ${{ github.workspace }}/docs .
           git add docs
           git commit -m "Publish GitHub Pages [skip ci]"
           git push --set-upstream origin github-pages
