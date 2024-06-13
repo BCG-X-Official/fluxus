@@ -1,17 +1,16 @@
 name: Release Pipeline
 
 on:
-  workflow_dispatch:
-  # push:
-  #   branches:
-  #     - 1.0.x
-  #     - release/*
-  # pull_request:
-  #   branches:
-  #     - 1.0.x
-  #     - release/*
-  # schedule:  # run tests and full conda/tox build matrix every night at 2am
-  #   - cron: "0 2 * * 1-5" # Every weekday at 2 AM only if branch is "*.*.*"  # Uncomment schedule once done testing
+  push:
+    branches:
+      - 1.0.x
+      - release/*
+  pull_request:
+    branches:
+      - 1.0.x
+      - release/*
+  schedule:  # run tests and full conda/tox build matrix every night at 2am
+    - cron: "0 2 * * 1-5" # Every weekday at 2 AM only if branch is "*.*.*"  # Uncomment schedule once done testing
 
 env:
   project_name: fluxus
@@ -91,7 +90,7 @@ jobs:
   unit_tests:
     runs-on: ubuntu-latest
     needs: detect_build_config_changes
-    # if: ${{ needs.detect_build_config_changes.outputs.conda_build_config_changed == '1' }}
+    if: ${{ needs.detect_build_config_changes.outputs.conda_build_config_changed == '1' }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -141,74 +140,74 @@ jobs:
           name: code-coverage-results
           path: coverage.xml
 
-  # conda_tox_essential:
-  #   runs-on: ubuntu-latest
-  #   needs: [detect_build_config_changes, code_quality_checks]
-  #   if: ${{ needs.detect_build_config_changes.outputs.conda_build_config_changed == '1' && github.event_name != 'schedule' && !startsWith(github.ref, 'refs/heads/dev/') && !startsWith(github.ref, 'refs/heads/release/') }}
-  #   strategy:
-  #     matrix:
-  #       python-version: [3.11]
-  #       build-system: [conda, tox]
-  #       pkg-dependencies: [max, min]
-  #       exclude:
-  #         - python-version: 3.11
-  #           build-system: conda
-  #           pkg-dependencies: min
+  conda_tox_essential:
+    runs-on: ubuntu-latest
+    needs: [detect_build_config_changes, code_quality_checks]
+    if: ${{ needs.detect_build_config_changes.outputs.conda_build_config_changed == '1' && github.event_name != 'schedule' && !startsWith(github.ref, 'refs/heads/dev/') && !startsWith(github.ref, 'refs/heads/release/') }}
+    strategy:
+      matrix:
+        python-version: [3.11]
+        build-system: [conda, tox]
+        pkg-dependencies: [max, min]
+        exclude:
+          - python-version: 3.11
+            build-system: conda
+            pkg-dependencies: min
 
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v4
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-  #     - name: Set up Python ${{ matrix.python-version }}
-  #       uses: actions/setup-python@v5
-  #       with:
-  #         python-version: ${{ matrix.python-version }}
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
 
-  #     - name: Display directory contents
-  #       run: ls ${{ github.workspace }}
+      - name: Display directory contents
+        run: ls ${{ github.workspace }}
 
-  #     - name: Install and configure micromamba
-  #       if: matrix.build-system == 'conda'
-  #       run: |
-  #         curl -Ls https://micro.mamba.pm/api/micromamba/linux-64/latest | tar -xvj bin/micromamba
-  #         export MAMBA_ROOT_PREFIX=~/micromamba
-  #         eval "$(./bin/micromamba shell hook -s posix)"
-  #         micromamba create -n build -y
-  #         micromamba activate build
-  #         micromamba install -y -c conda-forge boa~=0.14 toml~=0.10 flit~=3.6 packaging~=20.9 pytools~=2021.1.1
+      - name: Install and configure micromamba
+        if: matrix.build-system == 'conda'
+        run: |
+          curl -Ls https://micro.mamba.pm/api/micromamba/linux-64/latest | tar -xvj bin/micromamba
+          export MAMBA_ROOT_PREFIX=~/micromamba
+          eval "$(./bin/micromamba shell hook -s posix)"
+          micromamba create -n build -y
+          micromamba activate build
+          micromamba install -y -c conda-forge boa~=0.14 toml~=0.10 flit~=3.6 packaging~=20.9 pytools~=2021.1.1
 
-  #     - name: Install dependencies using tox
-  #       if: matrix.build-system == 'tox'
-  #       run: |
-  #         python -m pip install "toml~=0.10"
-  #         python -m pip install "flit~=3.7"
-  #         python -m pip install "tox~=3.25"
+      - name: Install dependencies using tox
+        if: matrix.build-system == 'tox'
+        run: |
+          python -m pip install "toml~=0.10"
+          python -m pip install "flit~=3.7"
+          python -m pip install "tox~=3.25"
 
-  #     - name: Build and test
-  #       run: |
-  #         set -eux
-  #         if [ "${{ matrix.build-system }}" = "conda" ]; then
-  #           export MAMBA_ROOT_PREFIX=~/micromamba
-  #           eval "$(./bin/micromamba shell hook -s posix)"
-  #           micromamba activate build
-  #         fi
+      - name: Build and test
+        run: |
+          set -eux
+          if [ "${{ matrix.build-system }}" = "conda" ]; then
+            export MAMBA_ROOT_PREFIX=~/micromamba
+            eval "$(./bin/micromamba shell hook -s posix)"
+            micromamba activate build
+          fi
 
-  #         echo "DIRNAME_WORKSPACE=$(dirname "${{ github.workspace }}")" >> $GITHUB_ENV
+          echo "DIRNAME_WORKSPACE=$(dirname "${{ github.workspace }}")" >> $GITHUB_ENV
 
-  #         export RUN_PACKAGE_VERSION_TEST=${{ env.project_name }}
-  #         cd ${{ github.workspace }}
-  #         ./make.py ${{ env.project_name }} ${{ matrix.build-system }} ${{ matrix.pkg-dependencies }}
+          export RUN_PACKAGE_VERSION_TEST=${{ env.project_name }}
+          cd ${{ github.workspace }}
+          ./make.py ${{ env.project_name }} ${{ matrix.build-system }} ${{ matrix.pkg-dependencies }}
 
-  #     - name: Upload artifacts
-  #       uses: actions/upload-artifact@v4
-  #       with:
-  #         name: ${{ matrix.build-system }}_${{ matrix.pkg-dependencies }}
-  #         path: ${{ env.DIRNAME_WORKSPACE }}/dist
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.build-system }}_${{ matrix.pkg-dependencies }}
+          path: ${{ env.DIRNAME_WORKSPACE }}/dist
 
   conda_tox_matrix:
     runs-on: ubuntu-latest
     needs: [detect_build_config_changes, code_quality_checks]
-    # if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/dev/') || startsWith(github.ref, 'refs/heads/release/') || github.event_name == 'schedule'
+    if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/dev/') || startsWith(github.ref, 'refs/heads/release/') || github.event_name == 'schedule'
     strategy:
       matrix:
         python-version: [3.11]
@@ -299,9 +298,8 @@ jobs:
 
   check_release:
     runs-on: ubuntu-latest
-    # needs: [conda_tox_matrix, conda_tox_essential]
-    needs: [conda_tox_matrix]
-    # if: ${{ startsWith(github.ref, 'refs/heads/dev/') || startsWith(github.ref, 'refs/heads/release/') }}
+    needs: [conda_tox_matrix, conda_tox_essential]
+    if: ${{ startsWith(github.ref, 'refs/heads/dev/') || startsWith(github.ref, 'refs/heads/release/') }}
 
     steps:
       - name: Checkout code
@@ -348,7 +346,7 @@ jobs:
 
   release:
     runs-on: ubuntu-latest
-    # if: ${{ startsWith(github.ref, 'refs/heads/dev/') || startsWith(github.ref, 'refs/heads/release/') }}
+    if: ${{ startsWith(github.ref, 'refs/heads/dev/') || startsWith(github.ref, 'refs/heads/release/') }}
     needs: check_release
     steps:
       - name: Checkout code
