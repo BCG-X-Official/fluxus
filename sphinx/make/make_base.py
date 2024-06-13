@@ -379,6 +379,7 @@ class PrepareDocsDeployment(Command):
                     "Copying 'versions.js' file from "
                     f"{new_versions_js!r} to {old_versions_js!r}"
                 )
+                os.makedirs(os.path.dirname(old_versions_js), exist_ok=True)
                 shutil.copyfile(src=new_versions_js, dst=old_versions_js)
 
     @staticmethod
