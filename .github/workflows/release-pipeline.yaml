@@ -5,10 +5,12 @@ on:
     branches:
       - 1.0.x
       - release/*
+      - dev/*
   pull_request:
     branches:
       - 1.0.x
       - release/*
+      - dev/*
   schedule:  # run tests and full conda/tox build matrix every night at 2am
     - cron: "0 2 * * 1-5" # Every weekday at 2 AM only if branch is "*.*.*"
 
