@@ -299,7 +299,7 @@ jobs:
   check_release:
     runs-on: ubuntu-latest
     needs: [conda_tox_matrix, conda_tox_essential]
-    if: ${{ startsWith(github.ref, 'refs/heads/dev/') || (github.event_name=='pull_request' && startsWith(github.base_ref, 'release/')) }}
+    if: startsWith(github.ref, 'refs/heads/dev/') || (github.event_name=='pull_request' && startsWith(github.base_ref, 'release/'))
 
     steps:
       - name: Checkout code
@@ -346,7 +346,7 @@ jobs:
 
   release:
     runs-on: ubuntu-latest
-    if: ${{ startsWith(github.ref, 'refs/heads/dev/') || (github.event_name=='pull_request' && startsWith(github.base_ref, 'release/')) }}
+    if: startsWith(github.ref, 'refs/heads/dev/') || (github.event_name=='pull_request' && startsWith(github.base_ref, 'release/'))
     needs: check_release
     steps:
       - name: Checkout code
@@ -552,5 +552,5 @@ jobs:
           
           git status
           git commit -m "Publish GitHub Pages [skip ci]"
-          
+
           git push --set-upstream origin github-pages
