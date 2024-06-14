@@ -544,7 +544,7 @@ jobs:
           echo "Adjusting git credentials"
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
-          git config --global url.ssh://git@github.com/.insteadOf https://github.com/
+          # git config --global url.ssh://git@github.com/.insteadOf https://github.com/
           git checkout github-pages
           mv staging/docs .
           git add docs
