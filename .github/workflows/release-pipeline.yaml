@@ -485,9 +485,14 @@ jobs:
       - name: Build latest documentation
         run: |
           set -eux
-          echo "Checking out ${{ github.ref_name }}"
-          git fetch origin ${{ github.ref_name }} --depth=1
-          git checkout ${{ github.ref_name }}
+          if [ "${{ github.event_name }}" == 'pull_request' ]; then
+            BRANCH_NAME=${{ github.base_ref }}
+          else
+            BRANCH_NAME=${{ github.ref_name }}
+          fi
+          echo "Checking out $BRANCH_NAME"
+          git fetch origin $BRANCH_NAME --depth=1
+          git checkout $BRANCH_NAME  
 
           # install micromamba
           curl -Ls https://micro.mamba.pm/api/micromamba/linux-64/latest | tar -xvj bin/micromamba
