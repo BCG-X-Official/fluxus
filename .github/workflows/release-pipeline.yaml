@@ -3,7 +3,8 @@ name: Release Pipeline
 on:
   push:
     branches:
-      - dev/*
+      - 1.0.x
+      - release/*
   pull_request:
     branches:
       - 1.0.x
@@ -530,7 +531,7 @@ jobs:
           path: ${{ github.workspace }}/staging/docs
 
       - name: Publish docs to branch github-pages
-        if: startsWith(github.ref, 'refs/heads/release/')
+        if: startsWith(github.head_ref, 'release/')
         run: |
           set -eux
           echo "Adjusting git credentials"
