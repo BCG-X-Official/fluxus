@@ -537,6 +537,8 @@ jobs:
 
       - name: Publish docs to branch github-pages
         if: startsWith(github.base_ref, 'release/')
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -eux
           echo "Adjusting git credentials"
