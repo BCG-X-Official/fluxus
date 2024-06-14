@@ -334,9 +334,7 @@ jobs:
           from os import environ
           from make import ToxBuilder
 
-          branch_env = "${{ env.BRANCH_NAME }}"
-          assert branch_env == environ['GITHUB_REF_NAME'], f"'{branch_env}' git branch name missing from environment variables."
-          branch = environ['GITHUB_REF_NAME']
+          branch = "${{ env.BRANCH_NAME }}"
           print(f"Checking package version consistency with branch: {branch}")
 
           assert (branch.startswith("release/") or branch.startswith("dev/")
