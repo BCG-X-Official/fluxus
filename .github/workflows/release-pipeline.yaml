@@ -315,9 +315,17 @@ jobs:
         with:
           path: fluxus
 
+      - name: Set branch name as environment variable
+        run: |
+          if [ ${{ github.event_name }} == 'pull_request' ]; then
+            echo "BRANCH_NAME=${{ github.base_ref }}" >> $GITHUB_ENV
+          else
+            ref=${{ github.ref }}
+            branch_name=${ref/refs\/heads\//}
+            echo "BRANCH_NAME=$branch_name" >> $GITHUB_ENV
+          fi    
+
       - name: Check version consistency
-        env:
-          BRANCH_NAME: ${{ github.ref_name }}
         run: |
           set -eux
           python -m pip install toml~=0.10.2 packaging~=20.9
@@ -393,7 +401,7 @@ jobs:
           path: ${{ env.DIRNAME_WORKSPACE }}/dist
 
       - name: Publish to PyPi (Tox)
-        if: ${{ startsWith(github.ref, 'refs/heads/release/') }}
+        if: ${{ startsWith(github.back_ref, 'release/') }}
         env:
           FLIT_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
           FLIT_USERNAME: __token__
@@ -406,7 +414,7 @@ jobs:
           echo "pypi_published=True" >> $GITHUB_ENV
 
       - name: Publish to Anaconda (Conda)
-        if: ${{ startsWith(github.ref, 'refs/heads/release/') }}
+        if: ${{ startsWith(github.back_ref, 'release/') }}
         env:
           CONDA_PASSWORD: ${{ secrets.CONDA_PASSWORD }}
           CONDA_USERNAME: ${{ secrets.CONDA_USERNAME }}
@@ -422,7 +430,7 @@ jobs:
 
       - name: GitHub Release
         if: >
-          ( ${{ startsWith(github.ref, 'refs/heads/release/') }} && (success() || failure()) ) || (env.conda_published == 'True' || env.pypi_published == 'True')
+          ( ${{ startsWith(github.back_ref, 'release/') }} && always() ) || (env.conda_published == 'True' || env.pypi_published == 'True')
         uses: softprops/action-gh-release@v1
         with:
           files: |
@@ -544,8 +552,8 @@ jobs:
           echo "Adjusting git credentials"
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
-          git checkout github-pages
-          git pull
+          git checkout origin/github-pages
+          git pull origin github-pages
 
           rm -rf docs
           mv staging/docs .
