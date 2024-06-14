@@ -552,8 +552,7 @@ jobs:
           echo "Adjusting git credentials"
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
-          git checkout origin/github-pages
-          git pull origin github-pages
+          git checkout github-pages
 
           rm -rf docs
           mv staging/docs .
@@ -562,4 +561,4 @@ jobs:
           git status
           git commit -m "Publish GitHub Pages [skip ci]"
 
-          git push --set-upstream origin github-pages
+          git push -f --set-upstream origin github-pages
