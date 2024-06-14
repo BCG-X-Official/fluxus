@@ -64,7 +64,6 @@ _NOT_FOUND = object()
 #
 
 
-@inheritdoc(match="""[see superclass]""")
 class _Labeler(SerialSource[T_Product_ret], Generic[T_Product_ret], metaclass=ABCMeta):
     """
     A mixin class, adding the ``label`` method to a producer or transformer to allow
