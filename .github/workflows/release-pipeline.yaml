@@ -315,8 +315,10 @@ jobs:
         with:
           path: fluxus
 
-      - name: Set branch name as environment variable
+      - name: Set env vars
         run: |
+          version=$(python -c "import make_util; print(make_util.get_package_version(package_path='$package_path'))")
+          echo "current_version=$version" >> $GITHUB_ENV
           if [ ${{ github.event_name }} == 'pull_request' ]; then
             echo "BRANCH_NAME=${{ github.base_ref }}" >> $GITHUB_ENV
           else
@@ -559,4 +561,5 @@ jobs:
           git status
           git commit -m "Publish GitHub Pages [skip ci]"
 
+          git tag -a ${{ env.current_version }} -m "Release version ${{ env.current_version }}"
           git push -f --set-upstream origin github-pages
