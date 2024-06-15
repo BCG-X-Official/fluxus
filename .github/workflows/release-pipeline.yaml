@@ -377,7 +377,7 @@ jobs:
           pip install packaging~=20.9
           package_path=${{ github.workspace }}/${{ env.project_name }}/src/${{ env.project_name }}
           export PYTHONPATH=${{ github.workspace }}/fluxus/sphinx/make
-          version=$(python -c "import make_util; print(make_util.get_package_version(package_path='$package_path'))")
+          version=$(python -c "from sphinx.make import make_util; print(make_util.get_package_version(package_path='$package_path'))")
           echo "Current version: $version"
           echo "Detecting pre-release ('dev' or 'rc' in version)"
           prerelease=False
