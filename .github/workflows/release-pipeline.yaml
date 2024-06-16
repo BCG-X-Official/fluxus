@@ -317,7 +317,9 @@ jobs:
 
       - name: Set env vars
         run: |
-          version=$(python -c "from sphinx.make.make_util import get_package_version; print(get_package_version(package_path='$package_path'))")
+          export PYTHONPATH=${{ github.workspace }}/fluxus/sphinx/make
+          package_path=${{ github.workspace }}/${{ env.project_name }}/src/${{ env.project_name }}
+          version=$(python -c "import make_util; print(make_util.get_package_version(package_path='$package_path'))")
           echo "current_version=$version" >> $GITHUB_ENV
           if [ ${{ github.event_name }} == 'pull_request' ]; then
             echo "BRANCH_NAME=${{ github.base_ref }}" >> $GITHUB_ENV
@@ -375,10 +377,10 @@ jobs:
           set -eux
           echo "Getting version"
           pip install packaging~=20.9
-          package_path=${{ github.workspace }}/${{ env.project_name }}/src/${{ env.project_name }}
           export PYTHONPATH=${{ github.workspace }}/fluxus/sphinx/make
-          version=$(python -c "from sphinx.make.make_util import get_package_version; print(get_package_version(package_path='$package_path'))")
-          echo "Current version: $version"
+          package_path=${{ github.workspace }}/${{ env.project_name }}/src/${{ env.project_name }}
+          version=$(python -c "import make_util; print(make_util.get_package_version(package_path='$package_path'))")
+          echo "current_version=$version" >> $GITHUB_ENV
           echo "Detecting pre-release ('dev' or 'rc' in version)"
           prerelease=False
           [[ $version == *dev* ]] && prerelease=True && echo "Development release identified"
@@ -491,7 +493,9 @@ jobs:
           cp -r docs/docs-version ${{ github.workspace }}/staging/docs-version.bak
 
           # export library version as env var
-          version=$(python -c "from sphinx.make.make_util import get_package_version; print(get_package_version(package_path='$package_path'))")
+          export PYTHONPATH=${{ github.workspace }}/fluxus/sphinx/make
+          package_path=${{ github.workspace }}/${{ env.project_name }}/src/${{ env.project_name }}
+          version=$(python -c "import make_util; print(make_util.get_package_version(package_path='$package_path'))")
           echo "current_version=$version" >> $GITHUB_ENV
 
       - name: Build latest documentation
