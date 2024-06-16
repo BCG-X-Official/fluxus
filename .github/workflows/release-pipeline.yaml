@@ -312,8 +312,6 @@ jobs:
 
       - name: Checkout fluxus
         uses: actions/checkout@v4
-        with:
-          path: fluxus
 
       - name: Set env vars
         run: |
@@ -436,13 +434,13 @@ jobs:
           ( ${{ startsWith(github.back_ref, 'release/') }} && always() ) || (env.conda_published == 'True' || env.pypi_published == 'True')
         uses: softprops/action-gh-release@v1
         with:
+          tag_name: ${{ env.current_version }}
           files: |
             ${{ github.workspace }}/tox_default/tox/${{ env.package_name }}-*.tar.gz
             ${{ github.workspace }}/conda_default/conda/noarch/${{ env.package_name }}-*.tar.bz2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
-          tag_name: ${{ env.current_version }}
           release_name: ${{ env.project_name }} ${{ env.current_version }}
           body: |
             This is the ${{ env.current_version }} release of ${{ env.package_name }}.
