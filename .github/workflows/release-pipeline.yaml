@@ -317,7 +317,7 @@ jobs:
 
       - name: Set env vars
         run: |
-          version=$(python -c "import make_util; print(make_util.get_package_version(package_path='$package_path'))")
+          version=$(python -c "from sphinx.make.make_util import get_package_version; print(get_package_version(package_path='$package_path'))")
           echo "current_version=$version" >> $GITHUB_ENV
           if [ ${{ github.event_name }} == 'pull_request' ]; then
             echo "BRANCH_NAME=${{ github.base_ref }}" >> $GITHUB_ENV
@@ -377,7 +377,7 @@ jobs:
           pip install packaging~=20.9
           package_path=${{ github.workspace }}/${{ env.project_name }}/src/${{ env.project_name }}
           export PYTHONPATH=${{ github.workspace }}/fluxus/sphinx/make
-          version=$(python -c "from sphinx.make import make_util; print(make_util.get_package_version(package_path='$package_path'))")
+          version=$(python -c "from sphinx.make.make_util import get_package_version; print(get_package_version(package_path='$package_path'))")
           echo "Current version: $version"
           echo "Detecting pre-release ('dev' or 'rc' in version)"
           prerelease=False
@@ -485,10 +485,14 @@ jobs:
           ls docs/docs-version
           
           # create staging area
-            mkdir -p ${{ github.workspace }}/staging
+          mkdir -p ${{ github.workspace }}/staging
 
           # copy the current documentation versions to the staging area
           cp -r docs/docs-version ${{ github.workspace }}/staging/docs-version.bak
+
+          # export library version as env var
+          version=$(python -c "from sphinx.make.make_util import get_package_version; print(get_package_version(package_path='$package_path'))")
+          echo "current_version=$version" >> $GITHUB_ENV
 
       - name: Build latest documentation
         run: |
@@ -561,5 +565,5 @@ jobs:
           git status
           git commit -m "Publish GitHub Pages [skip ci]"
 
-          git tag -a ${{ env.current_version }} -m "Release version ${{ env.current_version }}"
+          git tag -a -m "Release version ${{ env.current_version }}" ${{ env.current_version }}
           git push -f --set-upstream origin github-pages
