@@ -317,6 +317,7 @@ jobs:
 
       - name: Set env vars
         run: |
+          pip install packaging~=20.9
           export PYTHONPATH=${{ github.workspace }}/fluxus/sphinx/make
           package_path=${{ github.workspace }}/${{ env.project_name }}/src/${{ env.project_name }}
           version=$(python -c "import make_util; print(make_util.get_package_version(package_path='$package_path'))")
@@ -462,6 +463,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with: 
+          path: fluxus
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -493,6 +496,7 @@ jobs:
           cp -r docs/docs-version ${{ github.workspace }}/staging/docs-version.bak
 
           # export library version as env var
+          pip install packaging~=20.9
           export PYTHONPATH=${{ github.workspace }}/fluxus/sphinx/make
           package_path=${{ github.workspace }}/${{ env.project_name }}/src/${{ env.project_name }}
           version=$(python -c "import make_util; print(make_util.get_package_version(package_path='$package_path'))")
