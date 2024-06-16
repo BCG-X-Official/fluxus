@@ -432,8 +432,7 @@ jobs:
           echo "conda_published=True" >> $GITHUB_ENV
 
       - name: GitHub Release
-        if: >
-          ( ${{ startsWith(github.back_ref, 'release/') }} && always() ) || (env.conda_published == 'True' || env.pypi_published == 'True')
+        if: ${{ startsWith(github.back_ref, 'release/') }}
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ env.current_version }}
@@ -463,6 +462,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          path: fluxus
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -492,13 +493,6 @@ jobs:
 
           # copy the current documentation versions to the staging area
           cp -r docs/docs-version ${{ github.workspace }}/staging/docs-version.bak
-
-          # export library version as env var
-          pip install packaging~=20.9
-          export PYTHONPATH=${{ github.workspace }}/fluxus/sphinx/make
-          package_path=${{ github.workspace }}/${{ env.project_name }}/src/${{ env.project_name }}
-          version=$(python -c "import make_util; print(make_util.get_package_version(package_path='$package_path'))")
-          echo "current_version=$version" >> $GITHUB_ENV
 
       - name: Build latest documentation
         run: |
@@ -563,6 +557,13 @@ jobs:
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
           git checkout github-pages
+
+          echo "Exporting version as env var"
+          pip install packaging~=20.9
+          export PYTHONPATH=${{ github.workspace }}/fluxus/sphinx/make
+          package_path=${{ github.workspace }}/${{ env.project_name }}/src/${{ env.project_name }}
+          version=$(python -c "import make_util; print(make_util.get_package_version(package_path='$package_path'))")
+          echo "current_version=$version" >> $GITHUB_ENV
 
           rm -rf docs
           mv staging/docs .
