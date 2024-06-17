@@ -49,7 +49,7 @@ class BaseProducer(Source[T_Product_ret], Generic[T_Product_ret], metaclass=ABCM
     """
 
     @abstractmethod
-    def iter(self) -> Iterator[T_Product_ret]:
+    def produce(self) -> Iterator[T_Product_ret]:
         """
         Generate new products.
 
@@ -57,7 +57,7 @@ class BaseProducer(Source[T_Product_ret], Generic[T_Product_ret], metaclass=ABCM
         """
 
     @abstractmethod
-    def aiter(self) -> AsyncIterator[T_Product_ret]:
+    def aproduce(self) -> AsyncIterator[T_Product_ret]:
         """
         Generate new products asynchronously.
 
@@ -74,11 +74,11 @@ class BaseProducer(Source[T_Product_ret], Generic[T_Product_ret], metaclass=ABCM
 
     @final
     def __iter__(self) -> Iterator[T_Product_ret]:
-        return self.iter()
+        return self.produce()
 
     @final
     def __aiter__(self) -> AsyncIterator[T_Product_ret]:
-        return self.aiter()
+        return self.aproduce()
 
     def __and__(
         self, other: BaseProducer[T_Product_ret]
@@ -135,7 +135,7 @@ class SerialProducer(
         """[see superclass]"""
         yield self
 
-    async def aiter(self) -> AsyncIterator[T_Product_ret]:
+    async def aproduce(self) -> AsyncIterator[T_Product_ret]:
         """
         Generate new products asynchronously.
 
@@ -143,7 +143,7 @@ class SerialProducer(
 
         :return: the new products
         """
-        for product in self.iter():
+        for product in self.produce():
             yield product
 
     def __rshift__(
@@ -169,7 +169,7 @@ class ConcurrentProducer(
     A collection of one or more producers.
     """
 
-    def iter(self) -> Iterator[T_Product_ret]:
+    def produce(self) -> Iterator[T_Product_ret]:
         """
         Generate new products from all producers in this group.
 
@@ -178,7 +178,7 @@ class ConcurrentProducer(
         for producer in self.iter_concurrent_conduits():
             yield from producer
 
-    def aiter(self) -> AsyncIterator[T_Product_ret]:
+    def aproduce(self) -> AsyncIterator[T_Product_ret]:
         """
         Generate new products from all producers in this group asynchronously.
 
@@ -189,5 +189,5 @@ class ConcurrentProducer(
 
         # noinspection PyTypeChecker
         return async_flatten(
-            producer.aiter() async for producer in self.aiter_concurrent_conduits()
+            producer.aproduce() async for producer in self.aiter_concurrent_conduits()
         )

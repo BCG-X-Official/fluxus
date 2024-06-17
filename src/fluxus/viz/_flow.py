@@ -105,6 +105,7 @@ class FlowGraphStyle(FlowStyle, ColoredStyle[T_ColorScheme], Generic[T_ColorSche
             FlowGraph.from_conduit(flow).to_dot(
                 font="Monaco, Consolas, monospace",
                 fontcolor=color_scheme.contrast_color(color_scheme.accent_1),
+                fontcolor_terminal=color_scheme.contrast_color(color_scheme.background),
                 fontsize=10,
                 foreground=color_scheme.foreground,
                 background=color_scheme.background,

@@ -36,7 +36,7 @@ class NumberProducer(Producer[int]):
         self.start = start
         self.stop = stop
 
-    def iter(self) -> Iterator[int]:
+    def produce(self) -> Iterator[int]:
         return iter(range(self.start, self.stop))
 
 
