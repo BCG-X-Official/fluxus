@@ -53,7 +53,7 @@ jobs:
           python -m pip install mypy
           # add package dependencies for mypy
           dependencies=(
-            "gamma-pytools>=3.0rc,<4.0"
+            "gamma-pytools~=3.0"
             pandas-stubs
             pytest
             types-PyYAML

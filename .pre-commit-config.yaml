@@ -44,7 +44,7 @@ repos:
         language_version: python311
         pass_filenames: false
         additional_dependencies:
-          - gamma-pytools>=3.0rc1
+          - gamma-pytools~=3.0
           - openai
           - pandas-stubs
           - pytest

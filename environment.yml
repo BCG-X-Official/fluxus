@@ -7,7 +7,7 @@ dependencies:
   # Python version
   - python                   ~= 3.11
   # Additional libraries
-  - gamma-pytools            ~= 3.0rc1
+  - gamma-pytools            ~= 3.0
   - pandas
   # Graphviz
   - graphviz                 ~= 9.0
