@@ -14,10 +14,9 @@ dist-name = "fluxus"
 license = "Apache Software License v2.0"
 
 requires = [
-    "aiolimiter        ==1.1.0",
-    "matplotlib        >=3.0",
-    "pandas            >=1",
-    "gamma-pytools     ==3.0rc1",
+    "matplotlib        ~=3.6",
+    "pandas            >=1.5",
+    "gamma-pytools     ~=3.0",
     "typing_inspect    >=0.7",
 ]
 
@@ -47,11 +46,10 @@ Repository = "https://github.com/BCG-X-Official/fluxus"
 no-binary.min = ["matplotlib"]
 
 [build.matrix.min]
-aiolimiter        = "==1.1.0"
-matplotlib        = "==3.7.1"
+matplotlib        = "==3.6.3"
 pandas            = "~=2.1"
 python            = "==3.11"
-gamma-pytools     = "==3.0rc1"
+gamma-pytools     = "~=3.0.0"
 typing_inspect    = "==0.7.1"
 
 [build.matrix.max]
@@ -59,7 +57,7 @@ aiolimiter        = "==1.1.0"
 matplotlib        = ">=3.8,<4a"
 pandas            = ">=2.2,<3a"
 python            = ">=3.12,<4a"
-gamma-pytools     = "==3.0rc1"
+gamma-pytools     = "~=3.0"
 typing_inspect    = ">=0.9,<1a"
 
 [tool.black]

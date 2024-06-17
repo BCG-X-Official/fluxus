@@ -8,7 +8,7 @@ import logging
 from collections.abc import AsyncIterable, AsyncIterator, Iterable, Iterator
 from typing import Generic, TypeVar
 
-from pytools.api import inheritdoc, to_tuple
+from pytools.api import as_tuple, inheritdoc
 from pytools.typing import isinstance_generic
 
 from .._passthrough import Passthrough
@@ -60,7 +60,7 @@ class SimpleProducer(Producer[T_Product_ret], Generic[T_Product_ret]):
             raise TypeError(
                 f"Products must be an iterable, not {type(products).__name__}"
             )
-        self.products = products = to_tuple(products)
+        self.products = products = as_tuple(products)
 
         product_type = self.product_type
         mismatched_products = [

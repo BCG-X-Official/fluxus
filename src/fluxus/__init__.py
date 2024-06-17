@@ -47,4 +47,4 @@ from ._producer import *
 from ._transformer import *
 from ._warning import *
 
-__version__ = "1.0rc2"
+__version__ = "1.0rc3"

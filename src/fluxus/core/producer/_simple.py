@@ -11,7 +11,7 @@ import operator
 from collections.abc import AsyncIterator, Collection, Iterator
 from typing import Any, Generic, TypeVar, cast
 
-from pytools.api import inheritdoc, to_tuple
+from pytools.api import as_tuple, inheritdoc
 from pytools.asyncio import async_flatten, iter_sync_to_async
 from pytools.expression import Expression
 
@@ -68,7 +68,7 @@ class SimpleConcurrentProducer(
         """
         super().__init__()
 
-        self.producers = to_tuple(
+        self.producers = as_tuple(
             itertools.chain(*map(_flatten_concurrent_producers, producers)),
             element_type=cast(
                 tuple[
