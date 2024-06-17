@@ -575,5 +575,5 @@ jobs:
           git status
           git commit -m "Publish GitHub Pages [skip ci]"
 
-          git tag -a -m "Release version ${{ env.current_version }}" ${{ env.current_version }}
+          git tag -a -m "Release version $current_version" $current_version
           git push -f --set-upstream origin github-pages
