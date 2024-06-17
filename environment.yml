@@ -1,7 +1,7 @@
 name: fluxus
 channels:
   - conda-forge
-  - bcg_gamma
+  - bcgx
   - defaults
 dependencies:
   # Python version
