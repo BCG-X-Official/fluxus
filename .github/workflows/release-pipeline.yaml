@@ -558,7 +558,7 @@ jobs:
 
           echo "Exporting version as env var"
           pip install packaging~=20.9
-          export PYTHONPATH=${{ github.workspace }}/fluxus/sphinx/make
+          export PYTHONPATH=${{ github.workspace }}/sphinx/make
           package_path="${{ github.workspace }}/src/${{ env.project_name }}"
           version=$(python -c "import make_util; print(make_util.get_package_version(package_path='$package_path'))")
 
