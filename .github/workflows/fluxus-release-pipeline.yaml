@@ -493,7 +493,7 @@ jobs:
         run: |
           set -eux
           if [ "${{ github.event_name }}" == 'pull_request' ]; then
-            BRANCH_NAME=${{ github.base_ref }}
+            BRANCH_NAME=${{ github.head_ref }}
           else
             BRANCH_NAME=${{ github.ref_name }}
           fi
@@ -543,7 +543,7 @@ jobs:
           path: ${{ github.workspace }}/staging/docs
 
       - name: Publish docs to branch github-pages
-        if: startsWith(github.base_ref, 'release/')
+        if: startsWith(github.head_ref, 'release/')
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           current_version: ${{ env.current_version}}
