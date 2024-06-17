@@ -417,17 +417,15 @@ jobs:
           echo "pypi_published=True" >> $GITHUB_ENV
 
       - name: Publish to Anaconda (Conda)
-        if: startsWith(github.head_ref, 'release/')
+        # if: startsWith(github.head_ref, 'release/')
         env:
-          CONDA_PASSWORD: ${{ secrets.CONDA_PASSWORD }}
-          CONDA_USERNAME: ${{ secrets.CONDA_USERNAME }}
+          CONDA_TOKEN: ${{ secrets.CONDA_TOKEN }}
         run: |
           set -eux
           cd ${{ github.workspace }}
           eval "$(conda shell.bash hook)"
           conda install -y anaconda-client
-          anaconda login --username "${CONDA_USERNAME}" --password "${CONDA_PASSWORD}"
-          anaconda upload --user BCG_Gamma --force ${{ github.workspace }}/dist/conda_default/conda/noarch/${{ env.package_name }}-*.tar.bz2
+          anaconda -t ${CONDA_TOKEN} upload --user bcgx --force ${{ github.workspace }}/dist/conda_default/conda/noarch/${{ env.package_name }}-*.tar.bz2
           anaconda logout
           echo "conda_published=True" >> $GITHUB_ENV
 
