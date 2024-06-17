@@ -11,7 +11,7 @@ import operator
 from collections.abc import AsyncIterator, Collection, Iterator
 from typing import Any, Generic, TypeVar, cast
 
-from pytools.api import inheritdoc, to_tuple
+from pytools.api import as_tuple, inheritdoc
 from pytools.asyncio import async_flatten, iter_sync_to_async
 from pytools.expression import Expression
 
@@ -72,7 +72,7 @@ class SimpleConcurrentTransformer(
         """
         :param transformers: the transformers in this group
         """
-        self.transformers = to_tuple(
+        self.transformers = as_tuple(
             itertools.chain(*map(_flatten_concurrent_transformers, transformers)),
             element_type=cast(
                 tuple[
