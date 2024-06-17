@@ -11,7 +11,6 @@ on:
       - release/*
   schedule:  # run tests and full conda/tox build matrix every night at 2am
     - cron: "0 2 * * 1-5" # Every weekday at 2 AM
-  workflow_dispatch:
 
 env:
   project_name: fluxus
@@ -417,7 +416,7 @@ jobs:
           echo "pypi_published=True" >> $GITHUB_ENV
 
       - name: Publish to Anaconda (Conda)
-        # if: startsWith(github.head_ref, 'release/')
+        if: startsWith(github.head_ref, 'release/')
         env:
           CONDA_TOKEN: ${{ secrets.CONDA_TOKEN }}
         run: |
