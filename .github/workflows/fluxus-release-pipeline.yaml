@@ -406,14 +406,14 @@ jobs:
       - name: Publish to PyPi (Tox)
         if: startsWith(github.head_ref, 'release/')
         env:
-          FLIT_PASSWORD: ${{ secrets.TEST_PYPI_API_TOKEN }}
+          FLIT_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
           FLIT_USERNAME: __token__
         run: |
           set -eux
           cd ${{ github.workspace }}/${{ env.project_name }}
           pip install flit
           flit install -s
-          flit publish -r testpypi
+          flit publish
           echo "pypi_published=True" >> $GITHUB_ENV
 
       - name: Publish to Anaconda (Conda)
