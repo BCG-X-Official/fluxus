@@ -554,6 +554,7 @@ jobs:
         if: startsWith(github.base_ref, 'release/')
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          current_version: ${{ env.current_version}}
         run: |
           set -eux
           echo "Adjusting git credentials"
@@ -575,5 +576,5 @@ jobs:
           git status
           git commit -m "Publish GitHub Pages [skip ci]"
 
-          git tag -a -m "Release version ${{ env.current_version }}" ${{ env.current_version }}
+          git tag -a -m "Release version ${current_version}" ${current_version}
           git push -f --set-upstream origin github-pages
