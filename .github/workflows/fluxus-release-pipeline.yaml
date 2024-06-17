@@ -425,7 +425,7 @@ jobs:
           cd ${{ env.DIRNAME_WORKSPACE }}
           eval "$(conda shell.bash hook)"
           conda install -y anaconda-client
-          anaconda -t ${CONDA_TOKEN} upload --user bcgx --force ${{ env.DIRNAME_WORKSPACE }}/dist/conda_default/conda/noarch/${{ env.package_name }}-*.tar.bz2
+          anaconda -t ${CONDA_TOKEN} upload --user bcgx --force ${{ env.DIRNAME_WORKSPACE }}/dist/conda/noarch/${{ env.package_name }}-*.tar.bz2
           anaconda logout
           echo "conda_published=True" >> $GITHUB_ENV
 
@@ -436,7 +436,7 @@ jobs:
           tag_name: ${{ env.current_version }}
           files: |
             ${{ github.workspace }}/tox_default/tox/${{ env.package_name }}-*.tar.gz
-            ${{ github.workspace }}/conda_default/conda/noarch/${{ env.package_name }}-*.tar.bz2
+            ${{ env.DIRNAME_WORKSPACE }}/dist/conda/noarch/${{ env.package_name }}-*.tar.bz2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
