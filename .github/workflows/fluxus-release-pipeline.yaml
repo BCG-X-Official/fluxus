@@ -422,10 +422,10 @@ jobs:
           CONDA_TOKEN: ${{ secrets.CONDA_TOKEN }}
         run: |
           set -eux
-          cd ${{ github.workspace }}
+          cd ${{ env.DIRNAME_WORKSPACE }}
           eval "$(conda shell.bash hook)"
           conda install -y anaconda-client
-          anaconda -t ${CONDA_TOKEN} upload --user bcgx --force ${{ github.workspace }}/dist/conda_default/conda/noarch/${{ env.package_name }}-*.tar.bz2
+          anaconda -t ${CONDA_TOKEN} upload --user bcgx --force ${{ env.DIRNAME_WORKSPACE }}/dist/conda_default/conda/noarch/${{ env.package_name }}-*.tar.bz2
           anaconda logout
           echo "conda_published=True" >> $GITHUB_ENV
 
@@ -450,7 +450,7 @@ jobs:
 
             Your conda package can be upgraded by running
 
-                conda install -c conda-forge -c bcg_gamma ${{ env.package_name }}
+                conda install -c conda-forge -c bcgx ${{ env.package_name }}
           draft: true
           prerelease: ${{ env.is_prerelease }}
 
