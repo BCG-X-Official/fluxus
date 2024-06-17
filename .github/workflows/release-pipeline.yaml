@@ -404,7 +404,7 @@ jobs:
           path: ${{ env.DIRNAME_WORKSPACE }}/dist
 
       - name: Publish to PyPi (Tox)
-        if: ${{ startsWith(github.back_ref, 'release/') }}
+        if: startsWith(github.ref, 'refs/heads/dev/') || (github.event_name=='pull_request' && startsWith(github.base_ref, 'release/'))
         env:
           FLIT_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
           FLIT_USERNAME: __token__
@@ -417,7 +417,7 @@ jobs:
           echo "pypi_published=True" >> $GITHUB_ENV
 
       - name: Publish to Anaconda (Conda)
-        if: ${{ startsWith(github.back_ref, 'release/') }}
+        if: startsWith(github.ref, 'refs/heads/dev/') || (github.event_name=='pull_request' && startsWith(github.base_ref, 'release/'))
         env:
           CONDA_PASSWORD: ${{ secrets.CONDA_PASSWORD }}
           CONDA_USERNAME: ${{ secrets.CONDA_USERNAME }}
@@ -432,7 +432,7 @@ jobs:
           echo "conda_published=True" >> $GITHUB_ENV
 
       - name: GitHub Release
-        if: ${{ startsWith(github.back_ref, 'release/') }}
+        if: startsWith(github.ref, 'refs/heads/dev/') || (github.event_name=='pull_request' && startsWith(github.base_ref, 'release/'))
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ env.current_version }}
