@@ -323,7 +323,7 @@ jobs:
           version=$(python -c "import make_util; print(make_util.get_package_version(package_path='$package_path'))")
           echo "current_version=$version" >> $GITHUB_ENV
           if [ ${{ github.event_name }} == 'pull_request' ]; then
-            echo "BRANCH_NAME=${{ github.base_ref }}" >> $GITHUB_ENV
+            echo "BRANCH_NAME=${{ github.head_ref }}" >> $GITHUB_ENV
           else
             ref=${{ github.ref }}
             branch_name=${ref/refs\/heads\//}
