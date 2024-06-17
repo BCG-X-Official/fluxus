@@ -386,7 +386,6 @@ jobs:
           prerelease=False
           [[ $version == *dev* ]] && prerelease=True && echo "Development release identified"
           [[ $version == *rc* ]] && prerelease=True && echo "Pre-release identified"
-          echo "current_version=$version" >> $GITHUB_ENV
           echo "is_prerelease=$prerelease" >> $GITHUB_ENV
 
           echo "DIRNAME_WORKSPACE=$(dirname "${{ github.workspace }}")" >> $GITHUB_ENV
@@ -562,12 +561,20 @@ jobs:
           git config --global user.email "actions@github.com"
           git checkout github-pages
 
+          echo "CHECKING"
+          pwd
+          echo "CHECKING2"
+          ls
+
           echo "Exporting version as env var"
           pip install packaging~=20.9
           export PYTHONPATH=${{ github.workspace }}/fluxus/sphinx/make
           package_path="${{ github.workspace }}/${{ env.project_name }}/src/${{ env.project_name }}"
           version=$(python -c "import make_util; print(make_util.get_package_version(package_path='$package_path'))")
           echo "current_version=$version" >> $GITHUB_ENV
+
+          echo "CHECKING3"
+          echo $version
 
           rm -rf docs
           mv staging/docs .
