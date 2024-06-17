@@ -345,7 +345,7 @@ class _StartNode(_SpecialNode, Producer[Never]):
         """[see superclass]"""
         return "circle"
 
-    def iter(self) -> Iterator[Never]:  # pragma: no cover
+    def produce(self) -> Iterator[Never]:  # pragma: no cover
         """
         Yield nothing.
         """

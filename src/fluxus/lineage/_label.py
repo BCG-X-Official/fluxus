@@ -297,14 +297,14 @@ class _LabeledProducer(
         # _Delegator class
         return self._delegate.product_type
 
-    def iter(self) -> Iterator[T_Product_ret]:
+    def produce(self) -> Iterator[T_Product_ret]:
         """[see superclass]"""
-        for product in self._delegate.iter():
+        for product in self._delegate.produce():
             yield product.label(**self._labels)
 
-    async def aiter(self) -> AsyncIterator[T_Product_ret]:
+    async def aproduce(self) -> AsyncIterator[T_Product_ret]:
         """[see superclass]"""
-        async for product in self._delegate.aiter():
+        async for product in self._delegate.aproduce():
             yield product.label(**self._labels)
 
 

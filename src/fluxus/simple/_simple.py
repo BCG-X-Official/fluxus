@@ -74,7 +74,7 @@ class SimpleProducer(Producer[T_Product_ret], Generic[T_Product_ret]):
                 f"{product_type}: " + ", ".join(map(repr, mismatched_products))
             )
 
-    def iter(self) -> Iterator[T_Product_ret]:
+    def produce(self) -> Iterator[T_Product_ret]:
         """[see superclass]"""
         return iter(self.products)
 
@@ -95,6 +95,6 @@ class SimpleAsyncProducer(AsyncProducer[T_Product_ret], Generic[T_Product_ret]):
         """
         self.products = products
 
-    def aiter(self) -> AsyncIterator[T_Product_ret]:
+    def aproduce(self) -> AsyncIterator[T_Product_ret]:
         """[see superclass]"""
         return aiter(self.products)

@@ -61,7 +61,7 @@ class OriginProducer(LabelingProducer[Origin]):
     A producer of ``Origin`` products.
     """
 
-    def iter(self) -> Iterator[Origin]:
+    def produce(self) -> Iterator[Origin]:
         yield Origin()
 
 
