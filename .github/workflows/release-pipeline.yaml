@@ -468,6 +468,11 @@ jobs:
         with:
           python-version: 3.11
 
+      - name: Checkout fluxus
+        uses: actions/checkout@v4
+        with:
+          path: fluxus
+
       - name: Retrieve current documentation versions from github-pages
         run: |
           set -eux
