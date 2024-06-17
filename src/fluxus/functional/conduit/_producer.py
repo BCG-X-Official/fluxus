@@ -69,7 +69,7 @@ class DictProducer(DictConduit, AsyncProducer[DictProduct]):
         super().__init__(name=name)
         self.producer = producer
 
-    async def aiter(self) -> AsyncIterator[DictProduct]:
+    async def aproduce(self) -> AsyncIterator[DictProduct]:
         """[see superclass]"""
         products = self.producer()
 

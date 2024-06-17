@@ -103,11 +103,11 @@ class _ChainedProducer(
         """[see superclass]"""
         return self.transformer
 
-    def iter(self) -> Iterator[T_TransformedProduct_ret]:
+    def produce(self) -> Iterator[T_TransformedProduct_ret]:
         """[see superclass]"""
         return self.transformer.iter(self._producer)
 
-    def aiter(self) -> AsyncIterator[T_TransformedProduct_ret]:
+    def aproduce(self) -> AsyncIterator[T_TransformedProduct_ret]:
         """[see superclass]"""
         return self.transformer.aiter(self._producer)
 
@@ -538,10 +538,10 @@ class _BufferedProducer(
     source: SerialProducer[T_Output_ret]
     _products: list[T_Output_ret] | None = None
 
-    def iter(self) -> Iterator[T_Output_ret]:
+    def produce(self) -> Iterator[T_Output_ret]:
         """[see superclass]"""
         if self._products is None:
-            self._products = list(self.source.iter())
+            self._products = list(self.source.produce())
         return iter(self._products)
 
 
@@ -585,15 +585,15 @@ class _AsyncBufferedProducer(
         """
         return (
             _AsyncBufferedProducer(source=source, products=products, k=k)
-            for k, products in enumerate(_async_iter_parallel(source.aiter(), n))
+            for k, products in enumerate(_async_iter_parallel(source.aproduce(), n))
         )
 
-    def iter(self) -> Iterator[T_Output_ret]:
+    def produce(self) -> Iterator[T_Output_ret]:
         raise NotImplementedError(
             "Not implemented; use `aiter` to iterate asynchronously."
         )
 
-    def aiter(self) -> AsyncIterator[T_Output_ret]:
+    def aproduce(self) -> AsyncIterator[T_Output_ret]:
         return self.products
 
 

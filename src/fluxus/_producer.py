@@ -74,7 +74,7 @@ class AsyncProducer(Producer[T_Product_ret], Generic[T_Product_ret], metaclass=A
     """
 
     @final
-    def iter(self) -> Iterator[T_Product_ret]:
+    def produce(self) -> Iterator[T_Product_ret]:
         """
         Generate new products, optionally using an existing producer as input.
 
@@ -91,8 +91,8 @@ class AsyncProducer(Producer[T_Product_ret], Generic[T_Product_ret], metaclass=A
         :raises RuntimeError: if called from within an event loop
         """
 
-        return arun(iter_async_to_sync(self.aiter()))
+        return arun(iter_async_to_sync(self.aproduce()))
 
     @abstractmethod
-    def aiter(self) -> AsyncIterator[T_Product_ret]:
+    def aproduce(self) -> AsyncIterator[T_Product_ret]:
         """[see superclass]"""
