@@ -95,6 +95,7 @@ class FlowGraph:
         font: str | None = None,
         fontsize: float | None = None,
         fontcolor: RgbColor | RgbaColor | None = None,
+        fontcolor_terminal: RgbColor | RgbaColor | None = None,
         background: RgbColor | RgbaColor | None = None,
         foreground: RgbColor | RgbaColor | None = None,
         fill: RgbColor | RgbaColor | None = None,
@@ -108,6 +109,8 @@ class FlowGraph:
         :param font: the font of the graph (optional)
         :param fontsize: the font size (optional)
         :param fontcolor: the text color of the graph (defaults to the foreground color)
+        :param fontcolor_terminal: the text color of the terminal nodes (defaults to the
+            font color of regular nodes)
         :param background: the background color of the graph (optional)
         :param foreground: the foreground color of the graph (optional)
         :param fill: the fill color of the nodes (optional)
@@ -190,6 +193,8 @@ class FlowGraph:
                 if isinstance(node, (BaseProducer, Consumer)):
                     # Producers and consumers don't get filled, just rounded
                     node_attrs["style"] = "rounded"
+                    if fontcolor_terminal:
+                        node_attrs["fontcolor"] = fontcolor_terminal.hex
 
             digraph.add_node(_node_id(node), **node_attrs)
 
