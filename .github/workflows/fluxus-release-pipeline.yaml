@@ -403,7 +403,7 @@ jobs:
           path: ${{ env.DIRNAME_WORKSPACE }}/dist
 
       - name: Publish to PyPi (Tox)
-        if: startsWith(github.head_ref, 'release/')
+        if: startsWith(github.head_ref, 'release/') && github.event.pull_request.merged == true
         env:
           FLIT_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
           FLIT_USERNAME: __token__
@@ -416,7 +416,7 @@ jobs:
           echo "pypi_published=True" >> $GITHUB_ENV
 
       - name: Publish to Anaconda (Conda)
-        if: startsWith(github.head_ref, 'release/')
+        if: startsWith(github.head_ref, 'release/') && github.event.pull_request.merged == true
         env:
           CONDA_TOKEN: ${{ secrets.CONDA_TOKEN }}
         run: |
@@ -429,7 +429,7 @@ jobs:
           echo "conda_published=True" >> $GITHUB_ENV
 
       - name: GitHub Release
-        if: startsWith(github.head_ref, 'release/')
+        if: startsWith(github.head_ref, 'release/') && github.event.pull_request.merged == true
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ env.current_version }}
@@ -455,7 +455,7 @@ jobs:
 
   docs:
     runs-on: ubuntu-latest
-    if: ${{ startsWith(github.head_ref, 'dev/') || startsWith(github.head_ref, 'release/') }} || github.event_name == 'workflow_dispatch'
+    if: ${{ startsWith(github.head_ref, 'dev/') || startsWith(github.head_ref, 'release/') }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -543,7 +543,7 @@ jobs:
           path: ${{ github.workspace }}/staging/docs
 
       - name: Publish docs to branch github-pages
-        if: startsWith(github.head_ref, 'release/')
+        if: startsWith(github.head_ref, 'release/') && github.event.pull_request.merged == true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           current_version: ${{ env.current_version}}
