@@ -1,0 +1,30 @@
+name: fluxus
+channels:
+  - conda-forge
+  - bcgx
+  - defaults
+dependencies:
+  # Python version
+  - python                   ~= 3.11
+  # Additional libraries
+  - gamma-pytools            ~= 3.0
+  - pandas
+  # Graphviz
+  - graphviz                 ~= 9.0
+  - python-graphviz
+  # Sphinx documentation build
+  - nbsphinx                 ~= 0.9
+  - sphinx                   ~= 7.2
+  - sphinx-autodoc-typehints ~= 1.19
+  - pydata-sphinx-theme      ~= 0.15.1
+  - packaging                
+  # notebooks
+  - ipywidgets               ~= 8.0
+  - jupyterlab               ~= 4.0
+  - notebook                 ~= 7.0
+  # devops
+  - pytest                   ~= 8.0
+  - pytest-asyncio
+  - pytest-cov
+  - pre-commit               ~= 3.6
+
