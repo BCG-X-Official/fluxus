@@ -342,15 +342,19 @@ jobs:
           branch = "${{ env.BRANCH_NAME }}"
           print(f"Checking package version consistency with branch: {branch}")
 
-          assert (branch.startswith("release/") or branch.startswith("dev/")
+          assert (branch.startswith("release/") or branch.startswith("dev/") or branch=="1.0.x"
           ), "This check should only run on versioned branches – check pipeline."
 
-          branch_version = branch.split("/", maxsplit=1)[1]
-          package_version = ToxBuilder("${{ env.project_name }}", "default").package_version
-
-          assert (
-              package_version == branch_version
-          ), f"Package version '{package_version}' does not match '{branch_version}' from branch."
+          if branch=="1.0.x":
+            branch_version = branch[:-2]
+            package_version = ToxBuilder("${{ env.project_name }}", "default").package_version
+            assert package_version.startswith(branch_version), f"Package version '{package_version}' does not match '{branch_version}' from branch."
+          else:
+            branch_version = branch.split("/", maxsplit=1)[1]
+            package_version = ToxBuilder("${{ env.project_name }}", "default").package_version
+            assert (
+                package_version == branch_version
+            ), f"Package version '{package_version}' does not match '{branch_version}' from branch."
 
           print("Check passed.")
           EOF
