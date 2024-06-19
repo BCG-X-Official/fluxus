@@ -5,10 +5,16 @@
 Introduction to *fluxus*
 ========================
 
-**FLUXUS** is a Python framework designed by `BCG X <https://www.bcg.com/x>`_ to
+*fluxus* is a Python framework designed by `BCG X <https://www.bcg.com/x>`_ to
 streamline the development of complex data processing pipelines (called *flows*),
-enabling users to quickly and efficiently build, test, and deploy data workflows,
-making complex operations more manageable.
+enabling users to quickly and efficiently build, test, and deploy highly concurrent
+workflows, making complex operations more manageable.
+
+**FLUXUS** is inspired by the data stream paradigm and is designed to be simple,
+expressive, and composable.
+
+**FLUXUS** is inspired by the data stream paradigm and is designed to be simple,
+expressive, and composable.
 
 Introducing Flows
 -----------------
@@ -55,23 +61,23 @@ With *fluxus*, we can define this flow as follows:
         dict(greeting="Bonjour!"),
     ]
 
-    def lower(greeting: str) -> dict[str, str]:
+    def lower(greeting: str):
         # Convert the greeting to lowercase and keep track of the case change
-        return dict(
+        yield dict(
             greeting=greeting.lower(),
             case="lower",
         )
 
-    def upper(greeting: str) -> dict[str, str]:
+    def upper(greeting: str):
         # Convert the greeting to uppercase and keep track of the case change
-        return dict(
+        yield dict(
             greeting=greeting.upper(),
-            tone="upper",
+            case="upper",
         )
 
-    def annotate(greeting: str, case: str = "original") -> dict[str, str]:
+    def annotate(greeting: str, case: str = "original"):
         # Annotate the greeting with the case change; default to "original"
-        return dict(greeting=f"{greeting!r} ({case})")
+        yield dict(greeting=f"{greeting!r} ({case})")
 
     flow = (
         step("input", input_data)  # initial producer step
@@ -123,12 +129,12 @@ This gives us the following output in :code:`result`:
         [
             {
                 'input': {'greeting': 'Hello, World!'},
-                'upper': {'greeting': 'HELLO, WORLD!', 'tone': 'upper'},
+                'upper': {'greeting': 'HELLO, WORLD!', 'case': 'upper'},
                 'annotate': {'greeting': "'HELLO, WORLD!' (original)"}
             },
             {
                 'input': {'greeting': 'Bonjour!'},
-                'upper': {'greeting': 'BONJOUR!', 'tone': 'upper'},
+                'upper': {'greeting': 'BONJOUR!', 'case': 'upper'},
                 'annotate': {'greeting': "'BONJOUR!' (original)"}
             }
         ],
@@ -144,6 +150,11 @@ This gives us the following output in :code:`result`:
         ]
     )
 
+Or, as a *pandas* data frame by calling :code:`result.to_frame()`:
+
+.. image:: sphinx/source/_images/flow-hello-world-results.png
+    :alt: "Hello World" flow results
+    :width: 600px
 
 Here's what happened: The flow starts with a single input data item, which is then
 passed along three parallel paths. Each path applies different transformations to the
@@ -158,8 +169,8 @@ The run result not only gives us the final product of the ``annotate`` step but 
 inputs and intermediate products of the ``lower`` and ``upper`` steps. We refer to this
 extended view of the flow results as the *lineage* of the flow.
 
-For a more thorough introduction to FLUXUS, please visit our `User Guide <#>`_ and
-`Examples <#>`_!
+For a more thorough introduction to FLUXUS, please visit our
+`User Guide <https://bcg-x-official.github.io/fluxus/user_guide/index.html>`_.
 
 
 Why *fluxus*?
@@ -181,10 +192,9 @@ motivations for using *fluxus* include:
 - **Ease of Use**: *fluxus* provides a functional API that abstracts away the
   complexities of data processing, making it accessible to developers of all levels.
   More experienced users can also leverage the advanced features of its underlying
-  object-oriented implementation for customisation and optimisation (see
-  `Advanced Features <#>`_ for more details).
-
-
+  object-oriented implementation for additional customisation and versatility (see
+  `User Guide <https://bcg-x-official.github.io/fluxus/user_guide/index.html>`_ for more
+  details).
 
 Concurrent Processing in *fluxus*
 ---------------------------------
@@ -207,12 +217,15 @@ applications.
 Getting started
 ===============
 
-- See the `FLUXUS Documentation <#>`_ for a comprehensive User Guide, Examples,
-  API reference, and more.
-- See `Contributing <CONTRIBUTING.md>`_ or visit our detailed `Contributor Guide <#>`_
+- See the
+  `FLUXUS Documentation <https://bcg-x-official.github.io/fluxus/_generated/home.html>`_
+  for a comprehensive User Guide, API reference, and more.
+- See `Contributing <CONTRIBUTING.md>`_ or visit our detailed
+  `Contributor Guide <https://bcg-x-official.github.io/fluxus/contributor_guide/index.html>`_
   for information on contributing.
-- We have an `FAQ <#>`_ for common questions. For anything else, please reach out to
-  ARTKIT@bcg.com.
+- We have an `FAQ <https://bcg-x-official.github.io/fluxus/faq.html>`_ for common
+  questions. For anything else, please reach out to
+  `artkit@bcg.com <mailto:artkit@bcg.com>`_.
 
 
 User Installation
@@ -266,7 +279,8 @@ or ``conda``:
 Contributing
 ------------
 
-Contributions to ARTKIT are welcome and appreciated! Please see the `Contributing <CONTRIBUTING.md>`_ section for information.
+Contributions to *fluxus* are welcome and appreciated! Please see the
+`Contributing <CONTRIBUTING.md>`_ section for information.
 
 
 License

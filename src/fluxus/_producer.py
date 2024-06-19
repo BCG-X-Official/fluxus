@@ -1,3 +1,19 @@
+# -----------------------------------------------------------------------------
+# © 2024 Boston Consulting Group. All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# -----------------------------------------------------------------------------
+
 """
 Implementation of producers.
 """
@@ -79,11 +95,11 @@ class AsyncProducer(Producer[T_Product_ret], Generic[T_Product_ret], metaclass=A
         Generate new products, optionally using an existing producer as input.
 
         This method is implemented for compatibility with synchronous code, but
-        preferably, :meth:`.aiter` should be used instead and called from within an
+        preferably, :meth:`.aproduce` should be used instead and called from within an
         event loop.
 
         When called from outside an event loop, this method will create an event loop
-        using :meth:`arun`, collect the products from :meth:`aiter` and block the
+        using :meth:`arun`, collect the products from :meth:`aproduce` and block the
         current thread until the iteration is complete. The products will then be
         returned as a list.
 

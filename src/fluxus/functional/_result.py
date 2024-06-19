@@ -1,8 +1,22 @@
+# -----------------------------------------------------------------------------
+# © 2024 Boston Consulting Group. All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# -----------------------------------------------------------------------------
+
 """
 Implementation of ``RunResult``.
 """
-
-from __future__ import annotations
 
 import logging
 from collections.abc import Iterable, Iterator, Mapping, Sequence
@@ -296,7 +310,7 @@ def _dicts_to_frame(
 
 def _dict_to_series(
     d: Mapping[str, Any], *, simplify: bool, max_levels: int | None = None
-) -> pd.Series[Any]:
+) -> pd.Series:  # type: ignore[type-arg]
     """
     Convert a dictionary to a Series, using the keys as index labels.
 
@@ -341,7 +355,9 @@ def _dict_to_series(
                 # We are at the last level of the index and will stop flattening
                 yield new_key, _simplify_complex_types(v) if simplify else v
 
-    sr: pd.Series[Any] = pd.Series(dict(_flatten(d, max_levels or 0)))
+    sr: pd.Series = (  # type: ignore[type-arg]
+        pd.Series(dict(_flatten(d, max_levels or 0)))
+    )
     return sr
 
 
