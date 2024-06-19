@@ -58,21 +58,21 @@ With *fluxus*, we can define this flow as follows:
         dict(greeting="Bonjour!"),
     ]
 
-    def lower(greeting: str) -> dict[str, str]:
+    def lower(greeting: str):
         # Convert the greeting to lowercase and keep track of the case change
         yield dict(
             greeting=greeting.lower(),
             case="lower",
         )
 
-    def upper(greeting: str) -> dict[str, str]:
+    def upper(greeting: str):
         # Convert the greeting to uppercase and keep track of the case change
         yield dict(
             greeting=greeting.upper(),
             case="upper",
         )
 
-    def annotate(greeting: str, case: str = "original") -> dict[str, str]:
+    def annotate(greeting: str, case: str = "original"):
         # Annotate the greeting with the case change; default to "original"
         yield dict(greeting=f"{greeting!r} ({case})")
 
