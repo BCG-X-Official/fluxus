@@ -294,7 +294,7 @@ def _dicts_to_frame(
 
 def _dict_to_series(
     d: Mapping[str, Any], *, simplify: bool, max_levels: int | None = None
-) -> pd.Series:
+) -> pd.Series:  # type: ignore[type-arg]
     """
     Convert a dictionary to a Series, using the keys as index labels.
 
@@ -339,7 +339,9 @@ def _dict_to_series(
                 # We are at the last level of the index and will stop flattening
                 yield new_key, _simplify_complex_types(v) if simplify else v
 
-    sr: pd.Series = pd.Series(dict(_flatten(d, max_levels or 0)))
+    sr: pd.Series = (  # type: ignore[type-arg]
+        pd.Series(dict(_flatten(d, max_levels or 0)))
+    )
     return sr
 
 
