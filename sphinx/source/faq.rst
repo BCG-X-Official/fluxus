@@ -22,10 +22,10 @@ workflows, making complex operations more manageable.
 expressive, and composable.
 
 Who developed *fluxus*, and why?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 *fluxus* was developed by the Responsible AI team at
-`BCG X <https://www.bcg.com/beyond-ventures/bcg-x>`_, primarily to provide a scalable
+`BCG X <https://www.bcg.com/x>`_, primarily to provide a scalable
 and efficient way to rapidly stand up highly concurrent red teaming workloads for
 GenAI testing and evaluation.
 
@@ -57,7 +57,7 @@ of concurrency and parallelism behind the scenes so that users can focus on buil
 their pipelines without worrying about the underlying implementation details.
 
 What are examples of use cases for *fluxus*?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 *fluxus* is designed to be a general-purpose framework for building data processing
 pipelines, so it can be used in a wide variety of applications.  It is particularly
