@@ -79,11 +79,11 @@ class AsyncProducer(Producer[T_Product_ret], Generic[T_Product_ret], metaclass=A
         Generate new products, optionally using an existing producer as input.
 
         This method is implemented for compatibility with synchronous code, but
-        preferably, :meth:`.aiter` should be used instead and called from within an
+        preferably, :meth:`.aproduce` should be used instead and called from within an
         event loop.
 
         When called from outside an event loop, this method will create an event loop
-        using :meth:`arun`, collect the products from :meth:`aiter` and block the
+        using :meth:`arun`, collect the products from :meth:`aproduce` and block the
         current thread until the iteration is complete. The products will then be
         returned as a list.
 

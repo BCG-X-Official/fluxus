@@ -520,8 +520,12 @@ def test_timestamps() -> None:
     )
 
     # Get the start and end columns
-    col_start_time: pd.Series[pd.Float64Dtype] = df.loc[:, DictProduct.KEY_START_TIME]
-    col_end_time: pd.Series[pd.Float64Dtype] = df.loc[:, DictProduct.KEY_END_TIME]
+    col_start_time: pd.Series = (  # type: ignore[type-arg]
+        df.loc[:, DictProduct.KEY_START_TIME]
+    )
+    col_end_time: pd.Series = (  # type: ignore[type-arg]
+        df.loc[:, DictProduct.KEY_END_TIME]
+    )
 
     # Confirm the dtypes of the start and end time columns are a float64
     assert col_start_time.dtype == pd.Float64Dtype()

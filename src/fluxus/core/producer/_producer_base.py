@@ -139,7 +139,7 @@ class SerialProducer(
         """
         Generate new products asynchronously.
 
-        By default, defers to the synchronous variant, :meth:`.iter`.
+        By default, defers to the synchronous variant, :meth:`.produce`.
 
         :return: the new products
         """

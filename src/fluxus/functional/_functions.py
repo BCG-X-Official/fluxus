@@ -614,9 +614,10 @@ def run(
     """
     Run the given steps.
 
-    If the given steps do not include a leading :func:`input`, then the input
-    can be provided as an additional argument. If the flow requires an input but none
-    is provided, then the flow will be run with an empty dictionary as input.
+    If the given steps do not include a leading `producer`` step (i.e. a step that takes
+    no parameters), then the input can be provided as an additional argument.
+    If the flow requires an input but none is provided, then the flow will be run with
+    an empty dictionary as input.
 
     See :class:`.RunResult` for details on the output format.
 
