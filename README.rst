@@ -147,7 +147,7 @@ This gives us the following output in :code:`result`:
         ]
     )
 
-Or, as a :mod:`pandas` data frame by calling :code:`result.to_frame()`:
+Or, as a *pandas* data frame by calling :code:`result.to_frame()`:
 
 .. image:: sphinx/source/_images/flow-hello-world-results.png
     :alt: "Hello World" flow results
