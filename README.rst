@@ -166,8 +166,8 @@ The run result not only gives us the final product of the ``annotate`` step but 
 inputs and intermediate products of the ``lower`` and ``upper`` steps. We refer to this
 extended view of the flow results as the *lineage* of the flow.
 
-For a more thorough introduction to FLUXUS, please visit our `User Guide <#>`_ and
-`Examples <#>`_!
+For a more thorough introduction to FLUXUS, please visit our
+`User Guide <https://bcg-x-official.github.io/fluxus/user_guide/index.html>`_.
 
 
 Why *fluxus*?
@@ -190,7 +190,8 @@ motivations for using *fluxus* include:
   complexities of data processing, making it accessible to developers of all levels.
   More experienced users can also leverage the advanced features of its underlying
   object-oriented implementation for additional customisation and versatility (see
-  `Advanced Features <#>`_ for more details).
+  `User Guide <https://bcg-x-official.github.io/fluxus/user_guide/index.html>`_ for more
+  details).
 
 Concurrent Processing in *fluxus*
 ---------------------------------
@@ -213,12 +214,14 @@ applications.
 Getting started
 ===============
 
-- See the `FLUXUS Documentation <#>`_ for a comprehensive User Guide, Examples,
-  API reference, and more.
-- See `Contributing <CONTRIBUTING.md>`_ or visit our detailed `Contributor Guide <#>`_
+- See the `FLUXUS Documentation <https://bcg-x-official.github.io/fluxus/home.html>`_
+  for a comprehensive User Guide, API reference, and more.
+- See `Contributing <CONTRIBUTING.md>`_ or visit our detailed
+  `Contributor Guide <https://bcg-x-official.github.io/fluxus/contributor_guide/index.html>`_
   for information on contributing.
-- We have an `FAQ <#>`_ for common questions. For anything else, please reach out to
-  ARTKIT@bcg.com.
+- We have an `FAQ <https://bcg-x-official.github.io/fluxus/faq.html>`_ for common
+  questions. For anything else, please reach out to
+  `artkit@bcg.com <mailto:artkit@bcg.com>`_.
 
 
 User Installation
@@ -272,7 +275,8 @@ or ``conda``:
 Contributing
 ------------
 
-Contributions to ARTKIT are welcome and appreciated! Please see the `Contributing <CONTRIBUTING.md>`_ section for information.
+Contributions to *fluxus* are welcome and appreciated! Please see the
+`Contributing <CONTRIBUTING.md>`_ section for information.
 
 
 License
