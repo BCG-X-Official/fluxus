@@ -5,10 +5,13 @@
 Introduction to *fluxus*
 ========================
 
-**FLUXUS** is a Python framework designed by `BCG X <https://www.bcg.com/x>`_ to
+*fluxus* is a Python framework designed by `BCG X <https://www.bcg.com/x>`_ to
 streamline the development of complex data processing pipelines (called *flows*),
 enabling users to quickly and efficiently build, test, and deploy data workflows,
 making complex operations more manageable.
+
+**FLUXUS** is inspired by the data stream paradigm and is designed to be simple,
+expressive, and composable.
 
 Introducing Flows
 -----------------
@@ -57,21 +60,21 @@ With *fluxus*, we can define this flow as follows:
 
     def lower(greeting: str) -> dict[str, str]:
         # Convert the greeting to lowercase and keep track of the case change
-        return dict(
+        yield dict(
             greeting=greeting.lower(),
             case="lower",
         )
 
     def upper(greeting: str) -> dict[str, str]:
         # Convert the greeting to uppercase and keep track of the case change
-        return dict(
+        yield dict(
             greeting=greeting.upper(),
-            tone="upper",
+            case="upper",
         )
 
     def annotate(greeting: str, case: str = "original") -> dict[str, str]:
         # Annotate the greeting with the case change; default to "original"
-        return dict(greeting=f"{greeting!r} ({case})")
+        yield dict(greeting=f"{greeting!r} ({case})")
 
     flow = (
         step("input", input_data)  # initial producer step
@@ -123,12 +126,12 @@ This gives us the following output in :code:`result`:
         [
             {
                 'input': {'greeting': 'Hello, World!'},
-                'upper': {'greeting': 'HELLO, WORLD!', 'tone': 'upper'},
+                'upper': {'greeting': 'HELLO, WORLD!', 'case': 'upper'},
                 'annotate': {'greeting': "'HELLO, WORLD!' (original)"}
             },
             {
                 'input': {'greeting': 'Bonjour!'},
-                'upper': {'greeting': 'BONJOUR!', 'tone': 'upper'},
+                'upper': {'greeting': 'BONJOUR!', 'case': 'upper'},
                 'annotate': {'greeting': "'BONJOUR!' (original)"}
             }
         ],
@@ -144,6 +147,11 @@ This gives us the following output in :code:`result`:
         ]
     )
 
+Or, as a :mod:`pandas` data frame by calling :code:`result.to_frame()`:
+
+.. image:: sphinx/source/_images/flow-hello-world-results.png
+    :alt: "Hello World" flow results
+    :width: 600px
 
 Here's what happened: The flow starts with a single input data item, which is then
 passed along three parallel paths. Each path applies different transformations to the
@@ -181,10 +189,8 @@ motivations for using *fluxus* include:
 - **Ease of Use**: *fluxus* provides a functional API that abstracts away the
   complexities of data processing, making it accessible to developers of all levels.
   More experienced users can also leverage the advanced features of its underlying
-  object-oriented implementation for customisation and optimisation (see
+  object-oriented implementation for additional customisation and versatility (see
   `Advanced Features <#>`_ for more details).
-
-
 
 Concurrent Processing in *fluxus*
 ---------------------------------
