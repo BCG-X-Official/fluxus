@@ -13,6 +13,9 @@ workflows, making complex operations more manageable.
 **FLUXUS** is inspired by the data stream paradigm and is designed to be simple,
 expressive, and composable.
 
+**FLUXUS** is inspired by the data stream paradigm and is designed to be simple,
+expressive, and composable.
+
 Introducing Flows
 -----------------
 
