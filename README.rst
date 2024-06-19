@@ -214,7 +214,8 @@ applications.
 Getting started
 ===============
 
-- See the `FLUXUS Documentation <https://bcg-x-official.github.io/fluxus/home.html>`_
+- See the
+  `FLUXUS Documentation <https://bcg-x-official.github.io/fluxus/_generated/home.html>`_
   for a comprehensive User Guide, API reference, and more.
 - See `Contributing <CONTRIBUTING.md>`_ or visit our detailed
   `Contributor Guide <https://bcg-x-official.github.io/fluxus/contributor_guide/index.html>`_
