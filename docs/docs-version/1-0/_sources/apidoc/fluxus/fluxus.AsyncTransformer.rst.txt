@@ -1,0 +1,54 @@
+fluxus.AsyncTransformer
+=======================
+
+.. currentmodule:: fluxus
+
+.. autoclass:: AsyncTransformer
+   :members:
+   :no-show-inheritance:
+   :inherited-members:
+   :special-members: __call__
+
+   
+   
+   .. rubric:: Method summary
+
+   .. autosummary::
+      :nosignatures:
+   
+      ~AsyncTransformer.aiter
+      ~AsyncTransformer.aiter_concurrent_conduits
+      ~AsyncTransformer.aprocess
+      ~AsyncTransformer.atransform
+      ~AsyncTransformer.draw
+      ~AsyncTransformer.get_connections
+      ~AsyncTransformer.get_final_conduits
+      ~AsyncTransformer.get_repr_attributes
+      ~AsyncTransformer.is_valid_source
+      ~AsyncTransformer.iter
+      ~AsyncTransformer.iter_concurrent_conduits
+      ~AsyncTransformer.process
+      ~AsyncTransformer.to_expression
+      ~AsyncTransformer.transform
+   
+   
+
+   
+   
+   .. rubric:: Attribute summary
+
+   .. autosummary::
+   
+      ~AsyncTransformer.chained_conduits
+      ~AsyncTransformer.final_conduit
+      ~AsyncTransformer.input_type
+      ~AsyncTransformer.is_atomic
+      ~AsyncTransformer.is_chained
+      ~AsyncTransformer.is_concurrent
+      ~AsyncTransformer.n_concurrent_conduits
+      ~AsyncTransformer.name
+      ~AsyncTransformer.product_type
+   
+   
+
+   .. rubric:: Definitions

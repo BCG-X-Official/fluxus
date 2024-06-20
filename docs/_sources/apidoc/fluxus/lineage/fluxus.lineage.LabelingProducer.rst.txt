@@ -1,0 +1,49 @@
+fluxus.lineage.LabelingProducer
+===============================
+
+.. currentmodule:: fluxus.lineage
+
+.. autoclass:: LabelingProducer
+   :members:
+   :no-show-inheritance:
+   :inherited-members:
+   :special-members: __call__
+
+   
+   
+   .. rubric:: Method summary
+
+   .. autosummary::
+      :nosignatures:
+   
+      ~LabelingProducer.aiter_concurrent_conduits
+      ~LabelingProducer.aproduce
+      ~LabelingProducer.draw
+      ~LabelingProducer.get_connections
+      ~LabelingProducer.get_final_conduits
+      ~LabelingProducer.get_repr_attributes
+      ~LabelingProducer.iter_concurrent_conduits
+      ~LabelingProducer.label
+      ~LabelingProducer.produce
+      ~LabelingProducer.to_expression
+   
+   
+
+   
+   
+   .. rubric:: Attribute summary
+
+   .. autosummary::
+   
+      ~LabelingProducer.chained_conduits
+      ~LabelingProducer.final_conduit
+      ~LabelingProducer.is_atomic
+      ~LabelingProducer.is_chained
+      ~LabelingProducer.is_concurrent
+      ~LabelingProducer.n_concurrent_conduits
+      ~LabelingProducer.name
+      ~LabelingProducer.product_type
+   
+   
+
+   .. rubric:: Definitions

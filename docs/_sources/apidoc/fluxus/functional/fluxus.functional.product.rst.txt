@@ -1,0 +1,43 @@
+fluxus.functional.product
+=========================
+
+.. toctree::
+   :maxdepth: 1
+   :hidden:
+
+   self
+   
+.. automodule:: fluxus.functional.product
+   :no-imported-members:
+
+   
+
+   
+   
+   =======
+   Classes
+   =======
+
+   .. autosummary::
+      :toctree: product
+      :template: custom-class-template.rst
+      :nosignatures:
+   
+      DictProduct
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

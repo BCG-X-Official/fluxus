@@ -1,0 +1,46 @@
+fluxus.core.producer.ConcurrentProducer
+=======================================
+
+.. currentmodule:: fluxus.core.producer
+
+.. autoclass:: ConcurrentProducer
+   :members:
+   :no-show-inheritance:
+   :inherited-members:
+   :special-members: __call__
+
+   
+   
+   .. rubric:: Method summary
+
+   .. autosummary::
+      :nosignatures:
+   
+      ~ConcurrentProducer.aiter_concurrent_conduits
+      ~ConcurrentProducer.aproduce
+      ~ConcurrentProducer.draw
+      ~ConcurrentProducer.get_connections
+      ~ConcurrentProducer.get_final_conduits
+      ~ConcurrentProducer.iter_concurrent_conduits
+      ~ConcurrentProducer.produce
+      ~ConcurrentProducer.to_expression
+   
+   
+
+   
+   
+   .. rubric:: Attribute summary
+
+   .. autosummary::
+   
+      ~ConcurrentProducer.final_conduit
+      ~ConcurrentProducer.is_atomic
+      ~ConcurrentProducer.is_chained
+      ~ConcurrentProducer.is_concurrent
+      ~ConcurrentProducer.n_concurrent_conduits
+      ~ConcurrentProducer.name
+      ~ConcurrentProducer.product_type
+   
+   
+
+   .. rubric:: Definitions

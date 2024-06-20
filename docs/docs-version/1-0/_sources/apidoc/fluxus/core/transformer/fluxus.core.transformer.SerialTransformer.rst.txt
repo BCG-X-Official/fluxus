@@ -1,0 +1,54 @@
+fluxus.core.transformer.SerialTransformer
+=========================================
+
+.. currentmodule:: fluxus.core.transformer
+
+.. autoclass:: SerialTransformer
+   :members:
+   :no-show-inheritance:
+   :inherited-members:
+   :special-members: __call__
+
+   
+   
+   .. rubric:: Method summary
+
+   .. autosummary::
+      :nosignatures:
+   
+      ~SerialTransformer.aiter
+      ~SerialTransformer.aiter_concurrent_conduits
+      ~SerialTransformer.aprocess
+      ~SerialTransformer.atransform
+      ~SerialTransformer.draw
+      ~SerialTransformer.get_connections
+      ~SerialTransformer.get_final_conduits
+      ~SerialTransformer.get_repr_attributes
+      ~SerialTransformer.is_valid_source
+      ~SerialTransformer.iter
+      ~SerialTransformer.iter_concurrent_conduits
+      ~SerialTransformer.process
+      ~SerialTransformer.to_expression
+      ~SerialTransformer.transform
+   
+   
+
+   
+   
+   .. rubric:: Attribute summary
+
+   .. autosummary::
+   
+      ~SerialTransformer.chained_conduits
+      ~SerialTransformer.final_conduit
+      ~SerialTransformer.input_type
+      ~SerialTransformer.is_atomic
+      ~SerialTransformer.is_chained
+      ~SerialTransformer.is_concurrent
+      ~SerialTransformer.n_concurrent_conduits
+      ~SerialTransformer.name
+      ~SerialTransformer.product_type
+   
+   
+
+   .. rubric:: Definitions

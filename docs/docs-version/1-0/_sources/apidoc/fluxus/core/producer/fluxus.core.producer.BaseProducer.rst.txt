@@ -1,0 +1,46 @@
+fluxus.core.producer.BaseProducer
+=================================
+
+.. currentmodule:: fluxus.core.producer
+
+.. autoclass:: BaseProducer
+   :members:
+   :no-show-inheritance:
+   :inherited-members:
+   :special-members: __call__
+
+   
+   
+   .. rubric:: Method summary
+
+   .. autosummary::
+      :nosignatures:
+   
+      ~BaseProducer.aiter_concurrent_conduits
+      ~BaseProducer.aproduce
+      ~BaseProducer.draw
+      ~BaseProducer.get_connections
+      ~BaseProducer.get_final_conduits
+      ~BaseProducer.iter_concurrent_conduits
+      ~BaseProducer.produce
+      ~BaseProducer.to_expression
+   
+   
+
+   
+   
+   .. rubric:: Attribute summary
+
+   .. autosummary::
+   
+      ~BaseProducer.final_conduit
+      ~BaseProducer.is_atomic
+      ~BaseProducer.is_chained
+      ~BaseProducer.is_concurrent
+      ~BaseProducer.n_concurrent_conduits
+      ~BaseProducer.name
+      ~BaseProducer.product_type
+   
+   
+
+   .. rubric:: Definitions

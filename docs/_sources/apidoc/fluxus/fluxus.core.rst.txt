@@ -1,0 +1,62 @@
+fluxus.core
+===========
+
+.. toctree::
+   :maxdepth: 1
+   :hidden:
+
+   self
+   
+.. automodule:: fluxus.core
+   :no-imported-members:
+
+   
+
+   
+   
+   =======
+   Classes
+   =======
+
+   .. autosummary::
+      :toctree: core
+      :template: custom-class-template.rst
+      :nosignatures:
+   
+      AtomicConduit
+      ConcurrentConduit
+      Conduit
+      Processor
+      SerialConduit
+      SerialProcessor
+      SerialSource
+      Source
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+
+
+==========
+Submodules
+==========
+.. autosummary::
+   :toctree: core
+   :template: custom-module-template.rst
+   :recursive:
+
+   fluxus.core.producer
+   fluxus.core.transformer
+

@@ -1,0 +1,48 @@
+fluxus.core.transformer.ConcurrentTransformer
+=============================================
+
+.. currentmodule:: fluxus.core.transformer
+
+.. autoclass:: ConcurrentTransformer
+   :members:
+   :no-show-inheritance:
+   :inherited-members:
+   :special-members: __call__
+
+   
+   
+   .. rubric:: Method summary
+
+   .. autosummary::
+      :nosignatures:
+   
+      ~ConcurrentTransformer.aiter_concurrent_conduits
+      ~ConcurrentTransformer.aprocess
+      ~ConcurrentTransformer.draw
+      ~ConcurrentTransformer.get_connections
+      ~ConcurrentTransformer.get_final_conduits
+      ~ConcurrentTransformer.is_valid_source
+      ~ConcurrentTransformer.iter_concurrent_conduits
+      ~ConcurrentTransformer.process
+      ~ConcurrentTransformer.to_expression
+   
+   
+
+   
+   
+   .. rubric:: Attribute summary
+
+   .. autosummary::
+   
+      ~ConcurrentTransformer.final_conduit
+      ~ConcurrentTransformer.input_type
+      ~ConcurrentTransformer.is_atomic
+      ~ConcurrentTransformer.is_chained
+      ~ConcurrentTransformer.is_concurrent
+      ~ConcurrentTransformer.n_concurrent_conduits
+      ~ConcurrentTransformer.name
+      ~ConcurrentTransformer.product_type
+   
+   
+
+   .. rubric:: Definitions

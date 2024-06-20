@@ -1,0 +1,49 @@
+fluxus.simple.SimpleProducer
+============================
+
+.. currentmodule:: fluxus.simple
+
+.. autoclass:: SimpleProducer
+   :members:
+   :no-show-inheritance:
+   :inherited-members:
+   :special-members: __call__
+
+   
+   
+   .. rubric:: Method summary
+
+   .. autosummary::
+      :nosignatures:
+   
+      ~SimpleProducer.aiter_concurrent_conduits
+      ~SimpleProducer.aproduce
+      ~SimpleProducer.draw
+      ~SimpleProducer.get_connections
+      ~SimpleProducer.get_final_conduits
+      ~SimpleProducer.get_repr_attributes
+      ~SimpleProducer.iter_concurrent_conduits
+      ~SimpleProducer.produce
+      ~SimpleProducer.to_expression
+   
+   
+
+   
+   
+   .. rubric:: Attribute summary
+
+   .. autosummary::
+   
+      ~SimpleProducer.chained_conduits
+      ~SimpleProducer.final_conduit
+      ~SimpleProducer.is_atomic
+      ~SimpleProducer.is_chained
+      ~SimpleProducer.is_concurrent
+      ~SimpleProducer.n_concurrent_conduits
+      ~SimpleProducer.name
+      ~SimpleProducer.product_type
+      ~SimpleProducer.products
+   
+   
+
+   .. rubric:: Definitions

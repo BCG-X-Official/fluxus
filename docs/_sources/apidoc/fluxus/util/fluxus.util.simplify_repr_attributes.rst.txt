@@ -1,0 +1,6 @@
+fluxus.util.simplify\_repr\_attributes
+======================================
+
+.. currentmodule:: fluxus.util
+
+.. autofunction:: simplify_repr_attributes

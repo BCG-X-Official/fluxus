@@ -1,0 +1,734 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>fluxus.lineage.HasLineage &#8212; fluxus  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/bcgx.css?v=9d1a9f92" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/bcgx.js?v=6cc5c158"></script>
+    <script src="../../../_static/js/versions.js?v=9c680586"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'apidoc/fluxus/lineage/fluxus.lineage.HasLineage';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="fluxus.lineage.LabelingProducer" href="fluxus.lineage.LabelingProducer.html" />
+    <link rel="prev" title="fluxus.lineage" href="../fluxus.lineage.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../../../_static/bcgx_logo.png" class="logo__image only-light" alt="fluxus  documentation - Home"/>
+    <script>document.write(`<img src="../../../_static/bcgx_logo.png" class="logo__image only-dark" alt="fluxus  documentation - Home"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav class="navbar-nav">
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../_generated/home.html">
+    Home
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item current active">
+  <a class="nav-link nav-internal" href="../../fluxus.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../contributor_guide/index.html">
+    Contributor Guide
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../faq.html">
+    FAQ
+  </a>
+</li>
+
+            <li class="nav-item dropdown pst-header-nav-item">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class="nav-item ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../_generated/release_notes.html">
+    Release Notes
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav class="navbar-nav">
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../_generated/home.html">
+    Home
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item current active">
+  <a class="nav-link nav-internal" href="../../fluxus.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../contributor_guide/index.html">
+    Contributor Guide
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../_generated/release_notes.html">
+    Release Notes
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../fluxus.html">API Reference</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../fluxus.AsyncConsumer.html">fluxus.AsyncConsumer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fluxus.AsyncProducer.html">fluxus.AsyncProducer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fluxus.AsyncTransformer.html">fluxus.AsyncTransformer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fluxus.Consumer.html">fluxus.Consumer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fluxus.Flow.html">fluxus.Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fluxus.Passthrough.html">fluxus.Passthrough</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fluxus.Producer.html">fluxus.Producer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fluxus.Transformer.html">fluxus.Transformer</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../fluxus.FlowWarning.html">fluxus.FlowWarning</a></li>
+</ul>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../fluxus.core.html">fluxus.core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fluxus.functional.html">fluxus.functional</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../fluxus.lineage.html">fluxus.lineage</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../fluxus.lineage.html">fluxus.lineage</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">fluxus.lineage.HasLineage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fluxus.lineage.LabelingProducer.html">fluxus.lineage.LabelingProducer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fluxus.lineage.LabelingTransformer.html">fluxus.lineage.LabelingTransformer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fluxus.lineage.LineageOrigin.html">fluxus.lineage.LineageOrigin</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../fluxus.simple.html">fluxus.simple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fluxus.util.html">fluxus.util</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fluxus.viz.html">fluxus.viz</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../fluxus.html" class="nav-link">API Reference</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="../fluxus.lineage.html" class="nav-link">fluxus.lineage</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">fluxus.linea...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="fluxus-lineage-haslineage">
+<h1>fluxus.lineage.HasLineage<a class="headerlink" href="#fluxus-lineage-haslineage" title="Link to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="fluxus.lineage.HasLineage">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fluxus.lineage.</span></span><span class="sig-name descname"><span class="pre">HasLineage</span></span><a class="reference internal" href="../../../_modules/fluxus/lineage/_lineage.html#HasLineage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fluxus.lineage.HasLineage" title="Link to this definition">#</a></dt>
+<dd><p>Mixin-class for a product of a flow <a class="reference internal" href="../core/fluxus.core.Conduit.html#fluxus.core.Conduit" title="fluxus.core.Conduit"><code class="xref py py-class docutils literal notranslate"><span class="pre">Conduit</span></code></a> that is derived from a
+preceding product.</p>
+<p>To implement this in a user-defined class, inherit from this class and
+implement the <a class="reference internal" href="#fluxus.lineage.HasLineage.precursor" title="fluxus.lineage.HasLineage.precursor"><code class="xref py py-attr docutils literal notranslate"><span class="pre">precursor</span></code></a> and <a class="reference internal" href="#fluxus.lineage.HasLineage.product_attributes" title="fluxus.lineage.HasLineage.product_attributes"><code class="xref py py-attr docutils literal notranslate"><span class="pre">product_attributes</span></code></a> properties:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt><a class="reference internal" href="#fluxus.lineage.HasLineage.precursor" title="fluxus.lineage.HasLineage.precursor"><code class="xref py py-attr docutils literal notranslate"><span class="pre">precursor</span></code></a></dt><dd><p>Returns the preceding product, or <code class="docutils literal notranslate"><span class="pre">None</span></code> if there is no preceding product.
+The preceding product must also implement the <a class="reference internal" href="#fluxus.lineage.HasLineage" title="fluxus.lineage.HasLineage"><code class="xref py py-class docutils literal notranslate"><span class="pre">HasLineage</span></code></a> interface.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><a class="reference internal" href="#fluxus.lineage.HasLineage.product_attributes" title="fluxus.lineage.HasLineage.product_attributes"><code class="xref py py-attr docutils literal notranslate"><span class="pre">product_attributes</span></code></a></dt><dd><p>Returns a dictionary of attributes of this product, excluding the precursor.</p>
+</dd>
+</dl>
+</li>
+</ul>
+<p>Users can also label products with additional values using the <a class="reference internal" href="#fluxus.lineage.HasLineage.label" title="fluxus.lineage.HasLineage.label"><code class="xref py py-meth docutils literal notranslate"><span class="pre">label()</span></code></a>
+method.</p>
+<p>As an example, consider a class <code class="docutils literal notranslate"><span class="pre">Route</span></code> that is derived from a preceding class
+<code class="docutils literal notranslate"><span class="pre">Destination</span></code>. <code class="docutils literal notranslate"><span class="pre">Destination</span></code> has no precursor, so its <a class="reference internal" href="#fluxus.lineage.HasLineage.precursor" title="fluxus.lineage.HasLineage.precursor"><code class="xref py py-attr docutils literal notranslate"><span class="pre">precursor</span></code></a>
+property returns <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Destination</span><span class="p">(</span><span class="n">LineageOrigin</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A destination in a route.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+
+    <span class="k">def</span> <span class="nf">product_attributes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Attributes of this product.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">Route</span><span class="p">(</span><span class="n">HasLineage</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A route to a given destination.&quot;&quot;</span>
+
+<span class="sd">    def __init__(</span>
+<span class="sd">        self,</span>
+<span class="sd">        start: str,</span>
+<span class="sd">        destination: Destination,</span>
+<span class="sd">    ) -&gt; None:</span>
+<span class="sd">        self.start = start</span>
+<span class="sd">        self.destination = destination</span>
+<span class="sd">        # ...</span>
+
+<span class="sd">    @property</span>
+<span class="sd">    def precursor(self) -&gt; Destination:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">The</span> <span class="n">preceding</span> <span class="n">product</span><span class="o">.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        return self.destination</span>
+
+<span class="sd">    @property</span>
+<span class="sd">    def product_attributes(self) -&gt; dict[str, Any]:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">Attributes</span> <span class="n">of</span> <span class="n">this</span> <span class="n">product</span><span class="o">.</span>
+        <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        return dict(start=self.start)</span>
+</pre></div>
+</div>
+<p>Now we can create a <code class="docutils literal notranslate"><span class="pre">Route</span></code> object representing a route with any number of stops
+to a destination, adding custom labels:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">par</span> <span class="o">=</span> <span class="n">Destination</span><span class="p">(</span><span class="s2">&quot;Paris&quot;</span><span class="p">)</span>
+<span class="n">lon_par</span> <span class="o">=</span> <span class="n">Route</span><span class="p">(</span><span class="s2">&quot;London&quot;</span><span class="p">,</span> <span class="n">paris</span><span class="p">)</span><span class="o">.</span><span class="n">label</span><span class="p">(</span><span class="n">distance_km</span><span class="o">=</span><span class="mi">340</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;train&quot;</span><span class="p">)</span>
+<span class="n">ber_lon</span> <span class="o">=</span> <span class="n">Route</span><span class="p">(</span><span class="s2">&quot;Berlin&quot;</span><span class="p">,</span> <span class="n">london_paris</span><span class="p">)</span><span class="o">.</span><span class="n">label</span><span class="p">(</span><span class="n">distance_km</span><span class="o">=</span><span class="mi">940</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;plane&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The lineage of the <code class="docutils literal notranslate"><span class="pre">ber_lon</span></code> object is <code class="docutils literal notranslate"><span class="pre">[par,</span> <span class="pre">lon_par,</span> <span class="pre">ber_lon]</span></code>.</p>
+<p>Calling <code class="docutils literal notranslate"><span class="pre">ber_lon.get_lineage_attributes()</span></code> will return the following dictionary:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="p">(</span><span class="s2">&quot;Destination&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">):</span> <span class="s2">&quot;Paris&quot;</span><span class="p">,</span>
+    <span class="p">(</span><span class="s2">&quot;Route&quot;</span><span class="p">,</span> <span class="s2">&quot;start&quot;</span><span class="p">):</span> <span class="s2">&quot;London&quot;</span><span class="p">,</span>
+    <span class="p">(</span><span class="s2">&quot;Route&quot;</span><span class="p">,</span> <span class="s2">&quot;distance_km&quot;</span><span class="p">):</span> <span class="mi">340</span><span class="p">,</span>
+    <span class="p">(</span><span class="s2">&quot;Route&quot;</span><span class="p">,</span> <span class="s2">&quot;mode&quot;</span><span class="p">):</span> <span class="s2">&quot;train&quot;</span><span class="p">,</span>
+    <span class="p">(</span><span class="s2">&quot;Route#1&quot;</span><span class="p">,</span> <span class="s2">&quot;start&quot;</span><span class="p">):</span> <span class="s2">&quot;Berlin&quot;</span><span class="p">,</span>
+    <span class="p">(</span><span class="s2">&quot;Route#1&quot;</span><span class="p">,</span> <span class="s2">&quot;distance_km&quot;</span><span class="p">):</span> <span class="mi">940</span><span class="p">,</span>
+    <span class="p">(</span><span class="s2">&quot;Route#1&quot;</span><span class="p">,</span> <span class="s2">&quot;mode&quot;</span><span class="p">):</span> <span class="s2">&quot;plane&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Generic types<span class="colon">:</span></dt>
+<dd class="field-odd"><p>+T_Precursor_ret(bound= <code class="xref py py-class docutils literal notranslate"><span class="pre">HasLineage[Any]</span> <span class="pre">|</span> <span class="pre">None</span></code>)</p>
+</dd>
+<dt class="field-even">Metaclasses<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/abc.html#abc.ABCMeta" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ABCMeta</span></code></a></p>
+</dd>
+</dl>
+<p class="rubric">Method summary</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fluxus.lineage.HasLineage.get_lineage" title="fluxus.lineage.HasLineage.get_lineage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_lineage</span></code></a></p></td>
+<td><p>Get the lineage of this product as a list, starting with originating product and ending with this product.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#fluxus.lineage.HasLineage.get_lineage_attributes" title="fluxus.lineage.HasLineage.get_lineage_attributes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_lineage_attributes</span></code></a></p></td>
+<td><p>Get the attributes and labels of this product's lineage.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fluxus.lineage.HasLineage.label" title="fluxus.lineage.HasLineage.label"><code class="xref py py-obj docutils literal notranslate"><span class="pre">label</span></code></a></p></td>
+<td><p>Label this product with the given labels and return <code class="docutils literal notranslate"><span class="pre">self</span></code>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="rubric">Attribute summary</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fluxus.lineage.HasLineage.precursor" title="fluxus.lineage.HasLineage.precursor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">precursor</span></code></a></p></td>
+<td><p>The preceding product.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#fluxus.lineage.HasLineage.product_attributes" title="fluxus.lineage.HasLineage.product_attributes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">product_attributes</span></code></a></p></td>
+<td><p>Attributes of this product, excluding the precursor.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fluxus.lineage.HasLineage.product_labels" title="fluxus.lineage.HasLineage.product_labels"><code class="xref py py-obj docutils literal notranslate"><span class="pre">product_labels</span></code></a></p></td>
+<td><p>Labels of this product that were set using the <a class="reference internal" href="#fluxus.lineage.HasLineage.label" title="fluxus.lineage.HasLineage.label"><code class="xref py py-meth docutils literal notranslate"><span class="pre">label()</span></code></a> method.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#fluxus.lineage.HasLineage.product_name" title="fluxus.lineage.HasLineage.product_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">product_name</span></code></a></p></td>
+<td><p>A name representing this product; used for grouping attributes in <a class="reference internal" href="#fluxus.lineage.HasLineage.get_lineage_attributes" title="fluxus.lineage.HasLineage.get_lineage_attributes"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_lineage_attributes()</span></code></a>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="rubric">Definitions</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="fluxus.lineage.HasLineage.get_lineage">
+<em class="property"><span class="pre">final</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_lineage</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/fluxus/lineage/_lineage.html#HasLineage.get_lineage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fluxus.lineage.HasLineage.get_lineage" title="Link to this definition">#</a></dt>
+<dd><p>Get the lineage of this product as a list, starting with originating product and
+ending with this product.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>[<a class="reference internal" href="#fluxus.lineage.HasLineage" title="fluxus.lineage._lineage.HasLineage"><code class="xref py py-class docutils literal notranslate"><span class="pre">HasLineage</span></code></a>[<a class="reference external" href="https://docs.python.org/3.7/library/typing.html#typing.Any" title="(in Python v3.7)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]]</span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the lineage of this product</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fluxus.lineage.HasLineage.get_lineage_attributes">
+<em class="property"><span class="pre">final</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_lineage_attributes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/fluxus/lineage/_lineage.html#HasLineage.get_lineage_attributes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fluxus.lineage.HasLineage.get_lineage_attributes" title="Link to this definition">#</a></dt>
+<dd><p>Get the attributes and labels of this product’s lineage.</p>
+<p>Creates a nested dictionary where the first level keys are product names and the
+second level keys are attribute/label names. The second level values are
+attribute/label values.</p>
+<p>Product names are unique names for each product in the lineage. This is the
+class name of the product, followed by an ascending integer if the same class
+appears multiple times in the lineage. For example, if the lineage is <code class="docutils literal notranslate"><span class="pre">[A(…),</span>
+<span class="pre">B(…),</span> <span class="pre">A(…),</span> <span class="pre">A(…),</span> <span class="pre">C(…),</span> <span class="pre">B(…)]</span></code>, the product names will be <code class="docutils literal notranslate"><span class="pre">[&quot;A&quot;,</span> <span class="pre">&quot;B&quot;,</span> <span class="pre">&quot;A#1&quot;,</span>
+<span class="pre">&quot;A#2&quot;,</span> <span class="pre">&quot;C&quot;,</span> <span class="pre">&quot;B#1&quot;]</span></code>.</p>
+<p>If a label has the same name as an attribute, the label’s value will override
+the attribute’s value in the dictionary. For example, if a product <code class="docutils literal notranslate"><span class="pre">A(…)</span></code> has
+an attribute <code class="docutils literal notranslate"><span class="pre">&quot;name&quot;</span></code> and a label <code class="docutils literal notranslate"><span class="pre">&quot;name&quot;</span></code>, the label’s value will be used
+for the key <code class="docutils literal notranslate"><span class="pre">{&quot;A&quot;:</span> <span class="pre">{&quot;name&quot;:</span> <span class="pre">…}}</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3.7/library/typing.html#typing.Any" title="(in Python v3.7)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]]</span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the attributes and labels of the lineage as a nested dictionary</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fluxus.lineage.HasLineage.label">
+<span class="sig-name descname"><span class="pre">label</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">labels</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/fluxus/lineage/_lineage.html#HasLineage.label"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fluxus.lineage.HasLineage.label" title="Link to this definition">#</a></dt>
+<dd><p>Label this product with the given labels and return <code class="docutils literal notranslate"><span class="pre">self</span></code>.</p>
+<p>This means that labelling can be easily inserted into the code anywhere
+the product is used, e.g., after object creation, replacing</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">product</span> <span class="o">=</span> <span class="n">Product</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>with</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">product</span> <span class="o">=</span> <span class="n">Product</span><span class="p">()</span><span class="o">.</span><span class="n">label</span><span class="p">(</span><span class="n">label1</span><span class="o">=</span><span class="n">value1</span><span class="p">)</span><span class="o">.</span><span class="n">label</span><span class="p">(</span><span class="n">label2</span><span class="o">=</span><span class="n">value2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>or, even better</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">product</span> <span class="o">=</span> <span class="n">Product</span><span class="p">()</span><span class="o">.</span><span class="n">label</span><span class="p">(</span><span class="n">label1</span><span class="o">=</span><span class="n">value1</span><span class="p">,</span> <span class="n">label2</span><span class="o">=</span><span class="n">value2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If the labels are already stored in a dictionary, they can be passed as
+keyword arguments using the <code class="docutils literal notranslate"><span class="pre">**</span></code> operator:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">labels</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;label1&quot;</span><span class="p">:</span> <span class="n">value1</span><span class="p">,</span> <span class="s2">&quot;label2&quot;</span><span class="p">:</span> <span class="n">value2</span><span class="p">}</span>
+<span class="n">product</span> <span class="o">=</span> <span class="n">Product</span><span class="p">()</span><span class="o">.</span><span class="n">label</span><span class="p">(</span><span class="o">**</span><span class="n">labels</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>labels</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.7/library/typing.html#typing.Any" title="(in Python v3.7)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a></span>) – the labels to add</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Self</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">self</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="fluxus.lineage.HasLineage.precursor">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">precursor</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#fluxus.lineage.HasLineage" title="fluxus.lineage._lineage.HasLineage"><span class="pre">HasLineage</span></a></em><a class="headerlink" href="#fluxus.lineage.HasLineage.precursor" title="Link to this definition">#</a></dt>
+<dd><p>The preceding product.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="fluxus.lineage.HasLineage.product_attributes">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">product_attributes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/collections.abc.html#collections.abc.Mapping" title="(in Python v3.7)"><span class="pre">Mapping</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/typing.html#typing.Any" title="(in Python v3.7)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#fluxus.lineage.HasLineage.product_attributes" title="Link to this definition">#</a></dt>
+<dd><p>Attributes of this product, excluding the precursor.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="fluxus.lineage.HasLineage.product_labels">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">product_labels</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/collections.abc.html#collections.abc.Mapping" title="(in Python v3.7)"><span class="pre">Mapping</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/typing.html#typing.Any" title="(in Python v3.7)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#fluxus.lineage.HasLineage.product_labels" title="Link to this definition">#</a></dt>
+<dd><p>Labels of this product that were set using the <a class="reference internal" href="#fluxus.lineage.HasLineage.label" title="fluxus.lineage.HasLineage.label"><code class="xref py py-meth docutils literal notranslate"><span class="pre">label()</span></code></a> method.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="fluxus.lineage.HasLineage.product_name">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">product_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a></em><a class="headerlink" href="#fluxus.lineage.HasLineage.product_name" title="Link to this definition">#</a></dt>
+<dd><p>A name representing this product; used for grouping attributes in
+<a class="reference internal" href="#fluxus.lineage.HasLineage.get_lineage_attributes" title="fluxus.lineage.HasLineage.get_lineage_attributes"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_lineage_attributes()</span></code></a>.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fluxus.lineage.HasLineage"><code class="docutils literal notranslate"><span class="pre">HasLineage</span></code></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fluxus.lineage.HasLineage.get_lineage"><code class="docutils literal notranslate"><span class="pre">HasLineage.get_lineage()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fluxus.lineage.HasLineage.get_lineage_attributes"><code class="docutils literal notranslate"><span class="pre">HasLineage.get_lineage_attributes()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fluxus.lineage.HasLineage.label"><code class="docutils literal notranslate"><span class="pre">HasLineage.label()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fluxus.lineage.HasLineage.precursor"><code class="docutils literal notranslate"><span class="pre">HasLineage.precursor</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fluxus.lineage.HasLineage.product_attributes"><code class="docutils literal notranslate"><span class="pre">HasLineage.product_attributes</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fluxus.lineage.HasLineage.product_labels"><code class="docutils literal notranslate"><span class="pre">HasLineage.product_labels</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fluxus.lineage.HasLineage.product_name"><code class="docutils literal notranslate"><span class="pre">HasLineage.product_name</span></code></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2024, Boston Consulting Group (BCG).
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.3.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

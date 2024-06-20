@@ -1,0 +1,45 @@
+fluxus.Flow
+===========
+
+.. currentmodule:: fluxus
+
+.. autoclass:: Flow
+   :members:
+   :no-show-inheritance:
+   :inherited-members:
+   :special-members: __call__
+
+   
+   
+   .. rubric:: Method summary
+
+   .. autosummary::
+      :nosignatures:
+   
+      ~Flow.aiter_concurrent_conduits
+      ~Flow.arun
+      ~Flow.draw
+      ~Flow.get_connections
+      ~Flow.get_final_conduits
+      ~Flow.iter_concurrent_conduits
+      ~Flow.run
+      ~Flow.to_expression
+   
+   
+
+   
+   
+   .. rubric:: Attribute summary
+
+   .. autosummary::
+   
+      ~Flow.final_conduit
+      ~Flow.is_atomic
+      ~Flow.is_chained
+      ~Flow.is_concurrent
+      ~Flow.n_concurrent_conduits
+      ~Flow.name
+   
+   
+
+   .. rubric:: Definitions

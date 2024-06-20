@@ -1,0 +1,52 @@
+fluxus.functional.conduit.DictConsumer
+======================================
+
+.. currentmodule:: fluxus.functional.conduit
+
+.. autoclass:: DictConsumer
+   :members:
+   :no-show-inheritance:
+   :inherited-members:
+   :special-members: __call__
+
+   
+   
+   .. rubric:: Method summary
+
+   .. autosummary::
+      :nosignatures:
+   
+      ~DictConsumer.aconsume
+      ~DictConsumer.aiter_concurrent_conduits
+      ~DictConsumer.aprocess
+      ~DictConsumer.consume
+      ~DictConsumer.draw
+      ~DictConsumer.get_connections
+      ~DictConsumer.get_final_conduits
+      ~DictConsumer.get_repr_attributes
+      ~DictConsumer.is_valid_source
+      ~DictConsumer.iter_concurrent_conduits
+      ~DictConsumer.process
+      ~DictConsumer.to_expression
+   
+   
+
+   
+   
+   .. rubric:: Attribute summary
+
+   .. autosummary::
+   
+      ~DictConsumer.chained_conduits
+      ~DictConsumer.final_conduit
+      ~DictConsumer.input_type
+      ~DictConsumer.is_atomic
+      ~DictConsumer.is_chained
+      ~DictConsumer.is_concurrent
+      ~DictConsumer.n_concurrent_conduits
+      ~DictConsumer.name
+      ~DictConsumer.timestamps
+   
+   
+
+   .. rubric:: Definitions

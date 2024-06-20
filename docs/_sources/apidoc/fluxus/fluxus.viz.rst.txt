@@ -1,0 +1,60 @@
+fluxus.viz
+==========
+
+.. toctree::
+   :maxdepth: 1
+   :hidden:
+
+   self
+   
+.. automodule:: fluxus.viz
+   :no-imported-members:
+
+   
+
+   
+   
+   =======
+   Classes
+   =======
+
+   .. autosummary::
+      :toctree: viz
+      :template: custom-class-template.rst
+      :nosignatures:
+   
+      FlowDrawer
+      FlowGraph
+      FlowGraphStyle
+      FlowTextStyle
+      TimelineDrawer
+      TimelineMatplotStyle
+      TimelineTextStyle
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+
+
+==========
+Submodules
+==========
+.. autosummary::
+   :toctree: viz
+   :template: custom-module-template.rst
+   :recursive:
+
+   fluxus.viz.base
+

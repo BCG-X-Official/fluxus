@@ -1,0 +1,6 @@
+fluxus.functional.run
+=====================
+
+.. currentmodule:: fluxus.functional
+
+.. autofunction:: run

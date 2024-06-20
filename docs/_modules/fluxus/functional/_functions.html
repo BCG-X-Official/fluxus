@@ -1,0 +1,1214 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>fluxus.functional._functions &#8212; fluxus  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/bcgx.css?v=9d1a9f92" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/bcgx.js?v=6cc5c158"></script>
+    <script src="../../../_static/js/versions.js?v=9c680586"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/fluxus/functional/_functions';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../../../_static/bcgx_logo.png" class="logo__image only-light" alt="fluxus  documentation - Home"/>
+    <script>document.write(`<img src="../../../_static/bcgx_logo.png" class="logo__image only-dark" alt="fluxus  documentation - Home"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav class="navbar-nav">
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../_generated/home.html">
+    Home
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../apidoc/fluxus.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../contributor_guide/index.html">
+    Contributor Guide
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../faq.html">
+    FAQ
+  </a>
+</li>
+
+            <li class="nav-item dropdown pst-header-nav-item">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class="nav-item ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../_generated/release_notes.html">
+    Release Notes
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav class="navbar-nav">
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../_generated/home.html">
+    Home
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../apidoc/fluxus.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../contributor_guide/index.html">
+    Contributor Guide
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../_generated/release_notes.html">
+    Release Notes
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">fluxus.funct...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for fluxus.functional._functions</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -----------------------------------------------------------------------------</span>
+<span class="c1"># © 2024 Boston Consulting Group. All rights reserved.</span>
+<span class="c1">#</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1">#     http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+<span class="c1"># -----------------------------------------------------------------------------</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Implementation of public functions of the functional API for the flow module.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span> <span class="nn">functools</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">operator</span>
+<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">AsyncIterable</span><span class="p">,</span>
+    <span class="n">Awaitable</span><span class="p">,</span>
+    <span class="n">Callable</span><span class="p">,</span>
+    <span class="n">Collection</span><span class="p">,</span>
+    <span class="n">Iterable</span><span class="p">,</span>
+    <span class="n">Iterator</span><span class="p">,</span>
+    <span class="n">Mapping</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">types</span> <span class="kn">import</span> <span class="n">FunctionType</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">cast</span><span class="p">,</span> <span class="n">overload</span>
+
+<span class="kn">from</span> <span class="nn">pytools.asyncio</span> <span class="kn">import</span> <span class="n">arun</span>
+
+<span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">Passthrough</span>
+<span class="kn">from</span> <span class="nn">..core</span> <span class="kn">import</span> <span class="n">Conduit</span>
+<span class="kn">from</span> <span class="nn">..core.producer</span> <span class="kn">import</span> <span class="n">BaseProducer</span><span class="p">,</span> <span class="n">ConcurrentProducer</span><span class="p">,</span> <span class="n">SimpleConcurrentProducer</span>
+<span class="kn">from</span> <span class="nn">..core.transformer</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">BaseTransformer</span><span class="p">,</span>
+    <span class="n">ConcurrentTransformer</span><span class="p">,</span>
+    <span class="n">SerialTransformer</span><span class="p">,</span>
+    <span class="n">SimpleConcurrentTransformer</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">._result</span> <span class="kn">import</span> <span class="n">RunResult</span>
+<span class="kn">from</span> <span class="nn">.conduit</span> <span class="kn">import</span> <span class="n">DictConsumer</span><span class="p">,</span> <span class="n">DictProducer</span><span class="p">,</span> <span class="n">Step</span>
+<span class="kn">from</span> <span class="nn">.product</span> <span class="kn">import</span> <span class="n">DictProduct</span>
+
+<span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;chain&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;parallel&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;passthrough&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;run&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;step&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="c1">#</span>
+<span class="c1"># Type variables</span>
+<span class="c1">#</span>
+
+<span class="n">T_Input</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;T_Input&quot;</span><span class="p">)</span>
+<span class="n">T_Product</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;T_Product&quot;</span><span class="p">)</span>
+<span class="n">T_Conduit</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;T_Conduit&quot;</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="n">Conduit</span><span class="p">[</span><span class="n">Any</span><span class="p">])</span>
+
+<span class="c1">#</span>
+<span class="c1"># &#39;step&#39; function, defining an individual step in the flow</span>
+<span class="c1">#</span>
+
+
+<span class="nd">@overload</span>
+<span class="k">def</span> <span class="nf">step</span><span class="p">(</span>
+    <span class="n">_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">_function</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span>
+        <span class="p">[],</span>
+        <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+        <span class="o">|</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span>
+        <span class="o">|</span> <span class="n">AsyncIterable</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span>
+        <span class="o">|</span> <span class="n">Awaitable</span><span class="p">[</span><span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span>
+    <span class="p">],</span>
+    <span class="o">/</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DictProducer</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;[see below]&quot;&quot;&quot;</span>
+
+
+<span class="nd">@overload</span>
+<span class="k">def</span> <span class="nf">step</span><span class="p">(</span>  <span class="c1"># type: ignore[misc]</span>
+    <span class="n">_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="c1"># Technically, the function signature of _function is a superset of the previous</span>
+    <span class="c1"># one, but in Python there is no way of specifying that we need at least one</span>
+    <span class="c1"># arbitrary keyword argument.</span>
+    <span class="c1"># It still works as intended, because the previous overload is more specific.</span>
+    <span class="c1"># Still, for mypy we have to ignore the error; see the &#39;ignore&#39; comment above.</span>
+    <span class="n">_function</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span>
+        <span class="o">...</span><span class="p">,</span>
+        <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+        <span class="o">|</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span>
+        <span class="o">|</span> <span class="n">AsyncIterable</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span>
+        <span class="o">|</span> <span class="n">Awaitable</span><span class="p">[</span><span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span>
+    <span class="p">],</span>
+    <span class="o">/</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Step</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;[see below]&quot;&quot;&quot;</span>
+
+
+<span class="nd">@overload</span>
+<span class="k">def</span> <span class="nf">step</span><span class="p">(</span>
+    <span class="n">_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">_data</span><span class="p">:</span> <span class="p">(</span>
+        <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">|</span> <span class="n">AsyncIterable</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span>
+    <span class="p">),</span>
+    <span class="o">/</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DictProducer</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;[see below]&quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="step">
+<a class="viewcode-back" href="../../../apidoc/fluxus/functional/fluxus.functional.step.html#fluxus.functional.step">[docs]</a>
+<span class="k">def</span> <span class="nf">step</span><span class="p">(</span>
+    <span class="n">_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">_function_or_data</span><span class="p">:</span> <span class="p">(</span>
+        <span class="n">Callable</span><span class="p">[</span>
+            <span class="o">...</span><span class="p">,</span>
+            <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+            <span class="o">|</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span>
+            <span class="o">|</span> <span class="n">AsyncIterable</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span>
+            <span class="o">|</span> <span class="n">Awaitable</span><span class="p">[</span><span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span>
+        <span class="p">]</span>
+        <span class="o">|</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span>
+        <span class="o">|</span> <span class="n">AsyncIterable</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span>
+        <span class="o">|</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+    <span class="p">),</span>
+    <span class="o">/</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DictProducer</span> <span class="o">|</span> <span class="n">Step</span><span class="p">:</span>
+    <span class="c1"># noinspection GrazieInspection</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create a step in a flow.</span>
+
+<span class="sd">    Takes two positional-only arguments, followed by an arbitrary number of fixed</span>
+<span class="sd">    keyword arguments.</span>
+
+<span class="sd">    The first positional argument is the name of the step, and the second positional</span>
+<span class="sd">    argument is either a function, or a mapping or iterable of mappings.</span>
+
+<span class="sd">    If the second argument is a mapping or an iterable of mappings, then the step is</span>
+<span class="sd">    a `producer` step that produces the given data.</span>
+
+<span class="sd">    If the second argument is a function, then that function must return a single</span>
+<span class="sd">    mapping, or a synchronous or asynchronous iterable of mappings. If the function</span>
+<span class="sd">    takes no arguments, then the step is a `producer` step that produces the data</span>
+<span class="sd">    returned by the function. If the function takes one or more keyword arguments, then</span>
+<span class="sd">    the step is a `transformer` step that applies the function to the input data and</span>
+<span class="sd">    produces one or more dictionaries based on the input data.</span>
+
+<span class="sd">    All arguments to the function must be keyword arguments. The values passed for these</span>
+<span class="sd">    arguments are determined by the dictionary items produced by the preceding steps in</span>
+<span class="sd">    the flow that match the names of the arguments, plus any fixed keyword arguments</span>
+<span class="sd">    associated with any of the preceding steps or the current step. If multiple</span>
+<span class="sd">    preceding steps use the same names for fixed keyword arguments or for dictionary</span>
+<span class="sd">    items produced by their functions, then the value of the latest step in the flow</span>
+<span class="sd">    takes precedence for that attribute.</span>
+
+<span class="sd">    Code examples:</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        # Create a producer step that produces a single dictionary</span>
+<span class="sd">        producer = step(</span>
+<span class="sd">            &quot;input&quot;,</span>
+<span class="sd">            dict(a=1, b=2, c=3),</span>
+<span class="sd">        )</span>
+
+<span class="sd">        # Create a producer step that produces multiple dictionaries</span>
+<span class="sd">        producer = step(</span>
+<span class="sd">            &quot;input&quot;,</span>
+<span class="sd">            [</span>
+<span class="sd">                dict(a=1, b=2, c=3),</span>
+<span class="sd">                dict(a=4, b=5, c=6),</span>
+<span class="sd">            ],</span>
+<span class="sd">        )</span>
+
+<span class="sd">        # Create a producer step that dynamically produces dictionaries</span>
+<span class="sd">        producer = step(</span>
+<span class="sd">            &quot;input&quot;,</span>
+<span class="sd">            lambda: (</span>
+<span class="sd">                dict(x=i) for i in range(3)</span>
+<span class="sd">            )</span>
+<span class="sd">        )</span>
+
+<span class="sd">        # Create a transformer step that applies a function to the input</span>
+<span class="sd">        transform_step = step(</span>
+<span class="sd">            &quot;transform_data&quot;,</span>
+<span class="sd">            lambda number, increment: dict(incremented_number=number + increment),</span>
+<span class="sd">            increment=1</span>
+<span class="sd">        )</span>
+
+<span class="sd">        # Create a transformer step that produces multiple dictionaries for each input</span>
+<span class="sd">        transform_step = step(</span>
+<span class="sd">            &quot;transform_data&quot;,</span>
+<span class="sd">            lambda number, increment: (</span>
+<span class="sd">                dict(incremented_number=number + i) for i in range(max_increment)</span>
+<span class="sd">            ),</span>
+<span class="sd">            max_increment=1</span>
+<span class="sd">        )</span>
+
+
+<span class="sd">    :param _name: the name of the step</span>
+<span class="sd">    :param _function_or_data: the function that the step applies to the source product,</span>
+<span class="sd">        and returns a single mapping, or a synchronous or asynchronous iterable of</span>
+<span class="sd">        mappings</span>
+<span class="sd">    :param kwargs: additional keyword arguments to pass to the function</span>
+<span class="sd">    :return: the step object</span>
+<span class="sd">    :raises TypeError: if the signature of the function is invalid, or if additional</span>
+<span class="sd">        keyword arguments are provided while the function does not accept any</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Count the number of arguments that the function accepts</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">_function_or_data</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">DictProducer</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">_function_or_data</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">_name</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">_function_or_data</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">DictProducer</span><span class="p">(</span>
+            <span class="k">lambda</span><span class="p">:</span> <span class="nb">iter</span><span class="p">(</span><span class="n">cast</span><span class="p">(</span><span class="n">Iterable</span><span class="p">[</span><span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span> <span class="n">_function_or_data</span><span class="p">)),</span>
+            <span class="n">name</span><span class="o">=</span><span class="n">_name</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">_function_or_data</span><span class="p">,</span> <span class="n">AsyncIterable</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">DictProducer</span><span class="p">(</span>
+            <span class="k">lambda</span><span class="p">:</span> <span class="nb">aiter</span><span class="p">(</span><span class="n">cast</span><span class="p">(</span><span class="n">AsyncIterable</span><span class="p">[</span><span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span> <span class="n">_function_or_data</span><span class="p">)),</span>
+            <span class="n">name</span><span class="o">=</span><span class="n">_name</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="p">(</span>
+        <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">_function_or_data</span><span class="p">,</span> <span class="n">FunctionType</span><span class="p">)</span>
+        <span class="ow">or</span> <span class="n">_function_or_data</span><span class="o">.</span><span class="vm">__code__</span><span class="o">.</span><span class="n">co_varnames</span>
+    <span class="p">):</span>
+        <span class="k">return</span> <span class="n">Step</span><span class="p">(</span><span class="n">_name</span><span class="p">,</span> <span class="n">_function_or_data</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">DictProducer</span><span class="p">(</span><span class="n">_function_or_data</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">_name</span><span class="p">)</span></div>
+
+
+
+<span class="c1">#</span>
+<span class="c1"># &#39;passthrough&#39; function, defining a passthrough step in the flow</span>
+<span class="c1">#</span>
+
+
+<div class="viewcode-block" id="passthrough">
+<a class="viewcode-back" href="../../../apidoc/fluxus/functional/fluxus.functional.passthrough.html#fluxus.functional.passthrough">[docs]</a>
+<span class="k">def</span> <span class="nf">passthrough</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Passthrough</span><span class="p">:</span>
+    <span class="c1"># noinspection GrazieInspection</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create a `passthrough` step in a flow.</span>
+
+<span class="sd">    A `passthrough` is a special step that passes the input through without</span>
+<span class="sd">    modification. It is invisible in the flow, and does not affect the data in any way.</span>
+
+<span class="sd">    Use a passthrough as part of a :func:`parallel` composition of steps to ensure that,</span>
+<span class="sd">    in addition to applying all parallel steps concurrently, the input is also passed</span>
+<span class="sd">    without modification to the subsequent steps.</span>
+
+<span class="sd">    Chaining a passthrough with another step is not permitted; it would have no effect.</span>
+
+<span class="sd">    Examples:</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        # Create a parallel composition of steps</span>
+<span class="sd">        parallel_steps = chain(</span>
+<span class="sd">            # Create a producer step that produces a single dictionary</span>
+<span class="sd">            step(</span>
+<span class="sd">                &quot;input&quot;,</span>
+<span class="sd">                dict(a=1, b=2, c=3),</span>
+<span class="sd">            ),</span>
+<span class="sd">            # Create a group of parallel steps, including a passthrough</span>
+<span class="sd">            parallel(</span>
+<span class="sd">                # Create a transformer step that increments the value of &#39;a&#39;</span>
+<span class="sd">                step(</span>
+<span class="sd">                    &quot;increment_a&quot;,</span>
+<span class="sd">                    lambda a: dict(a=a + 1),</span>
+<span class="sd">                ),</span>
+<span class="sd">                # Create a passthrough step that passes the input through</span>
+<span class="sd">                passthrough(),</span>
+<span class="sd">            ),</span>
+<span class="sd">            # Create a transformer step that doubles the value of &#39;a&#39;</span>
+<span class="sd">            step(</span>
+<span class="sd">                &quot;double_a&quot;,</span>
+<span class="sd">                lambda a: dict(a=a * 2),</span>
+<span class="sd">            ),</span>
+<span class="sd">        )</span>
+
+<span class="sd">        # Run the parallel composition of steps</span>
+<span class="sd">        result = run(parallel_steps)</span>
+
+<span class="sd">    The results will include the original input dictionary, as well as the dictionary</span>
+<span class="sd">    produced by the &#39;increment_a&#39; step:</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        [</span>
+<span class="sd">            # First output, including the original input and the result of the</span>
+<span class="sd">            # &#39;increment_a&#39; and &#39;double_a&#39; steps</span>
+<span class="sd">            {</span>
+<span class="sd">                &quot;input&quot;: dict(a=1, b=2, c=3),</span>
+<span class="sd">                &quot;increment_a&quot;: dict(a=2),</span>
+<span class="sd">                &quot;double_a&quot;: dict(a=4),</span>
+<span class="sd">            },</span>
+<span class="sd">            # Second output, including the original input, bypassing the &#39;increment_a&#39;</span>
+<span class="sd">            # step, including the result of the &#39;double_a&#39; step</span>
+<span class="sd">            {</span>
+<span class="sd">                &quot;input&quot;: dict(a=1, b=2, c=3),</span>
+<span class="sd">                &quot;double_a&quot;: dict(a=2),</span>
+<span class="sd">            },</span>
+<span class="sd">        ]</span>
+
+<span class="sd">    :return: the passthrough step</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">Passthrough</span><span class="p">()</span></div>
+
+
+
+<span class="c1">#</span>
+<span class="c1"># &#39;chain&#39; function, defining a sequence of steps in the flow</span>
+<span class="c1">#</span>
+
+
+<span class="nd">@overload</span>
+<span class="k">def</span> <span class="nf">chain</span><span class="p">(</span>
+    <span class="n">start</span><span class="p">:</span> <span class="n">BaseProducer</span><span class="p">[</span><span class="n">T_Product</span><span class="p">],</span>
+    <span class="o">/</span><span class="p">,</span>
+    <span class="o">*</span><span class="n">steps</span><span class="p">:</span> <span class="n">BaseTransformer</span><span class="p">[</span><span class="n">T_Product</span><span class="p">,</span> <span class="n">T_Product</span><span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BaseProducer</span><span class="p">[</span><span class="n">T_Product</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;[see below]&quot;&quot;&quot;</span>
+
+
+<span class="nd">@overload</span>
+<span class="k">def</span> <span class="nf">chain</span><span class="p">(</span>
+    <span class="n">start</span><span class="p">:</span> <span class="n">BaseTransformer</span><span class="p">[</span><span class="n">T_Product</span><span class="p">,</span> <span class="n">T_Product</span><span class="p">],</span>
+    <span class="o">/</span><span class="p">,</span>
+    <span class="o">*</span><span class="n">steps</span><span class="p">:</span> <span class="n">BaseTransformer</span><span class="p">[</span><span class="n">T_Product</span><span class="p">,</span> <span class="n">T_Product</span><span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BaseTransformer</span><span class="p">[</span><span class="n">T_Product</span><span class="p">,</span> <span class="n">T_Product</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;[see below]&quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="chain">
+<a class="viewcode-back" href="../../../apidoc/fluxus/functional/fluxus.functional.chain.html#fluxus.functional.chain">[docs]</a>
+<span class="k">def</span> <span class="nf">chain</span><span class="p">(</span>
+    <span class="n">start</span><span class="p">:</span> <span class="n">BaseProducer</span><span class="p">[</span><span class="n">T_Product</span><span class="p">]</span> <span class="o">|</span> <span class="n">BaseTransformer</span><span class="p">[</span><span class="n">T_Product</span><span class="p">,</span> <span class="n">T_Product</span><span class="p">],</span>
+    <span class="o">/</span><span class="p">,</span>
+    <span class="o">*</span><span class="n">steps</span><span class="p">:</span> <span class="n">BaseTransformer</span><span class="p">[</span><span class="n">T_Product</span><span class="p">,</span> <span class="n">T_Product</span><span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BaseProducer</span><span class="p">[</span><span class="n">T_Product</span><span class="p">]</span> <span class="o">|</span> <span class="n">BaseTransformer</span><span class="p">[</span><span class="n">T_Product</span><span class="p">,</span> <span class="n">T_Product</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Combine multiple transformers with an optional leading producer to be executed</span>
+<span class="sd">    sequentially.</span>
+
+<span class="sd">    Combining a producer with one or more transformers results in a chained producer.</span>
+<span class="sd">    Combining one or more transformers results in a chained transformer.</span>
+
+<span class="sd">    Examples:</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        chained_steps = chain(</span>
+<span class="sd">            # Start with an initial producer that generates the initial data</span>
+<span class="sd">            step(&quot;initial_producer&quot;, lambda: dict(value=1)),</span>
+<span class="sd">            # Apply a transformer that increments the value</span>
+<span class="sd">            step(&quot;increment_transformer&quot;, lambda data: dict(value=data[&quot;value&quot;] + 1)),</span>
+<span class="sd">            # Apply a transformer that doubles the value</span>
+<span class="sd">            step(&quot;double_transformer&quot;, lambda data: dict(value=data[&quot;value&quot;] * 2)),</span>
+<span class="sd">            # Apply a transformer that squares the value</span>
+<span class="sd">            step(&quot;square_transformer&quot;, lambda data: dict(value=data[&quot;value&quot;] ** 2))</span>
+<span class="sd">        )</span>
+
+<span class="sd">        chained_steps = chain(</span>
+<span class="sd">            [</span>
+<span class="sd">                # Create three chained steps that increment the value by 1, 2, and 3</span>
+<span class="sd">                step(&quot;increment_transformer&quot;, lambda data,</span>
+<span class="sd">                i=i: dict(value=data[&quot;value&quot;] + i)) for i in range(1, 4)</span>
+<span class="sd">            ],</span>
+<span class="sd">            [</span>
+<span class="sd">                # Create three chained steps that multiply the value by 1, 2, and 3</span>
+<span class="sd">                step(&quot;multiply_transformer&quot;, lambda data,</span>
+<span class="sd">                i=i: dict(value=data[&quot;value&quot;] * i)) for i in range(1, 4)</span>
+<span class="sd">            ],</span>
+<span class="sd">            # Include a passthrough step that passes the input through unchanged</span>
+<span class="sd">            passthrough()</span>
+<span class="sd">        )</span>
+
+<span class="sd">    :param start: the initial producer or transformer in the chain</span>
+<span class="sd">    :param steps: additional transformers in the chain</span>
+<span class="sd">    :return: the chained producer or transformer</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">functools</span><span class="o">.</span><span class="n">reduce</span><span class="p">(</span><span class="n">operator</span><span class="o">.</span><span class="n">rshift</span><span class="p">,</span> <span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="o">*</span><span class="n">steps</span><span class="p">))</span></div>
+
+
+
+<span class="c1">#</span>
+<span class="c1"># &#39;parallel&#39; function, defining a concurrent execution of steps in the flow</span>
+<span class="c1">#</span>
+
+<span class="n">SimpleIterable</span> <span class="o">=</span> <span class="n">Collection</span><span class="p">[</span><span class="n">T_Conduit</span><span class="p">]</span> <span class="o">|</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">T_Conduit</span><span class="p">]</span>
+
+
+<span class="nd">@overload</span>
+<span class="k">def</span> <span class="nf">parallel</span><span class="p">(</span>
+    <span class="n">first</span><span class="p">:</span> <span class="n">BaseProducer</span><span class="p">[</span><span class="n">T_Product</span><span class="p">]</span> <span class="o">|</span> <span class="n">SimpleIterable</span><span class="p">[</span><span class="n">BaseProducer</span><span class="p">[</span><span class="n">T_Product</span><span class="p">]],</span>
+    <span class="n">second</span><span class="p">:</span> <span class="n">BaseProducer</span><span class="p">[</span><span class="n">T_Product</span><span class="p">]</span> <span class="o">|</span> <span class="n">SimpleIterable</span><span class="p">[</span><span class="n">BaseProducer</span><span class="p">[</span><span class="n">T_Product</span><span class="p">]],</span>
+    <span class="o">/</span><span class="p">,</span>
+    <span class="o">*</span><span class="n">more</span><span class="p">:</span> <span class="n">BaseProducer</span><span class="p">[</span><span class="n">T_Product</span><span class="p">]</span> <span class="o">|</span> <span class="n">SimpleIterable</span><span class="p">[</span><span class="n">BaseProducer</span><span class="p">[</span><span class="n">T_Product</span><span class="p">]],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConcurrentProducer</span><span class="p">[</span><span class="n">T_Product</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;[see below]&quot;&quot;&quot;</span>
+
+
+<span class="nd">@overload</span>
+<span class="k">def</span> <span class="nf">parallel</span><span class="p">(</span>
+    <span class="n">inputs</span><span class="p">:</span> <span class="n">SimpleIterable</span><span class="p">[</span><span class="n">BaseProducer</span><span class="p">[</span><span class="n">T_Product</span><span class="p">]],</span>
+    <span class="o">/</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConcurrentProducer</span><span class="p">[</span><span class="n">T_Product</span><span class="p">]</span> <span class="o">|</span> <span class="n">BaseProducer</span><span class="p">[</span><span class="n">T_Product</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;[see below]&quot;&quot;&quot;</span>
+
+
+<span class="nd">@overload</span>
+<span class="k">def</span> <span class="nf">parallel</span><span class="p">(</span>
+    <span class="n">first</span><span class="p">:</span> <span class="p">(</span>
+        <span class="n">BaseTransformer</span><span class="p">[</span><span class="n">T_Input</span><span class="p">,</span> <span class="n">T_Product</span><span class="p">]</span>
+        <span class="o">|</span> <span class="n">SimpleIterable</span><span class="p">[</span><span class="n">BaseTransformer</span><span class="p">[</span><span class="n">T_Input</span><span class="p">,</span> <span class="n">T_Product</span><span class="p">]</span> <span class="o">|</span> <span class="n">Passthrough</span><span class="p">]</span>
+        <span class="o">|</span> <span class="n">Passthrough</span>
+    <span class="p">),</span>
+    <span class="n">second</span><span class="p">:</span> <span class="p">(</span>
+        <span class="n">BaseTransformer</span><span class="p">[</span><span class="n">T_Input</span><span class="p">,</span> <span class="n">T_Product</span><span class="p">]</span>
+        <span class="o">|</span> <span class="n">SimpleIterable</span><span class="p">[</span><span class="n">BaseTransformer</span><span class="p">[</span><span class="n">T_Input</span><span class="p">,</span> <span class="n">T_Product</span><span class="p">]</span> <span class="o">|</span> <span class="n">Passthrough</span><span class="p">]</span>
+        <span class="o">|</span> <span class="n">Passthrough</span>
+    <span class="p">),</span>
+    <span class="o">/</span><span class="p">,</span>
+    <span class="o">*</span><span class="n">more</span><span class="p">:</span> <span class="p">(</span>
+        <span class="n">BaseTransformer</span><span class="p">[</span><span class="n">T_Input</span><span class="p">,</span> <span class="n">T_Product</span><span class="p">]</span>
+        <span class="o">|</span> <span class="n">SimpleIterable</span><span class="p">[</span><span class="n">BaseTransformer</span><span class="p">[</span><span class="n">T_Input</span><span class="p">,</span> <span class="n">T_Product</span><span class="p">]</span> <span class="o">|</span> <span class="n">Passthrough</span><span class="p">]</span>
+        <span class="o">|</span> <span class="n">Passthrough</span>
+    <span class="p">),</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConcurrentTransformer</span><span class="p">[</span><span class="n">T_Input</span><span class="p">,</span> <span class="n">T_Product</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;[see below]&quot;&quot;&quot;</span>
+
+
+<span class="nd">@overload</span>
+<span class="k">def</span> <span class="nf">parallel</span><span class="p">(</span>
+    <span class="n">steps</span><span class="p">:</span> <span class="n">SimpleIterable</span><span class="p">[</span><span class="n">BaseTransformer</span><span class="p">[</span><span class="n">T_Input</span><span class="p">,</span> <span class="n">T_Product</span><span class="p">]</span> <span class="o">|</span> <span class="n">Passthrough</span><span class="p">],</span>
+    <span class="o">/</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConcurrentTransformer</span><span class="p">[</span><span class="n">T_Input</span><span class="p">,</span> <span class="n">T_Product</span><span class="p">]</span> <span class="o">|</span> <span class="n">BaseTransformer</span><span class="p">[</span><span class="n">T_Input</span><span class="p">,</span> <span class="n">T_Product</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;[see below]&quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="parallel">
+<a class="viewcode-back" href="../../../apidoc/fluxus/functional/fluxus.functional.parallel.html#fluxus.functional.parallel">[docs]</a>
+<span class="k">def</span> <span class="nf">parallel</span><span class="p">(</span>
+    <span class="n">first</span><span class="p">:</span> <span class="p">(</span>
+        <span class="n">BaseProducer</span><span class="p">[</span><span class="n">T_Product</span><span class="p">]</span>
+        <span class="o">|</span> <span class="n">SimpleIterable</span><span class="p">[</span><span class="n">BaseProducer</span><span class="p">[</span><span class="n">T_Product</span><span class="p">]]</span>
+        <span class="o">|</span> <span class="n">BaseTransformer</span><span class="p">[</span><span class="n">T_Input</span><span class="p">,</span> <span class="n">T_Product</span><span class="p">]</span>
+        <span class="o">|</span> <span class="n">SimpleIterable</span><span class="p">[</span><span class="n">BaseTransformer</span><span class="p">[</span><span class="n">T_Input</span><span class="p">,</span> <span class="n">T_Product</span><span class="p">]</span> <span class="o">|</span> <span class="n">Passthrough</span><span class="p">]</span>
+        <span class="o">|</span> <span class="n">Passthrough</span>
+    <span class="p">),</span>
+    <span class="o">/</span><span class="p">,</span>
+    <span class="o">*</span><span class="n">more</span><span class="p">:</span> <span class="n">BaseProducer</span><span class="p">[</span><span class="n">T_Product</span><span class="p">]</span>
+    <span class="o">|</span> <span class="n">SimpleIterable</span><span class="p">[</span><span class="n">BaseProducer</span><span class="p">[</span><span class="n">T_Product</span><span class="p">]]</span>
+    <span class="o">|</span> <span class="n">BaseTransformer</span><span class="p">[</span><span class="n">T_Input</span><span class="p">,</span> <span class="n">T_Product</span><span class="p">]</span>
+    <span class="o">|</span> <span class="n">SimpleIterable</span><span class="p">[</span><span class="n">BaseTransformer</span><span class="p">[</span><span class="n">T_Input</span><span class="p">,</span> <span class="n">T_Product</span><span class="p">]</span> <span class="o">|</span> <span class="n">Passthrough</span><span class="p">]</span>
+    <span class="o">|</span> <span class="n">Passthrough</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span>
+    <span class="n">ConcurrentProducer</span><span class="p">[</span><span class="n">T_Product</span><span class="p">]</span>
+    <span class="o">|</span> <span class="n">ConcurrentTransformer</span><span class="p">[</span><span class="n">T_Input</span><span class="p">,</span> <span class="n">T_Product</span><span class="p">]</span>
+    <span class="o">|</span> <span class="n">BaseProducer</span><span class="p">[</span><span class="n">T_Product</span><span class="p">]</span>
+    <span class="o">|</span> <span class="n">BaseTransformer</span><span class="p">[</span><span class="n">T_Input</span><span class="p">,</span> <span class="n">T_Product</span><span class="p">]</span>
+<span class="p">):</span>
+    <span class="c1"># noinspection GrazieInspection</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Combine two or more sub-flows, to be executed concurrently.</span>
+
+<span class="sd">    All sub-flows must have compatible input and output types.</span>
+
+<span class="sd">    If all arguments are producers, then the result is a `concurrent producer`.</span>
+
+<span class="sd">    If all arguments are transformers, with or without an additional passthrough step,</span>
+<span class="sd">    then the result is a `concurrent transformer`. At most one passthrough step is</span>
+<span class="sd">    allowed in a group of parallel steps, since additional passthroughs would result in</span>
+<span class="sd">    duplicate output.</span>
+
+<span class="sd">    Mixing producers and transformers is not allowed.</span>
+
+<span class="sd">    Arguments can be provided as individual steps or sub-flows, or as iterables of steps</span>
+<span class="sd">    or sub-flows. If an iterable is provided, its elements are unpacked and combined</span>
+<span class="sd">    with the other arguments.</span>
+
+<span class="sd">    Examples:</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        concurrent_steps = parallel(</span>
+<span class="sd">            # Create two concurrent steps that increment &#39;a&#39; and &#39;b&#39; by 1</span>
+<span class="sd">            step(&quot;increment_a&quot;, lambda a: dict(a=a + 1)),</span>
+<span class="sd">            step(&quot;increment_b&quot;, lambda b: dict(b=b + 1)),</span>
+<span class="sd">        )</span>
+
+<span class="sd">        concurrent_steps = parallel(</span>
+<span class="sd">            [</span>
+<span class="sd">                # Create three concurrent steps that increment &#39;a&#39; by 1, 2, and 3</span>
+<span class="sd">                step(&quot;increment_a&quot;, lambda a: dict(a=a + i)) for i in range(1, 4)</span>
+<span class="sd">            ],</span>
+<span class="sd">            [</span>
+<span class="sd">                # Create three concurrent steps that increment &#39;b&#39; by 1, 2, and 3</span>
+<span class="sd">                step(&quot;increment_b&quot;, lambda b: dict(b=b + i)) for i in range(1, 4)</span>
+<span class="sd">            ],</span>
+<span class="sd">            # Include a passthrough step that passes the input through unchanged</span>
+<span class="sd">            passthrough(),</span>
+<span class="sd">        )</span>
+
+<span class="sd">    :param first: the first step to combine</span>
+<span class="sd">    :param more: additional steps to combine</span>
+<span class="sd">    :return: the combined steps for concurrent execution</span>
+<span class="sd">    :raises TypeError: if no steps are provided</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Unpack iterable arguments</span>
+    <span class="n">steps</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span>
+        <span class="nb">list</span><span class="p">[</span>
+            <span class="n">BaseProducer</span><span class="p">[</span><span class="n">T_Product</span><span class="p">]</span> <span class="o">|</span> <span class="n">BaseTransformer</span><span class="p">[</span><span class="n">T_Input</span><span class="p">,</span> <span class="n">T_Product</span><span class="p">]</span> <span class="o">|</span> <span class="n">Passthrough</span>
+        <span class="p">],</span>
+        <span class="nb">list</span><span class="p">(</span>
+            <span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="o">.</span><span class="n">from_iterable</span><span class="p">(</span>
+                <span class="p">(</span>
+                    <span class="p">[</span><span class="n">step_</span><span class="p">]</span>
+                    <span class="c1"># Check if the first argument is an iterable of steps.</span>
+                    <span class="c1"># Producers are iterable, so we need to exclude them here.</span>
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">step_</span><span class="p">,</span> <span class="p">(</span><span class="n">BaseProducer</span><span class="p">,</span> <span class="n">BaseTransformer</span><span class="p">,</span> <span class="n">Passthrough</span><span class="p">))</span>
+                    <span class="ow">or</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">step_</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">)</span>
+                    <span class="k">else</span> <span class="n">step_</span>
+                <span class="p">)</span>
+                <span class="k">for</span> <span class="n">step_</span> <span class="ow">in</span> <span class="p">(</span><span class="n">first</span><span class="p">,</span> <span class="o">*</span><span class="n">more</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Check for invalid step types</span>
+    <span class="n">invalid_steps</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">step_</span>
+        <span class="k">for</span> <span class="n">step_</span> <span class="ow">in</span> <span class="n">steps</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">step_</span><span class="p">,</span> <span class="p">(</span><span class="n">BaseProducer</span><span class="p">,</span> <span class="n">BaseTransformer</span><span class="p">,</span> <span class="n">Passthrough</span><span class="p">))</span>
+    <span class="p">]</span>
+    <span class="k">if</span> <span class="n">invalid_steps</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+            <span class="s2">&quot;parallel() can only be used with producer, transformer, or passthrough &quot;</span>
+            <span class="s2">&quot;steps, but got: &quot;</span> <span class="o">+</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">step_</span><span class="p">)</span> <span class="k">for</span> <span class="n">step_</span> <span class="ow">in</span> <span class="n">invalid_steps</span><span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="n">n_passthrough</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">step_</span> <span class="ow">in</span> <span class="n">steps</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">step_</span><span class="p">,</span> <span class="n">Passthrough</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">n_passthrough</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;parallel() may include at most one passthrough step, but got &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">n_passthrough</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+
+    <span class="k">elif</span> <span class="ow">not</span> <span class="n">steps</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;parallel() must be called with at least one step&quot;</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">steps</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">single_step</span> <span class="o">=</span> <span class="n">steps</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="c1"># We have a single step, so don&#39;t need to combine anything</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">single_step</span><span class="p">,</span> <span class="n">Passthrough</span><span class="p">):</span>
+            <span class="c1"># We don&#39;t allow a single Passthrough step, because that might lead to</span>
+            <span class="c1"># chaining a Passthrough with another step, which is not allowed.</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;parallel() cannot be used with a single passthrough step&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">single_step</span>
+
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">steps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">BaseProducer</span><span class="p">):</span>
+        <span class="c1"># We have multiple producers. Combine them into a single concurrent producer.</span>
+        <span class="k">return</span> <span class="n">SimpleConcurrentProducer</span><span class="p">(</span><span class="o">*</span><span class="n">cast</span><span class="p">(</span><span class="nb">list</span><span class="p">[</span><span class="n">BaseProducer</span><span class="p">[</span><span class="n">T_Product</span><span class="p">]],</span> <span class="n">steps</span><span class="p">))</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># We have multiple transformers. Combine them into a single concurrent</span>
+        <span class="c1"># transformer.</span>
+        <span class="k">return</span> <span class="n">SimpleConcurrentTransformer</span><span class="p">(</span>
+            <span class="o">*</span><span class="n">cast</span><span class="p">(</span><span class="nb">list</span><span class="p">[</span><span class="n">BaseTransformer</span><span class="p">[</span><span class="n">T_Input</span><span class="p">,</span> <span class="n">T_Product</span><span class="p">]</span> <span class="o">|</span> <span class="n">Passthrough</span><span class="p">],</span> <span class="n">steps</span><span class="p">)</span>
+        <span class="p">)</span></div>
+
+
+
+<span class="c1">#</span>
+<span class="c1"># &#39;run&#39; function, running the steps in the flow</span>
+<span class="c1">#</span>
+
+
+<span class="nd">@overload</span>
+<span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">steps</span><span class="p">:</span> <span class="n">BaseProducer</span><span class="p">[</span><span class="n">DictProduct</span><span class="p">],</span> <span class="o">*</span><span class="p">,</span> <span class="n">timestamps</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RunResult</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;[see below]&quot;&quot;&quot;</span>
+
+
+<span class="c1"># noinspection PyShadowingNames</span>
+<span class="nd">@overload</span>
+<span class="k">def</span> <span class="nf">run</span><span class="p">(</span>
+    <span class="n">steps</span><span class="p">:</span> <span class="n">SerialTransformer</span><span class="p">[</span><span class="n">DictProduct</span><span class="p">,</span> <span class="n">DictProduct</span><span class="p">],</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="nb">input</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">|</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">timestamps</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RunResult</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;[see below]&quot;&quot;&quot;</span>
+
+
+<span class="nd">@overload</span>
+<span class="k">def</span> <span class="nf">run</span><span class="p">(</span>
+    <span class="n">steps</span><span class="p">:</span> <span class="n">ConcurrentTransformer</span><span class="p">[</span><span class="n">DictProduct</span><span class="p">,</span> <span class="n">DictProduct</span><span class="p">],</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="nb">input</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">|</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">timestamps</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RunResult</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;[see below]&quot;&quot;&quot;</span>
+
+
+<span class="nd">@overload</span>
+<span class="k">def</span> <span class="nf">run</span><span class="p">(</span>
+    <span class="n">steps</span><span class="p">:</span> <span class="n">BaseTransformer</span><span class="p">[</span><span class="n">DictProduct</span><span class="p">,</span> <span class="n">DictProduct</span><span class="p">],</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="nb">input</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">|</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">timestamps</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RunResult</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;[see below]&quot;&quot;&quot;</span>
+
+
+<span class="c1"># noinspection PyShadowingNames, PyTestUnpassedFixture</span>
+<div class="viewcode-block" id="run">
+<a class="viewcode-back" href="../../../apidoc/fluxus/functional/fluxus.functional.run.html#fluxus.functional.run">[docs]</a>
+<span class="k">def</span> <span class="nf">run</span><span class="p">(</span>
+    <span class="n">steps</span><span class="p">:</span> <span class="n">BaseProducer</span><span class="p">[</span><span class="n">DictProduct</span><span class="p">]</span> <span class="o">|</span> <span class="n">BaseTransformer</span><span class="p">[</span><span class="n">DictProduct</span><span class="p">,</span> <span class="n">DictProduct</span><span class="p">],</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="nb">input</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">|</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">timestamps</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RunResult</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Run the given steps.</span>
+
+<span class="sd">    If the given steps do not include a leading `producer`` step (i.e. a step that takes</span>
+<span class="sd">    no parameters), then the input can be provided as an additional argument.</span>
+<span class="sd">    If the flow requires an input but none is provided, then the flow will be run with</span>
+<span class="sd">    an empty dictionary as input.</span>
+
+<span class="sd">    See :class:`.RunResult` for details on the output format.</span>
+
+<span class="sd">    Examples:</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        # Example 1: A sequence of steps</span>
+<span class="sd">        chained_steps = chain(</span>
+<span class="sd">            # Start with an initial input producer</span>
+<span class="sd">            step(&quot;initial_producer&quot;, lambda: dict(value=1)),</span>
+<span class="sd">            # Increment the value</span>
+<span class="sd">            step(&quot;increment_transformer&quot;, lambda value: dict(value=value + 1)),</span>
+<span class="sd">            # Double the value</span>
+<span class="sd">            step(&quot;double_transformer&quot;, lambda value: dict(value=value * 2)),</span>
+<span class="sd">            # Square the value</span>
+<span class="sd">            step(&quot;square_transformer&quot;, lambda value: dict(value=value ** 2))</span>
+<span class="sd">        )</span>
+
+<span class="sd">        # Run the steps</span>
+<span class="sd">        result = run(chained_steps)</span>
+
+<span class="sd">    generates the following output:</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        RunResult(</span>
+<span class="sd">            [</span>
+<span class="sd">                {</span>
+<span class="sd">                    &#39;initial_producer&#39;: {&#39;value&#39;: 1},</span>
+<span class="sd">                    &#39;increment_transformer&#39;: {&#39;value&#39;: 2},</span>
+<span class="sd">                    &#39;double_transformer&#39;: {&#39;value&#39;: 4},</span>
+<span class="sd">                    &#39;square_transformer&#39;: {&#39;value&#39;: 16}</span>
+<span class="sd">                }</span>
+<span class="sd">            ]</span>
+<span class="sd">        )</span>
+
+<span class="sd">    and</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        # Example 2: Parallel steps</span>
+<span class="sd">        parallel_steps = parallel(</span>
+<span class="sd">            # Create two concurrent steps that increment &#39;a&#39; and &#39;b&#39; by 1</span>
+<span class="sd">            step(&quot;increment_a&quot;, lambda a: dict(a=a + 1)),</span>
+<span class="sd">            step(&quot;increment_b&quot;, lambda b: [dict(b=b + 1), dict(b=b + 2)]),</span>
+<span class="sd">        )</span>
+
+<span class="sd">        # Run the steps with input</span>
+<span class="sd">        result = run(parallel_steps, input={&quot;a&quot;: 1, &quot;b&quot;: 2})</span>
+
+<span class="sd">    generates the following output:</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        RunResult(</span>
+<span class="sd">            [{&#39;input&#39;: {&#39;a&#39;: 1, &#39;b&#39;: 2}, &#39;increment_a&#39;: {&#39;a&#39;: 2}}],</span>
+<span class="sd">            [</span>
+<span class="sd">                {&#39;input&#39;: {&#39;a&#39;: 1, &#39;b&#39;: 2}, &#39;increment_b&#39;: {&#39;b&#39;: 3}},</span>
+<span class="sd">                {&#39;input&#39;: {&#39;a&#39;: 1, &#39;b&#39;: 2}, &#39;increment_b&#39;: {&#39;b&#39;: 4}}</span>
+<span class="sd">            ]</span>
+<span class="sd">        )</span>
+
+<span class="sd">    Parallel and serial steps can be combined in a single flow:</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        # Example 3: Running complex parallel steps</span>
+<span class="sd">        complex_parallel_steps = parallel(</span>
+<span class="sd">            [</span>
+<span class="sd">                # Create three concurrent steps that increment &#39;a&#39; by 1, 2, and 3</span>
+<span class="sd">                step(&quot;increment_a&quot;, lambda a, i=i: dict(a=a+i)) for i in range(1, 4)</span>
+<span class="sd">            ],</span>
+<span class="sd">            [</span>
+<span class="sd">                # Create three concurrent steps that increment &#39;b&#39; by 1, 2, and 3</span>
+<span class="sd">                step(&quot;increment_b&quot;, lambda b, i=i: dict(b=b+i)) for i in range(1, 4)</span>
+<span class="sd">            ],</span>
+<span class="sd">            # Include a passthrough step that passes the input through unchanged</span>
+<span class="sd">            passthrough()</span>
+<span class="sd">        )</span>
+
+<span class="sd">        # Run the steps with input</span>
+<span class="sd">        result = run(complex_parallel_steps, input=dict(a=1, b=2))</span>
+
+<span class="sd">    generates the following output:</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        RunResult(</span>
+<span class="sd">            [{&#39;input&#39;: {&#39;a&#39;: 1, &#39;b&#39;: 2}, &#39;increment_a&#39;: {&#39;a&#39;: 2}}],</span>
+<span class="sd">            [{&#39;input&#39;: {&#39;a&#39;: 1, &#39;b&#39;: 2}, &#39;increment_a&#39;: {&#39;a&#39;: 3}}],</span>
+<span class="sd">            [{&#39;input&#39;: {&#39;a&#39;: 1, &#39;b&#39;: 2}, &#39;increment_a&#39;: {&#39;a&#39;: 4}}],</span>
+<span class="sd">            [{&#39;input&#39;: {&#39;a&#39;: 1, &#39;b&#39;: 2}, &#39;increment_b&#39;: {&#39;b&#39;: 3}}],</span>
+<span class="sd">            [{&#39;input&#39;: {&#39;a&#39;: 1, &#39;b&#39;: 2}, &#39;increment_b&#39;: {&#39;b&#39;: 4}}],</span>
+<span class="sd">            [{&#39;input&#39;: {&#39;a&#39;: 1, &#39;b&#39;: 2}, &#39;increment_b&#39;: {&#39;b&#39;: 5}}],</span>
+<span class="sd">            [{&#39;input&#39;: {&#39;a&#39;: 1, &#39;b&#39;: 2}}]</span>
+<span class="sd">        )</span>
+
+<span class="sd">    :param steps: the steps to run</span>
+<span class="sd">    :param input: one or more inputs to the steps (optional)</span>
+<span class="sd">    :param timestamps: if ``True``, include start and end timestamps for each step in</span>
+<span class="sd">        the output; if ``False``, do not include timestamps</span>
+<span class="sd">    :return: the dictionaries produced by the final step or steps</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">consumer</span> <span class="o">=</span> <span class="n">DictConsumer</span><span class="p">(</span><span class="n">timestamps</span><span class="o">=</span><span class="n">timestamps</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">steps</span><span class="p">,</span> <span class="n">BaseProducer</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">input</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                <span class="s2">&quot;arg input cannot be specified when the given steps include a leading &quot;</span>
+                <span class="s2">&quot;producer step&quot;</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">arun</span><span class="p">((</span><span class="n">steps</span> <span class="o">&gt;&gt;</span> <span class="n">consumer</span><span class="p">)</span><span class="o">.</span><span class="n">arun</span><span class="p">())</span>
+
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">steps</span><span class="p">,</span> <span class="n">BaseTransformer</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">arun</span><span class="p">(</span>
+            <span class="p">(</span>
+                <span class="n">DictProducer</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="p">{}</span> <span class="k">if</span> <span class="nb">input</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="nb">input</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;input&quot;</span><span class="p">)</span>
+                <span class="o">&gt;&gt;</span> <span class="n">steps</span>
+                <span class="o">&gt;&gt;</span> <span class="n">consumer</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">arun</span><span class="p">()</span>
+        <span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;arg steps must be a step or composition of steps, but got a &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">steps</span><span class="p">)</span><span class="o">.</span><span class="vm">__qualname__</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="nb">isinstance</span><span class="p">(</span><span class="n">steps</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">steps</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+            <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">steps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">Conduit</span><span class="p">)</span>
+        <span class="p">):</span>
+            <span class="n">message</span> <span class="o">+=</span> <span class="s2">&quot;; did you leave a comma before a closing parenthesis?&quot;</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></div>
+
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2024, Boston Consulting Group (BCG).
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.3.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

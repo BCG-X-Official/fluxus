@@ -1,0 +1,38 @@
+fluxus.lineage.HasLineage
+=========================
+
+.. currentmodule:: fluxus.lineage
+
+.. autoclass:: HasLineage
+   :members:
+   :no-show-inheritance:
+   :inherited-members:
+   :special-members: __call__
+
+   
+   
+   .. rubric:: Method summary
+
+   .. autosummary::
+      :nosignatures:
+   
+      ~HasLineage.get_lineage
+      ~HasLineage.get_lineage_attributes
+      ~HasLineage.label
+   
+   
+
+   
+   
+   .. rubric:: Attribute summary
+
+   .. autosummary::
+   
+      ~HasLineage.precursor
+      ~HasLineage.product_attributes
+      ~HasLineage.product_labels
+      ~HasLineage.product_name
+   
+   
+
+   .. rubric:: Definitions

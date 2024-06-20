@@ -1,0 +1,69 @@
+fluxus.functional
+=================
+
+.. toctree::
+   :maxdepth: 1
+   :hidden:
+
+   self
+   
+.. automodule:: fluxus.functional
+   :no-imported-members:
+
+   
+
+   
+   
+   =======
+   Classes
+   =======
+
+   .. autosummary::
+      :toctree: functional
+      :template: custom-class-template.rst
+      :nosignatures:
+   
+      RunResult
+   
+   
+
+   
+   
+   =========
+   Functions
+   =========
+
+   .. autosummary::
+      :toctree: functional
+      :nosignatures:
+   
+      chain
+      parallel
+      passthrough
+      run
+      step
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+
+
+==========
+Submodules
+==========
+.. autosummary::
+   :toctree: functional
+   :template: custom-module-template.rst
+   :recursive:
+
+   fluxus.functional.conduit
+   fluxus.functional.product
+

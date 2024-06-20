@@ -1,0 +1,39 @@
+fluxus.viz.FlowGraphStyle
+=========================
+
+.. currentmodule:: fluxus.viz
+
+.. autoclass:: FlowGraphStyle
+   :members:
+   :no-show-inheritance:
+   :inherited-members:
+   :special-members: __call__
+
+   
+   
+   .. rubric:: Method summary
+
+   .. autosummary::
+      :nosignatures:
+   
+      ~FlowGraphStyle.finalize_drawing
+      ~FlowGraphStyle.get_default_style_name
+      ~FlowGraphStyle.get_named_styles
+      ~FlowGraphStyle.render_flow
+      ~FlowGraphStyle.start_drawing
+   
+   
+
+   
+   
+   .. rubric:: Attribute summary
+
+   .. autosummary::
+   
+      ~FlowGraphStyle.colors
+      ~FlowGraphStyle.file
+      ~FlowGraphStyle.format
+   
+   
+
+   .. rubric:: Definitions

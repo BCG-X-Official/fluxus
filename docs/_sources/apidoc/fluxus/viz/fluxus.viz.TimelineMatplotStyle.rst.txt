@@ -1,0 +1,40 @@
+fluxus.viz.TimelineMatplotStyle
+===============================
+
+.. currentmodule:: fluxus.viz
+
+.. autoclass:: TimelineMatplotStyle
+   :members:
+   :no-show-inheritance:
+   :inherited-members:
+   :special-members: __call__
+
+   
+   
+   .. rubric:: Method summary
+
+   .. autosummary::
+      :nosignatures:
+   
+      ~TimelineMatplotStyle.apply_color_scheme
+      ~TimelineMatplotStyle.finalize_drawing
+      ~TimelineMatplotStyle.get_default_style_name
+      ~TimelineMatplotStyle.get_named_styles
+      ~TimelineMatplotStyle.get_renderer
+      ~TimelineMatplotStyle.render_timeline
+      ~TimelineMatplotStyle.start_drawing
+   
+   
+
+   
+   
+   .. rubric:: Attribute summary
+
+   .. autosummary::
+   
+      ~TimelineMatplotStyle.ax
+      ~TimelineMatplotStyle.colors
+   
+   
+
+   .. rubric:: Definitions

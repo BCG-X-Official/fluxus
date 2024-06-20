@@ -1,0 +1,739 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>fluxus.Flow &#8212; fluxus  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/bcgx.css?v=9d1a9f92" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/bcgx.js?v=6cc5c158"></script>
+    <script src="../../_static/js/versions.js?v=9c680586"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'apidoc/fluxus/fluxus.Flow';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="fluxus.Passthrough" href="fluxus.Passthrough.html" />
+    <link rel="prev" title="fluxus.Consumer" href="fluxus.Consumer.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../../_static/bcgx_logo.png" class="logo__image only-light" alt="fluxus  documentation - Home"/>
+    <script>document.write(`<img src="../../_static/bcgx_logo.png" class="logo__image only-dark" alt="fluxus  documentation - Home"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav class="navbar-nav">
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../_generated/home.html">
+    Home
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item current active">
+  <a class="nav-link nav-internal" href="../fluxus.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../contributor_guide/index.html">
+    Contributor Guide
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../faq.html">
+    FAQ
+  </a>
+</li>
+
+            <li class="nav-item dropdown pst-header-nav-item">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class="nav-item ">
+  <a class="nav-link dropdown-item nav-internal" href="../../_generated/release_notes.html">
+    Release Notes
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav class="navbar-nav">
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../_generated/home.html">
+    Home
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item current active">
+  <a class="nav-link nav-internal" href="../fluxus.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../contributor_guide/index.html">
+    Contributor Guide
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../_generated/release_notes.html">
+    Release Notes
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../fluxus.html">API Reference</a></li>
+</ul>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="fluxus.AsyncConsumer.html">fluxus.AsyncConsumer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fluxus.AsyncProducer.html">fluxus.AsyncProducer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fluxus.AsyncTransformer.html">fluxus.AsyncTransformer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fluxus.Consumer.html">fluxus.Consumer</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">fluxus.Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fluxus.Passthrough.html">fluxus.Passthrough</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fluxus.Producer.html">fluxus.Producer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fluxus.Transformer.html">fluxus.Transformer</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="fluxus.FlowWarning.html">fluxus.FlowWarning</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="fluxus.core.html">fluxus.core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fluxus.functional.html">fluxus.functional</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fluxus.lineage.html">fluxus.lineage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fluxus.simple.html">fluxus.simple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fluxus.util.html">fluxus.util</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fluxus.viz.html">fluxus.viz</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../fluxus.html" class="nav-link">API Reference</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">fluxus.Flow</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="fluxus-flow">
+<h1>fluxus.Flow<a class="headerlink" href="#fluxus-flow" title="Link to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="fluxus.Flow">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fluxus.</span></span><span class="sig-name descname"><span class="pre">Flow</span></span><a class="reference internal" href="../../_modules/fluxus/_flow.html#Flow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fluxus.Flow" title="Link to this definition">#</a></dt>
+<dd><p>A flow is a sequence of producers, transformers, and consumers that can be
+executed to produce a result.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Bases<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="core/fluxus.core.Conduit.html#fluxus.core.Conduit" title="fluxus.core.Conduit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Conduit</span></code></a> [+T_Output_ret]</p>
+</dd>
+<dt class="field-even">Generic types<span class="colon">:</span></dt>
+<dd class="field-even"><p>+T_Output_ret</p>
+</dd>
+<dt class="field-odd">Metaclasses<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/abc.html#abc.ABCMeta" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ABCMeta</span></code></a></p>
+</dd>
+</dl>
+<p class="rubric">Method summary</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fluxus.Flow.aiter_concurrent_conduits" title="fluxus.Flow.aiter_concurrent_conduits"><code class="xref py py-obj docutils literal notranslate"><span class="pre">aiter_concurrent_conduits</span></code></a></p></td>
+<td><p>Asynchronously iterate over the concurrent conduits that make up this conduit.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#fluxus.Flow.arun" title="fluxus.Flow.arun"><code class="xref py py-obj docutils literal notranslate"><span class="pre">arun</span></code></a></p></td>
+<td><p>Run the flow asynchronously.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fluxus.Flow.draw" title="fluxus.Flow.draw"><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw</span></code></a></p></td>
+<td><p>Draw the flow.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#fluxus.Flow.get_connections" title="fluxus.Flow.get_connections"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_connections</span></code></a></p></td>
+<td><p>Get the connections between conduits in this conduit.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fluxus.Flow.get_final_conduits" title="fluxus.Flow.get_final_conduits"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_final_conduits</span></code></a></p></td>
+<td><p>Get an iterator yielding the final atomic conduit or conduits of the (sub)flow represented by this conduit.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#fluxus.Flow.iter_concurrent_conduits" title="fluxus.Flow.iter_concurrent_conduits"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iter_concurrent_conduits</span></code></a></p></td>
+<td><p>Iterate over the concurrent conduits that make up this conduit.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fluxus.Flow.run" title="fluxus.Flow.run"><code class="xref py py-obj docutils literal notranslate"><span class="pre">run</span></code></a></p></td>
+<td><p>Run the flow.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#fluxus.Flow.to_expression" title="fluxus.Flow.to_expression"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_expression</span></code></a></p></td>
+<td><p>Make an expression representing this conduit.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="rubric">Attribute summary</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fluxus.Flow.final_conduit" title="fluxus.Flow.final_conduit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">final_conduit</span></code></a></p></td>
+<td><p>The final conduit in the flow; this is the consumer that terminates the flow.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#fluxus.Flow.is_atomic" title="fluxus.Flow.is_atomic"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_atomic</span></code></a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if this conduit is atomic, <code class="docutils literal notranslate"><span class="pre">False</span></code> if it is a chained or concurrent composition of other conduits.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fluxus.Flow.is_chained" title="fluxus.Flow.is_chained"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_chained</span></code></a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if this conduit contains a composition of conduits chained together sequentially, <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#fluxus.Flow.is_concurrent" title="fluxus.Flow.is_concurrent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_concurrent</span></code></a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if this conduit is a group of concurrent conduits, <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fluxus.Flow.n_concurrent_conduits" title="fluxus.Flow.n_concurrent_conduits"><code class="xref py py-obj docutils literal notranslate"><span class="pre">n_concurrent_conduits</span></code></a></p></td>
+<td><p>The number of concurrent conduits in this conduit.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#fluxus.Flow.name" title="fluxus.Flow.name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span></code></a></p></td>
+<td><p>The name of this conduit.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="rubric">Definitions</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="fluxus.Flow.aiter_concurrent_conduits">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">aiter_concurrent_conduits</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fluxus.Flow.aiter_concurrent_conduits" title="Link to this definition">#</a></dt>
+<dd><p>Asynchronously iterate over the concurrent conduits that make up this conduit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.7/library/collections.abc.html#collections.abc.AsyncIterator" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">AsyncIterator</span></code></a>[<a class="reference internal" href="core/fluxus.core.SerialConduit.html#fluxus.core.SerialConduit" title="fluxus.core._conduit.SerialConduit"><code class="xref py py-class docutils literal notranslate"><span class="pre">SerialConduit</span></code></a>[<a class="reference external" href="https://docs.python.org/3.7/library/typing.html#typing.TypeVar" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code></a>(<code class="docutils literal notranslate"><span class="pre">T_Output_ret</span></code>, covariant=True)]]</span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>an asynchronous iterator over the concurrent conduits</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fluxus.Flow.arun">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">arun</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fluxus/_flow.html#Flow.arun"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fluxus.Flow.arun" title="Link to this definition">#</a></dt>
+<dd><p>Run the flow asynchronously.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#fluxus.Flow" title="fluxus._flow.Flow"><code class="xref py py-class docutils literal notranslate"><span class="pre">Flow</span></code></a></span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the result of the flow</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fluxus.Flow.draw">
+<span class="sig-name descname"><span class="pre">draw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">style</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'graph'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fluxus.Flow.draw" title="Link to this definition">#</a></dt>
+<dd><p>Draw the flow.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>style</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – the style to use for drawing the flow, see <a class="reference internal" href="viz/fluxus.viz.FlowDrawer.html#fluxus.viz.FlowDrawer" title="fluxus.viz.FlowDrawer"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowDrawer</span></code></a>
+for available styles (defaults to “graph”)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fluxus.Flow.get_connections">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_connections</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ingoing</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fluxus.Flow.get_connections" title="Link to this definition">#</a></dt>
+<dd><p>Get the connections between conduits in this conduit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ingoing</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.7/library/collections.abc.html#collections.abc.Collection" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Collection</span></code></a>[<a class="reference internal" href="core/fluxus.core.SerialConduit.html#fluxus.core.SerialConduit" title="fluxus.core._conduit.SerialConduit"><code class="xref py py-class docutils literal notranslate"><span class="pre">SerialConduit</span></code></a>[<a class="reference external" href="https://docs.python.org/3.7/library/typing.html#typing.Any" title="(in Python v3.7)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]]</span>) – the ingoing conduits, if any</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.7/library/collections.abc.html#collections.abc.Iterator" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterator</span></code></a>[<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#tuple" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a>[<a class="reference internal" href="core/fluxus.core.SerialConduit.html#fluxus.core.SerialConduit" title="fluxus.core._conduit.SerialConduit"><code class="xref py py-class docutils literal notranslate"><span class="pre">SerialConduit</span></code></a>[<a class="reference external" href="https://docs.python.org/3.7/library/typing.html#typing.Any" title="(in Python v3.7)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>], <a class="reference internal" href="core/fluxus.core.SerialConduit.html#fluxus.core.SerialConduit" title="fluxus.core._conduit.SerialConduit"><code class="xref py py-class docutils literal notranslate"><span class="pre">SerialConduit</span></code></a>[<a class="reference external" href="https://docs.python.org/3.7/library/typing.html#typing.Any" title="(in Python v3.7)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]]]</span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>an iterator yielding connections between conduits</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fluxus.Flow.get_final_conduits">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_final_conduits</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fluxus.Flow.get_final_conduits" title="Link to this definition">#</a></dt>
+<dd><p>Get an iterator yielding the final atomic conduit or conduits of the (sub)flow
+represented by this conduit.</p>
+<p>If this conduit is atomic, yields the conduit itself.</p>
+<p>If this conduit is a sequential composition of conduits, yields the final
+conduit of that sequence.</p>
+<p>If this conduit is a group of concurrent conduits, yields the final conduits of
+each of the concurrent conduits.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.7/library/collections.abc.html#collections.abc.Iterator" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterator</span></code></a>[<a class="reference internal" href="core/fluxus.core.SerialConduit.html#fluxus.core.SerialConduit" title="fluxus.core._conduit.SerialConduit"><code class="xref py py-class docutils literal notranslate"><span class="pre">SerialConduit</span></code></a>[<a class="reference external" href="https://docs.python.org/3.7/library/typing.html#typing.TypeVar" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code></a>(<code class="docutils literal notranslate"><span class="pre">T_Output_ret</span></code>, covariant=True)]]</span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>an iterator yielding the final conduits</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fluxus.Flow.iter_concurrent_conduits">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">iter_concurrent_conduits</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fluxus.Flow.iter_concurrent_conduits" title="Link to this definition">#</a></dt>
+<dd><p>Iterate over the concurrent conduits that make up this conduit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.7/library/collections.abc.html#collections.abc.Iterator" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterator</span></code></a>[<a class="reference internal" href="core/fluxus.core.SerialConduit.html#fluxus.core.SerialConduit" title="fluxus.core._conduit.SerialConduit"><code class="xref py py-class docutils literal notranslate"><span class="pre">SerialConduit</span></code></a>[<a class="reference external" href="https://docs.python.org/3.7/library/typing.html#typing.TypeVar" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code></a>(<code class="docutils literal notranslate"><span class="pre">T_Output_ret</span></code>, covariant=True)]]</span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>an iterator over the concurrent conduits</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fluxus.Flow.run">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/fluxus/_flow.html#Flow.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fluxus.Flow.run" title="Link to this definition">#</a></dt>
+<dd><p>Run the flow.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#fluxus.Flow" title="fluxus._flow.Flow"><code class="xref py py-class docutils literal notranslate"><span class="pre">Flow</span></code></a></span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the result of the flow</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fluxus.Flow.to_expression">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">to_expression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compact</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fluxus.Flow.to_expression" title="Link to this definition">#</a></dt>
+<dd><p>Make an expression representing this conduit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>compact</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>) – if <code class="docutils literal notranslate"><span class="pre">True</span></code>, use a compact representation using only the subset
+of conduit attributes from <a class="reference internal" href="core/fluxus.core.SerialConduit.html#fluxus.core.SerialConduit.get_repr_attributes" title="fluxus.core.SerialConduit.get_repr_attributes"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_repr_attributes()</span></code></a>;
+if <code class="docutils literal notranslate"><span class="pre">False</span></code>, generate the full representation using all attributes</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Expression</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the expression representing this conduit</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="fluxus.Flow.final_conduit">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">final_conduit</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="fluxus.Consumer.html#fluxus.Consumer" title="fluxus._consumer.Consumer"><span class="pre">Consumer</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.7/library/typing.html#typing.Any" title="(in Python v3.7)"><span class="pre">Any</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">T_Output_ret</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#fluxus.Flow.final_conduit" title="Link to this definition">#</a></dt>
+<dd><p>The final conduit in the flow; this is the consumer that terminates the flow.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="fluxus.Flow.is_atomic">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_atomic</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><span class="pre">bool</span></a></em><a class="headerlink" href="#fluxus.Flow.is_atomic" title="Link to this definition">#</a></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if this conduit is atomic, <code class="docutils literal notranslate"><span class="pre">False</span></code> if it is a chained or concurrent
+composition of other conduits.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="fluxus.Flow.is_chained">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_chained</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><span class="pre">bool</span></a></em><a class="headerlink" href="#fluxus.Flow.is_chained" title="Link to this definition">#</a></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if this conduit contains a composition of conduits chained together
+sequentially, <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="fluxus.Flow.is_concurrent">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_concurrent</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><span class="pre">bool</span></a></em><a class="headerlink" href="#fluxus.Flow.is_concurrent" title="Link to this definition">#</a></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if this conduit is a group of concurrent conduits, <code class="docutils literal notranslate"><span class="pre">False</span></code>
+otherwise.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="fluxus.Flow.n_concurrent_conduits">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">n_concurrent_conduits</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><span class="pre">int</span></a></em><a class="headerlink" href="#fluxus.Flow.n_concurrent_conduits" title="Link to this definition">#</a></dt>
+<dd><p>The number of concurrent conduits in this conduit.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="fluxus.Flow.name">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a></em><a class="headerlink" href="#fluxus.Flow.name" title="Link to this definition">#</a></dt>
+<dd><p>The name of this conduit.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fluxus.Flow"><code class="docutils literal notranslate"><span class="pre">Flow</span></code></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fluxus.Flow.aiter_concurrent_conduits"><code class="docutils literal notranslate"><span class="pre">Flow.aiter_concurrent_conduits()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fluxus.Flow.arun"><code class="docutils literal notranslate"><span class="pre">Flow.arun()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fluxus.Flow.draw"><code class="docutils literal notranslate"><span class="pre">Flow.draw()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fluxus.Flow.get_connections"><code class="docutils literal notranslate"><span class="pre">Flow.get_connections()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fluxus.Flow.get_final_conduits"><code class="docutils literal notranslate"><span class="pre">Flow.get_final_conduits()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fluxus.Flow.iter_concurrent_conduits"><code class="docutils literal notranslate"><span class="pre">Flow.iter_concurrent_conduits()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fluxus.Flow.run"><code class="docutils literal notranslate"><span class="pre">Flow.run()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fluxus.Flow.to_expression"><code class="docutils literal notranslate"><span class="pre">Flow.to_expression()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fluxus.Flow.final_conduit"><code class="docutils literal notranslate"><span class="pre">Flow.final_conduit</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fluxus.Flow.is_atomic"><code class="docutils literal notranslate"><span class="pre">Flow.is_atomic</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fluxus.Flow.is_chained"><code class="docutils literal notranslate"><span class="pre">Flow.is_chained</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fluxus.Flow.is_concurrent"><code class="docutils literal notranslate"><span class="pre">Flow.is_concurrent</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fluxus.Flow.n_concurrent_conduits"><code class="docutils literal notranslate"><span class="pre">Flow.n_concurrent_conduits</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fluxus.Flow.name"><code class="docutils literal notranslate"><span class="pre">Flow.name</span></code></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2024, Boston Consulting Group (BCG).
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.3.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

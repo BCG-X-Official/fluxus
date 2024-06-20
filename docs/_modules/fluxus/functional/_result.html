@@ -1,0 +1,826 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>fluxus.functional._result &#8212; fluxus  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/bcgx.css?v=9d1a9f92" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/bcgx.js?v=6cc5c158"></script>
+    <script src="../../../_static/js/versions.js?v=9c680586"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/fluxus/functional/_result';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../../../_static/bcgx_logo.png" class="logo__image only-light" alt="fluxus  documentation - Home"/>
+    <script>document.write(`<img src="../../../_static/bcgx_logo.png" class="logo__image only-dark" alt="fluxus  documentation - Home"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav class="navbar-nav">
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../_generated/home.html">
+    Home
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../apidoc/fluxus.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../contributor_guide/index.html">
+    Contributor Guide
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../faq.html">
+    FAQ
+  </a>
+</li>
+
+            <li class="nav-item dropdown pst-header-nav-item">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class="nav-item ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../_generated/release_notes.html">
+    Release Notes
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav class="navbar-nav">
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../_generated/home.html">
+    Home
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../apidoc/fluxus.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../contributor_guide/index.html">
+    Contributor Guide
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../_generated/release_notes.html">
+    Release Notes
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">fluxus.funct...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for fluxus.functional._result</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -----------------------------------------------------------------------------</span>
+<span class="c1"># © 2024 Boston Consulting Group. All rights reserved.</span>
+<span class="c1">#</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1">#     http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+<span class="c1"># -----------------------------------------------------------------------------</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Implementation of ``RunResult``.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Sequence</span>
+<span class="kn">from</span> <span class="nn">types</span> <span class="kn">import</span> <span class="n">NoneType</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">TextIO</span><span class="p">,</span> <span class="n">cast</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="kn">from</span> <span class="nn">pytools.api</span> <span class="kn">import</span> <span class="n">inheritdoc</span>
+<span class="kn">from</span> <span class="nn">pytools.expression</span> <span class="kn">import</span> <span class="n">Expression</span><span class="p">,</span> <span class="n">HasExpressionRepr</span>
+<span class="kn">from</span> <span class="nn">pytools.expression.atomic</span> <span class="kn">import</span> <span class="n">Id</span>
+
+<span class="kn">from</span> <span class="nn">.product</span> <span class="kn">import</span> <span class="n">DictProduct</span>
+
+<span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;RunResult&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+
+<div class="viewcode-block" id="RunResult">
+<a class="viewcode-back" href="../../../apidoc/fluxus/functional/fluxus.functional.RunResult.html#fluxus.functional.RunResult">[docs]</a>
+<span class="nd">@inheritdoc</span><span class="p">(</span><span class="n">match</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;[see superclass]&quot;&quot;&quot;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">RunResult</span><span class="p">(</span><span class="n">HasExpressionRepr</span><span class="p">):</span>
+    <span class="c1"># noinspection GrazieInspection</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The result of running a flow.</span>
+
+<span class="sd">    A run result represents the output of a flow, as a list of dictionaries for each</span>
+<span class="sd">    distinct path through the flow.</span>
+
+<span class="sd">    Each dictionary represents the output of the flow for a single input. The dictionary</span>
+<span class="sd">    is in the form of a nested dictionary, where the keys of the outer dictionary are</span>
+<span class="sd">    the names of the steps, and the values are attribute-value mappings produced by</span>
+<span class="sd">    each of the steps.</span>
+
+<span class="sd">    For example:</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        # Create a producer step that produces a single dictionary</span>
+<span class="sd">        producer = step(</span>
+<span class="sd">            &quot;input&quot;,</span>
+<span class="sd">            dict(a=1, b=2, c=3),</span>
+<span class="sd">        )</span>
+
+<span class="sd">        # Define an increment function</span>
+<span class="sd">        def increment(a: int, by: int) -&gt; dict[str, int]:</span>
+<span class="sd">            return dict(a=a + by)</span>
+
+<span class="sd">        # Create transformers step that increment the value of &#39;a&#39;</span>
+<span class="sd">        increment_by_1 = step(</span>
+<span class="sd">            &quot;increment&quot;,</span>
+<span class="sd">            increment,</span>
+<span class="sd">            by=1,</span>
+<span class="sd">        )</span>
+
+<span class="sd">        increment_by_2 = step(</span>
+<span class="sd">            &quot;increment&quot;,</span>
+<span class="sd">            increment,</span>
+<span class="sd">            by=2,</span>
+<span class="sd">        )</span>
+
+<span class="sd">        # Construct and run the flow</span>
+<span class="sd">        run(producer &gt;&gt; (increment_by_1 &amp; increment_by_2))</span>
+
+<span class="sd">    The output will be:</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        RunResult(</span>
+<span class="sd">            [{&#39;input&#39;: {&#39;a&#39;: 1, &#39;b&#39;: 2, &#39;c&#39;: 3}, &#39;increment&#39;: {&#39;a&#39;: 2}}],</span>
+<span class="sd">            [{&#39;input&#39;: {&#39;a&#39;: 1, &#39;b&#39;: 2, &#39;c&#39;: 3}, &#39;increment&#39;: {&#39;a&#39;: 3}}]</span>
+<span class="sd">        )</span>
+
+<span class="sd">    To access the results of running the flow, use the :meth:`get_outputs` method.</span>
+
+<span class="sd">    To access the results grouped by path, use the :meth:`get_outputs_per_path` method.</span>
+
+<span class="sd">    The run result can be converted to a data frame using the :meth:`to_frame` method.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_step_results</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]],</span> <span class="o">...</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">step_results</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param step_results: the results of running the flow, as a list of nested</span>
+<span class="sd">            dictionaries for each distinct path through the flow</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">step_result</span> <span class="ow">in</span> <span class="n">step_results</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">step_result</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;expected a list of dictionaries but got: </span><span class="si">{</span><span class="n">step_result</span><span class="si">!r}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
+            <span class="k">for</span> <span class="n">flow_output</span> <span class="ow">in</span> <span class="n">step_result</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">flow_output</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;expected a dictionary but got: </span><span class="si">{</span><span class="n">flow_output</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">step_name</span><span class="p">,</span> <span class="n">step_output</span> <span class="ow">in</span> <span class="n">flow_output</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">step_output</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                            <span class="sa">f</span><span class="s2">&quot;expected a dictionary for step </span><span class="si">{</span><span class="n">step_name</span><span class="si">!r}</span><span class="s2"> but got: &quot;</span>
+                            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">step_output</span><span class="si">!r}</span><span class="s2">&quot;</span>
+                        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_step_results</span> <span class="o">=</span> <span class="n">step_results</span>
+
+<div class="viewcode-block" id="RunResult.get_outputs">
+<a class="viewcode-back" href="../../../apidoc/fluxus/functional/fluxus.functional.RunResult.html#fluxus.functional.RunResult.get_outputs">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_outputs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the results of running the flow, for all inputs across all paths.</span>
+
+<span class="sd">        :return: an iterator over all results</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_step_results</span><span class="p">:</span>
+            <span class="k">yield from</span> <span class="n">path</span></div>
+
+
+<div class="viewcode-block" id="RunResult.get_outputs_per_path">
+<a class="viewcode-back" href="../../../apidoc/fluxus/functional/fluxus.functional.RunResult.html#fluxus.functional.RunResult.get_outputs_per_path">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_outputs_per_path</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Iterator</span><span class="p">[</span><span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the results of running the flow, as a list of outputs for each path.</span>
+
+<span class="sd">        Returns a nested list, where the outer list corresponds to the paths through the</span>
+<span class="sd">        flow, and the inner list corresponds to the outputs along that path for all</span>
+<span class="sd">        inputs.</span>
+
+<span class="sd">        Note that the inner list may be empty if the path has no outputs, or may contain</span>
+<span class="sd">        multiple outputs for individual inputs.</span>
+
+<span class="sd">        :return: the results of running the flow, as a list of output iterators for each</span>
+<span class="sd">            path</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span><span class="nb">iter</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_step_results</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="RunResult.to_frame">
+<a class="viewcode-back" href="../../../apidoc/fluxus/functional/fluxus.functional.RunResult.html#fluxus.functional.RunResult.to_frame">[docs]</a>
+    <span class="k">def</span> <span class="nf">to_frame</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">simplify</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convert this run result to a frame.</span>
+
+<span class="sd">        If the path is specified, the output will be a frame for that path only.</span>
+
+<span class="sd">        :param path: the index of the path to convert to a frame; if not specified, the</span>
+<span class="sd">            output will be a frame for all paths</span>
+<span class="sd">        :param simplify: if ``True``, convert complex types to strings using</span>
+<span class="sd">            :func:`.simplify_complex_types`; if ``False``, leave objects with complex</span>
+<span class="sd">            types as they are (default: ``False``)</span>
+<span class="sd">        :return: this run result</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">path</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">path</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_step_results</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;path index out of bounds: </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">outputs_for_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_step_results</span><span class="p">[</span><span class="n">path</span><span class="p">]</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">outputs_for_path</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;path </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2"> has no outputs; cannot convert to frame&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">_dicts_to_frame</span><span class="p">(</span><span class="n">outputs_for_path</span><span class="p">,</span> <span class="n">simplify</span><span class="o">=</span><span class="n">simplify</span> <span class="ow">or</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_step_results</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;RunResult has no outputs; cannot convert to frame&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">_dicts_to_frame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_step_results</span><span class="p">,</span> <span class="n">simplify</span><span class="o">=</span><span class="n">simplify</span> <span class="ow">or</span> <span class="kc">False</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="RunResult.draw_timeline">
+<a class="viewcode-back" href="../../../apidoc/fluxus/functional/fluxus.functional.RunResult.html#fluxus.functional.RunResult.draw_timeline">[docs]</a>
+    <span class="k">def</span> <span class="nf">draw_timeline</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">style</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="s2">&quot;matplot&quot;</span><span class="p">,</span> <span class="s2">&quot;matplot_dark&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;matplot&quot;</span><span class="p">,</span>
+        <span class="n">out</span><span class="p">:</span> <span class="n">TextIO</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Draw a timeline of the flow execution.</span>
+
+<span class="sd">        :param style: the style to use for rendering the timeline</span>
+<span class="sd">        :param out: the output stream to write the timeline to, if style is ``&quot;text&quot;``</span>
+<span class="sd">            (defaults to :obj:`sys.stdout`)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span>
+            <span class="n">DictProduct</span><span class="o">.</span><span class="n">KEY_START_TIME</span> <span class="ow">in</span> <span class="n">step_output</span>
+            <span class="ow">and</span> <span class="n">DictProduct</span><span class="o">.</span><span class="n">KEY_END_TIME</span> <span class="ow">in</span> <span class="n">step_output</span>
+            <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_step_results</span>
+            <span class="k">for</span> <span class="n">execution_output</span> <span class="ow">in</span> <span class="n">path</span>
+            <span class="k">for</span> <span class="n">step_output</span> <span class="ow">in</span> <span class="n">execution_output</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+        <span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Results do not include timestamps; re-run the flow with using &quot;</span>
+                <span class="s2">&quot;function &#39;run&#39; with argument &#39;timestamps=True&#39;&quot;</span>
+            <span class="p">)</span>
+        <span class="kn">from</span> <span class="nn">..viz</span> <span class="kn">import</span> <span class="n">TimelineDrawer</span><span class="p">,</span> <span class="n">TimelineTextStyle</span>
+
+        <span class="n">style_arg</span><span class="p">:</span> <span class="n">TimelineTextStyle</span> <span class="o">|</span> <span class="nb">str</span>
+
+        <span class="k">if</span> <span class="n">out</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">text_style_name</span> <span class="o">=</span> <span class="n">TimelineTextStyle</span><span class="o">.</span><span class="n">get_default_style_name</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">style</span> <span class="o">==</span> <span class="n">text_style_name</span><span class="p">:</span>
+                <span class="n">style_arg</span> <span class="o">=</span> <span class="n">TimelineTextStyle</span><span class="p">(</span><span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;arg out is only supported with arg style=</span><span class="si">{</span><span class="n">text_style_name</span><span class="si">!r}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">permissible_style_names</span> <span class="o">=</span> <span class="n">TimelineDrawer</span><span class="o">.</span><span class="n">get_named_styles</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">style</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">permissible_style_names</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;arg style must be one of: &quot;</span>
+                    <span class="o">+</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">repr</span><span class="p">,</span> <span class="n">permissible_style_names</span><span class="p">))</span>
+                <span class="p">)</span>
+            <span class="n">style_arg</span> <span class="o">=</span> <span class="n">style</span>
+
+        <span class="n">TimelineDrawer</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="n">style_arg</span><span class="p">)</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Timeline&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="RunResult.to_expression">
+<a class="viewcode-back" href="../../../apidoc/fluxus/functional/fluxus.functional.RunResult.html#fluxus.functional.RunResult.to_expression">[docs]</a>
+    <span class="k">def</span> <span class="nf">to_expression</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Expression</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;[see superclass]&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">Id</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">))(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_step_results</span><span class="p">)</span></div>
+
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">RunResult</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_step_results</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">_step_results</span>
+        <span class="p">)</span></div>
+
+
+
+<span class="c1">#</span>
+<span class="c1"># Auxiliary functions</span>
+<span class="c1">#</span>
+
+
+<span class="k">def</span> <span class="nf">_dicts_to_frame</span><span class="p">(</span>
+    <span class="n">dicts</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="o">*</span><span class="p">,</span> <span class="n">simplify</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">max_levels</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert a (possibly nested) iterable of dictionaries or mappings to a DataFrame,</span>
+<span class="sd">    using the dictionary keys as column names.</span>
+
+<span class="sd">    Nested lists are converted to multi-level indices, where the first level holds the</span>
+<span class="sd">    outermost list indices and subsequent index levels represent the nested list</span>
+<span class="sd">    indices.</span>
+
+<span class="sd">    Nested dictionaries are converted to multi-level columns, where the first level</span>
+<span class="sd">    holds the outermost dictionary keys and subsequent index levels represent the</span>
+<span class="sd">    nested dictionary keys.</span>
+
+<span class="sd">    :param dicts: the dictionaries or mappings to convert, either as a single iterable</span>
+<span class="sd">        or as a nested iterable</span>
+<span class="sd">    :param simplify: if ``True``, convert complex types to strings using</span>
+<span class="sd">        :func:`.simplify_complex_types`; if ``False``, leave objects with complex types</span>
+<span class="sd">        as they are</span>
+<span class="sd">    :param max_levels: the maximum number of levels in the resulting multi-level index;</span>
+<span class="sd">        if ``None``, the number of levels is not limited (default: ``None``)</span>
+<span class="sd">    :return: the data frame</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">element_types</span> <span class="o">=</span> <span class="p">{</span><span class="nb">type</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dicts</span><span class="p">}</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">element_types</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;arg dicts must not contain mixed types of elements&quot;</span><span class="p">)</span>
+    <span class="n">element_type</span> <span class="o">=</span> <span class="n">element_types</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">element_type</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+                <span class="p">(</span>
+                    <span class="n">_dict_to_series</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">simplify</span><span class="o">=</span><span class="n">simplify</span><span class="p">,</span> <span class="n">max_levels</span><span class="o">=</span><span class="n">max_levels</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dicts</span>
+                <span class="p">),</span>
+                <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">convert_dtypes</span><span class="p">()</span>
+            <span class="o">.</span><span class="n">rename_axis</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s2">&quot;item&quot;</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">element_type</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">):</span>
+        <span class="c1"># We have a sequence of sequences</span>
+        <span class="n">sub_frames</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="c1"># We iterate over the inner sequences and convert them to data</span>
+            <span class="c1"># frames, which are then concatenated along the column axis.</span>
+            <span class="c1"># We skip empty sequences.</span>
+            <span class="n">_dicts_to_frame</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">simplify</span><span class="o">=</span><span class="n">simplify</span><span class="p">,</span> <span class="n">max_levels</span><span class="o">=</span><span class="n">max_levels</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dicts</span>
+            <span class="k">if</span> <span class="n">d</span>  <span class="c1"># Skip empty sequences</span>
+        <span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">sub_frames</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;arg dicts must not contain only empty sequences&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+            <span class="n">cast</span><span class="p">(</span>
+                <span class="n">Iterable</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">],</span>
+                <span class="n">sub_frames</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="c1"># We add an index level for the outer sequence</span>
+            <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;group&quot;</span><span class="p">],</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+            <span class="s2">&quot;arg dicts must be a sequence or nested sequence of dictionaries&quot;</span>
+        <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_dict_to_series</span><span class="p">(</span>
+    <span class="n">d</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="o">*</span><span class="p">,</span> <span class="n">simplify</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">max_levels</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>  <span class="c1"># type: ignore[type-arg]</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert a dictionary to a Series, using the keys as index labels.</span>
+
+<span class="sd">    Nested dictionaries are converted to multi-level indices, where the first level</span>
+<span class="sd">    holds the outermost dictionary keys and subsequent index levels represent the nested</span>
+<span class="sd">    dictionary keys.</span>
+
+<span class="sd">    :param d: the dictionary or mapping to convert</span>
+<span class="sd">    :param simplify: if ``True``, convert complex types to strings using</span>
+<span class="sd">        :func:`.simplify_complex_types`; if ``False``, leave objects with complex types</span>
+<span class="sd">        as they are</span>
+<span class="sd">    :param max_levels: the maximum number of levels in the resulting multi-level index;</span>
+<span class="sd">        if ``None``, the number of levels is not limited (default: ``None``)</span>
+<span class="sd">    :return: the series</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">max_levels</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">max_levels</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;arg max_levels must be a positive integer or None, but got: </span><span class="si">{</span><span class="n">max_levels</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_flatten</span><span class="p">(</span>
+        <span class="n">sub_dict</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+        <span class="n">level</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">parent_key</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+        <span class="n">new_key</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">sub_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">parent_key</span><span class="p">:</span>
+                <span class="c1"># The first level of the index is a single string</span>
+                <span class="n">new_key</span> <span class="o">=</span> <span class="n">k</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">parent_key</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+                <span class="c1"># Subsequent levels are tuples of strings</span>
+                <span class="n">new_key</span> <span class="o">=</span> <span class="p">(</span><span class="o">*</span><span class="n">parent_key</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># The second level of the index is the first to be a tuple</span>
+                <span class="n">new_key</span> <span class="o">=</span> <span class="p">(</span><span class="n">parent_key</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="n">level</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">yield from</span> <span class="n">_flatten</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">level</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">new_key</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># We are at the last level of the index and will stop flattening</span>
+                <span class="k">yield</span> <span class="n">new_key</span><span class="p">,</span> <span class="n">_simplify_complex_types</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">simplify</span> <span class="k">else</span> <span class="n">v</span>
+
+    <span class="n">sr</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span> <span class="o">=</span> <span class="p">(</span>  <span class="c1"># type: ignore[type-arg]</span>
+        <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">_flatten</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">max_levels</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">)))</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">sr</span>
+
+
+<span class="c1">#</span>
+<span class="c1"># Auxiliary functions</span>
+<span class="c1">#</span>
+
+
+<span class="k">def</span> <span class="nf">_simplify_complex_types</span><span class="p">(</span>
+    <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span> <span class="o">|</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">bytes</span> <span class="o">|</span> <span class="nb">complex</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert instances of complex types to strings.</span>
+
+<span class="sd">    :param value: the value to convert</span>
+<span class="sd">    :return: the value, with complex types converted to strings</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">,</span> <span class="nb">complex</span><span class="p">,</span> <span class="n">NoneType</span><span class="p">)):</span>
+        <span class="k">return</span> <span class="n">value</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2024, Boston Consulting Group (BCG).
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.3.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

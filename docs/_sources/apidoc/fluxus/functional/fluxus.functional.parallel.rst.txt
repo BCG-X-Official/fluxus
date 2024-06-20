@@ -1,0 +1,6 @@
+fluxus.functional.parallel
+==========================
+
+.. currentmodule:: fluxus.functional
+
+.. autofunction:: parallel

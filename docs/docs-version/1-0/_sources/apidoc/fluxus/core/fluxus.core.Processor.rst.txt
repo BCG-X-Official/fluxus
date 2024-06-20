@@ -1,0 +1,47 @@
+fluxus.core.Processor
+=====================
+
+.. currentmodule:: fluxus.core
+
+.. autoclass:: Processor
+   :members:
+   :no-show-inheritance:
+   :inherited-members:
+   :special-members: __call__
+
+   
+   
+   .. rubric:: Method summary
+
+   .. autosummary::
+      :nosignatures:
+   
+      ~Processor.aiter_concurrent_conduits
+      ~Processor.aprocess
+      ~Processor.draw
+      ~Processor.get_connections
+      ~Processor.get_final_conduits
+      ~Processor.is_valid_source
+      ~Processor.iter_concurrent_conduits
+      ~Processor.process
+      ~Processor.to_expression
+   
+   
+
+   
+   
+   .. rubric:: Attribute summary
+
+   .. autosummary::
+   
+      ~Processor.final_conduit
+      ~Processor.input_type
+      ~Processor.is_atomic
+      ~Processor.is_chained
+      ~Processor.is_concurrent
+      ~Processor.n_concurrent_conduits
+      ~Processor.name
+   
+   
+
+   .. rubric:: Definitions

@@ -1,0 +1,679 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>fluxus.functional.RunResult &#8212; fluxus  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/bcgx.css?v=9d1a9f92" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/bcgx.js?v=6cc5c158"></script>
+    <script src="../../../_static/js/versions.js?v=9c680586"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'apidoc/fluxus/functional/fluxus.functional.RunResult';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="fluxus.functional.chain" href="fluxus.functional.chain.html" />
+    <link rel="prev" title="fluxus.functional" href="../fluxus.functional.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../../../_static/bcgx_logo.png" class="logo__image only-light" alt="fluxus  documentation - Home"/>
+    <script>document.write(`<img src="../../../_static/bcgx_logo.png" class="logo__image only-dark" alt="fluxus  documentation - Home"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav class="navbar-nav">
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../_generated/home.html">
+    Home
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item current active">
+  <a class="nav-link nav-internal" href="../../fluxus.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../contributor_guide/index.html">
+    Contributor Guide
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../faq.html">
+    FAQ
+  </a>
+</li>
+
+            <li class="nav-item dropdown pst-header-nav-item">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class="nav-item ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../_generated/release_notes.html">
+    Release Notes
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav class="navbar-nav">
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../_generated/home.html">
+    Home
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item current active">
+  <a class="nav-link nav-internal" href="../../fluxus.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../contributor_guide/index.html">
+    Contributor Guide
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../_generated/release_notes.html">
+    Release Notes
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../fluxus.html">API Reference</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../fluxus.AsyncConsumer.html">fluxus.AsyncConsumer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fluxus.AsyncProducer.html">fluxus.AsyncProducer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fluxus.AsyncTransformer.html">fluxus.AsyncTransformer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fluxus.Consumer.html">fluxus.Consumer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fluxus.Flow.html">fluxus.Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fluxus.Passthrough.html">fluxus.Passthrough</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fluxus.Producer.html">fluxus.Producer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fluxus.Transformer.html">fluxus.Transformer</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../fluxus.FlowWarning.html">fluxus.FlowWarning</a></li>
+</ul>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../fluxus.core.html">fluxus.core</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../fluxus.functional.html">fluxus.functional</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../fluxus.functional.html">fluxus.functional</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">fluxus.functional.RunResult</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fluxus.functional.chain.html">fluxus.functional.chain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fluxus.functional.parallel.html">fluxus.functional.parallel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fluxus.functional.passthrough.html">fluxus.functional.passthrough</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fluxus.functional.run.html">fluxus.functional.run</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fluxus.functional.step.html">fluxus.functional.step</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fluxus.functional.conduit.html">fluxus.functional.conduit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fluxus.functional.product.html">fluxus.functional.product</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../fluxus.lineage.html">fluxus.lineage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fluxus.simple.html">fluxus.simple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fluxus.util.html">fluxus.util</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fluxus.viz.html">fluxus.viz</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../fluxus.html" class="nav-link">API Reference</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="../fluxus.functional.html" class="nav-link">fluxus.functional</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">fluxus.funct...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="fluxus-functional-runresult">
+<h1>fluxus.functional.RunResult<a class="headerlink" href="#fluxus-functional-runresult" title="Link to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="fluxus.functional.RunResult">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fluxus.functional.</span></span><span class="sig-name descname"><span class="pre">RunResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">step_results</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/fluxus/functional/_result.html#RunResult"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fluxus.functional.RunResult" title="Link to this definition">#</a></dt>
+<dd><p>The result of running a flow.</p>
+<p>A run result represents the output of a flow, as a list of dictionaries for each
+distinct path through the flow.</p>
+<p>Each dictionary represents the output of the flow for a single input. The dictionary
+is in the form of a nested dictionary, where the keys of the outer dictionary are
+the names of the steps, and the values are attribute-value mappings produced by
+each of the steps.</p>
+<p>For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a producer step that produces a single dictionary</span>
+<span class="n">producer</span> <span class="o">=</span> <span class="n">step</span><span class="p">(</span>
+    <span class="s2">&quot;input&quot;</span><span class="p">,</span>
+    <span class="nb">dict</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Define an increment function</span>
+<span class="k">def</span> <span class="nf">increment</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">by</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">a</span> <span class="o">+</span> <span class="n">by</span><span class="p">)</span>
+
+<span class="c1"># Create transformers step that increment the value of &#39;a&#39;</span>
+<span class="n">increment_by_1</span> <span class="o">=</span> <span class="n">step</span><span class="p">(</span>
+    <span class="s2">&quot;increment&quot;</span><span class="p">,</span>
+    <span class="n">increment</span><span class="p">,</span>
+    <span class="n">by</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">increment_by_2</span> <span class="o">=</span> <span class="n">step</span><span class="p">(</span>
+    <span class="s2">&quot;increment&quot;</span><span class="p">,</span>
+    <span class="n">increment</span><span class="p">,</span>
+    <span class="n">by</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Construct and run the flow</span>
+<span class="n">run</span><span class="p">(</span><span class="n">producer</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="n">increment_by_1</span> <span class="o">&amp;</span> <span class="n">increment_by_2</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>The output will be:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">RunResult</span><span class="p">(</span>
+    <span class="p">[{</span><span class="s1">&#39;input&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">},</span> <span class="s1">&#39;increment&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}}],</span>
+    <span class="p">[{</span><span class="s1">&#39;input&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">},</span> <span class="s1">&#39;increment&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}}]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>To access the results of running the flow, use the <a class="reference internal" href="#fluxus.functional.RunResult.get_outputs" title="fluxus.functional.RunResult.get_outputs"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_outputs()</span></code></a> method.</p>
+<p>To access the results grouped by path, use the <a class="reference internal" href="#fluxus.functional.RunResult.get_outputs_per_path" title="fluxus.functional.RunResult.get_outputs_per_path"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_outputs_per_path()</span></code></a> method.</p>
+<p>The run result can be converted to a data frame using the <a class="reference internal" href="#fluxus.functional.RunResult.to_frame" title="fluxus.functional.RunResult.to_frame"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_frame()</span></code></a> method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Bases<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">HasExpressionRepr</span></code></p>
+</dd>
+<dt class="field-even">Metaclasses<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/abc.html#abc.ABCMeta" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ABCMeta</span></code></a></p>
+</dd>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>step_results</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>[<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3.7/library/typing.html#typing.Any" title="(in Python v3.7)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]]]</span>) – the results of running the flow, as a list of nested
+dictionaries for each distinct path through the flow</p>
+</dd>
+</dl>
+<p class="rubric">Method summary</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fluxus.functional.RunResult.draw_timeline" title="fluxus.functional.RunResult.draw_timeline"><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw_timeline</span></code></a></p></td>
+<td><p>Draw a timeline of the flow execution.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#fluxus.functional.RunResult.get_outputs" title="fluxus.functional.RunResult.get_outputs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_outputs</span></code></a></p></td>
+<td><p>Get the results of running the flow, for all inputs across all paths.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fluxus.functional.RunResult.get_outputs_per_path" title="fluxus.functional.RunResult.get_outputs_per_path"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_outputs_per_path</span></code></a></p></td>
+<td><p>Get the results of running the flow, as a list of outputs for each path.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#fluxus.functional.RunResult.to_expression" title="fluxus.functional.RunResult.to_expression"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_expression</span></code></a></p></td>
+<td><p>Render this object as an expression.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fluxus.functional.RunResult.to_frame" title="fluxus.functional.RunResult.to_frame"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_frame</span></code></a></p></td>
+<td><p>Convert this run result to a frame.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="rubric">Definitions</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="fluxus.functional.RunResult.draw_timeline">
+<span class="sig-name descname"><span class="pre">draw_timeline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">style</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'matplot'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/fluxus/functional/_result.html#RunResult.draw_timeline"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fluxus.functional.RunResult.draw_timeline" title="Link to this definition">#</a></dt>
+<dd><p>Draw a timeline of the flow execution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>style</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[<code class="docutils literal notranslate"><span class="pre">'text'</span></code>, <code class="docutils literal notranslate"><span class="pre">'matplot'</span></code>, <code class="docutils literal notranslate"><span class="pre">'matplot_dark'</span></code>]</span>) – the style to use for rendering the timeline</p></li>
+<li><p><strong>out</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.7/library/typing.html#typing.Optional" title="(in Python v3.7)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3.7/library/typing.html#typing.TextIO" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextIO</span></code></a>]</span>) – the output stream to write the timeline to, if style is <code class="docutils literal notranslate"><span class="pre">&quot;text&quot;</span></code>
+(defaults to <a class="reference external" href="https://docs.python.org/3.7/library/sys.html#sys.stdout" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sys.stdout</span></code></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fluxus.functional.RunResult.get_outputs">
+<span class="sig-name descname"><span class="pre">get_outputs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/fluxus/functional/_result.html#RunResult.get_outputs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fluxus.functional.RunResult.get_outputs" title="Link to this definition">#</a></dt>
+<dd><p>Get the results of running the flow, for all inputs across all paths.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.7/library/collections.abc.html#collections.abc.Iterator" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterator</span></code></a>[<a class="reference external" href="https://docs.python.org/3.7/library/collections.abc.html#collections.abc.Mapping" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Mapping</span></code></a>[<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3.7/library/collections.abc.html#collections.abc.Mapping" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Mapping</span></code></a>[<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3.7/library/typing.html#typing.Any" title="(in Python v3.7)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]]]</span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>an iterator over all results</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fluxus.functional.RunResult.get_outputs_per_path">
+<span class="sig-name descname"><span class="pre">get_outputs_per_path</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/fluxus/functional/_result.html#RunResult.get_outputs_per_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fluxus.functional.RunResult.get_outputs_per_path" title="Link to this definition">#</a></dt>
+<dd><p>Get the results of running the flow, as a list of outputs for each path.</p>
+<p>Returns a nested list, where the outer list corresponds to the paths through the
+flow, and the inner list corresponds to the outputs along that path for all
+inputs.</p>
+<p>Note that the inner list may be empty if the path has no outputs, or may contain
+multiple outputs for individual inputs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>[<a class="reference external" href="https://docs.python.org/3.7/library/collections.abc.html#collections.abc.Iterator" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterator</span></code></a>[<a class="reference external" href="https://docs.python.org/3.7/library/collections.abc.html#collections.abc.Mapping" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Mapping</span></code></a>[<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3.7/library/collections.abc.html#collections.abc.Mapping" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Mapping</span></code></a>[<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3.7/library/typing.html#typing.Any" title="(in Python v3.7)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]]]]</span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the results of running the flow, as a list of output iterators for each
+path</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fluxus.functional.RunResult.to_expression">
+<span class="sig-name descname"><span class="pre">to_expression</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/fluxus/functional/_result.html#RunResult.to_expression"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fluxus.functional.RunResult.to_expression" title="Link to this definition">#</a></dt>
+<dd><p>Render this object as an expression.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Expression</span></code></span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the expression representing this object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fluxus.functional.RunResult.to_frame">
+<span class="sig-name descname"><span class="pre">to_frame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">simplify</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/fluxus/functional/_result.html#RunResult.to_frame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fluxus.functional.RunResult.to_frame" title="Link to this definition">#</a></dt>
+<dd><p>Convert this run result to a frame.</p>
+<p>If the path is specified, the output will be a frame for that path only.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.7/library/typing.html#typing.Optional" title="(in Python v3.7)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]</span>) – the index of the path to convert to a frame; if not specified, the
+output will be a frame for all paths</p></li>
+<li><p><strong>simplify</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>) – if <code class="docutils literal notranslate"><span class="pre">True</span></code>, convert complex types to strings using
+<code class="xref py py-func docutils literal notranslate"><span class="pre">simplify_complex_types()</span></code>; if <code class="docutils literal notranslate"><span class="pre">False</span></code>, leave objects with complex
+types as they are (default: <code class="docutils literal notranslate"><span class="pre">False</span></code>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>this run result</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fluxus.functional.RunResult"><code class="docutils literal notranslate"><span class="pre">RunResult</span></code></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fluxus.functional.RunResult.draw_timeline"><code class="docutils literal notranslate"><span class="pre">RunResult.draw_timeline()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fluxus.functional.RunResult.get_outputs"><code class="docutils literal notranslate"><span class="pre">RunResult.get_outputs()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fluxus.functional.RunResult.get_outputs_per_path"><code class="docutils literal notranslate"><span class="pre">RunResult.get_outputs_per_path()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fluxus.functional.RunResult.to_expression"><code class="docutils literal notranslate"><span class="pre">RunResult.to_expression()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fluxus.functional.RunResult.to_frame"><code class="docutils literal notranslate"><span class="pre">RunResult.to_frame()</span></code></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2024, Boston Consulting Group (BCG).
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.3.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

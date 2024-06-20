@@ -1,0 +1,48 @@
+fluxus.core.transformer.BaseTransformer
+=======================================
+
+.. currentmodule:: fluxus.core.transformer
+
+.. autoclass:: BaseTransformer
+   :members:
+   :no-show-inheritance:
+   :inherited-members:
+   :special-members: __call__
+
+   
+   
+   .. rubric:: Method summary
+
+   .. autosummary::
+      :nosignatures:
+   
+      ~BaseTransformer.aiter_concurrent_conduits
+      ~BaseTransformer.aprocess
+      ~BaseTransformer.draw
+      ~BaseTransformer.get_connections
+      ~BaseTransformer.get_final_conduits
+      ~BaseTransformer.is_valid_source
+      ~BaseTransformer.iter_concurrent_conduits
+      ~BaseTransformer.process
+      ~BaseTransformer.to_expression
+   
+   
+
+   
+   
+   .. rubric:: Attribute summary
+
+   .. autosummary::
+   
+      ~BaseTransformer.final_conduit
+      ~BaseTransformer.input_type
+      ~BaseTransformer.is_atomic
+      ~BaseTransformer.is_chained
+      ~BaseTransformer.is_concurrent
+      ~BaseTransformer.n_concurrent_conduits
+      ~BaseTransformer.name
+      ~BaseTransformer.product_type
+   
+   
+
+   .. rubric:: Definitions

@@ -1,0 +1,31 @@
+fluxus.functional.RunResult
+===========================
+
+.. currentmodule:: fluxus.functional
+
+.. autoclass:: RunResult
+   :members:
+   :no-show-inheritance:
+   :inherited-members:
+   :special-members: __call__
+
+   
+   
+   .. rubric:: Method summary
+
+   .. autosummary::
+      :nosignatures:
+   
+      ~RunResult.draw_timeline
+      ~RunResult.get_outputs
+      ~RunResult.get_outputs_per_path
+      ~RunResult.to_expression
+      ~RunResult.to_frame
+   
+   
+
+   
+   
+   
+
+   .. rubric:: Definitions

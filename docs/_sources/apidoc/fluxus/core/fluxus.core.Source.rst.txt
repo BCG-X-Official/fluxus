@@ -1,0 +1,44 @@
+fluxus.core.Source
+==================
+
+.. currentmodule:: fluxus.core
+
+.. autoclass:: Source
+   :members:
+   :no-show-inheritance:
+   :inherited-members:
+   :special-members: __call__
+
+   
+   
+   .. rubric:: Method summary
+
+   .. autosummary::
+      :nosignatures:
+   
+      ~Source.aiter_concurrent_conduits
+      ~Source.draw
+      ~Source.get_connections
+      ~Source.get_final_conduits
+      ~Source.iter_concurrent_conduits
+      ~Source.to_expression
+   
+   
+
+   
+   
+   .. rubric:: Attribute summary
+
+   .. autosummary::
+   
+      ~Source.final_conduit
+      ~Source.is_atomic
+      ~Source.is_chained
+      ~Source.is_concurrent
+      ~Source.n_concurrent_conduits
+      ~Source.name
+      ~Source.product_type
+   
+   
+
+   .. rubric:: Definitions

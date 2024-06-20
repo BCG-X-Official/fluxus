@@ -1,0 +1,49 @@
+fluxus.functional.conduit.DictProducer
+======================================
+
+.. currentmodule:: fluxus.functional.conduit
+
+.. autoclass:: DictProducer
+   :members:
+   :no-show-inheritance:
+   :inherited-members:
+   :special-members: __call__
+
+   
+   
+   .. rubric:: Method summary
+
+   .. autosummary::
+      :nosignatures:
+   
+      ~DictProducer.aiter_concurrent_conduits
+      ~DictProducer.aproduce
+      ~DictProducer.draw
+      ~DictProducer.get_connections
+      ~DictProducer.get_final_conduits
+      ~DictProducer.get_repr_attributes
+      ~DictProducer.iter_concurrent_conduits
+      ~DictProducer.produce
+      ~DictProducer.to_expression
+   
+   
+
+   
+   
+   .. rubric:: Attribute summary
+
+   .. autosummary::
+   
+      ~DictProducer.chained_conduits
+      ~DictProducer.final_conduit
+      ~DictProducer.is_atomic
+      ~DictProducer.is_chained
+      ~DictProducer.is_concurrent
+      ~DictProducer.n_concurrent_conduits
+      ~DictProducer.name
+      ~DictProducer.product_type
+      ~DictProducer.producer
+   
+   
+
+   .. rubric:: Definitions

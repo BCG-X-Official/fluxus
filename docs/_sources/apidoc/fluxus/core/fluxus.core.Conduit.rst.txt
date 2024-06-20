@@ -1,0 +1,43 @@
+fluxus.core.Conduit
+===================
+
+.. currentmodule:: fluxus.core
+
+.. autoclass:: Conduit
+   :members:
+   :no-show-inheritance:
+   :inherited-members:
+   :special-members: __call__
+
+   
+   
+   .. rubric:: Method summary
+
+   .. autosummary::
+      :nosignatures:
+   
+      ~Conduit.aiter_concurrent_conduits
+      ~Conduit.draw
+      ~Conduit.get_connections
+      ~Conduit.get_final_conduits
+      ~Conduit.iter_concurrent_conduits
+      ~Conduit.to_expression
+   
+   
+
+   
+   
+   .. rubric:: Attribute summary
+
+   .. autosummary::
+   
+      ~Conduit.final_conduit
+      ~Conduit.is_atomic
+      ~Conduit.is_chained
+      ~Conduit.is_concurrent
+      ~Conduit.n_concurrent_conduits
+      ~Conduit.name
+   
+   
+
+   .. rubric:: Definitions

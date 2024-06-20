@@ -1,0 +1,38 @@
+fluxus.viz.FlowTextStyle
+========================
+
+.. currentmodule:: fluxus.viz
+
+.. autoclass:: FlowTextStyle
+   :members:
+   :no-show-inheritance:
+   :inherited-members:
+   :special-members: __call__
+
+   
+   
+   .. rubric:: Method summary
+
+   .. autosummary::
+      :nosignatures:
+   
+      ~FlowTextStyle.finalize_drawing
+      ~FlowTextStyle.get_default_style_name
+      ~FlowTextStyle.get_named_styles
+      ~FlowTextStyle.render_flow
+      ~FlowTextStyle.start_drawing
+   
+   
+
+   
+   
+   .. rubric:: Attribute summary
+
+   .. autosummary::
+   
+      ~FlowTextStyle.out
+      ~FlowTextStyle.width
+   
+   
+
+   .. rubric:: Definitions

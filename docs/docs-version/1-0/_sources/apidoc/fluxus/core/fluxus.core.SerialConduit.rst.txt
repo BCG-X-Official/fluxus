@@ -1,0 +1,45 @@
+fluxus.core.SerialConduit
+=========================
+
+.. currentmodule:: fluxus.core
+
+.. autoclass:: SerialConduit
+   :members:
+   :no-show-inheritance:
+   :inherited-members:
+   :special-members: __call__
+
+   
+   
+   .. rubric:: Method summary
+
+   .. autosummary::
+      :nosignatures:
+   
+      ~SerialConduit.aiter_concurrent_conduits
+      ~SerialConduit.draw
+      ~SerialConduit.get_connections
+      ~SerialConduit.get_final_conduits
+      ~SerialConduit.get_repr_attributes
+      ~SerialConduit.iter_concurrent_conduits
+      ~SerialConduit.to_expression
+   
+   
+
+   
+   
+   .. rubric:: Attribute summary
+
+   .. autosummary::
+   
+      ~SerialConduit.chained_conduits
+      ~SerialConduit.final_conduit
+      ~SerialConduit.is_atomic
+      ~SerialConduit.is_chained
+      ~SerialConduit.is_concurrent
+      ~SerialConduit.n_concurrent_conduits
+      ~SerialConduit.name
+   
+   
+
+   .. rubric:: Definitions

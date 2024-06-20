@@ -1,0 +1,45 @@
+fluxus.functional.conduit
+=========================
+
+.. toctree::
+   :maxdepth: 1
+   :hidden:
+
+   self
+   
+.. automodule:: fluxus.functional.conduit
+   :no-imported-members:
+
+   
+
+   
+   
+   =======
+   Classes
+   =======
+
+   .. autosummary::
+      :toctree: conduit
+      :template: custom-class-template.rst
+      :nosignatures:
+   
+      DictConsumer
+      DictProducer
+      Step
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

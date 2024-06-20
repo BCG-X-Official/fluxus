@@ -1,0 +1,802 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>fluxus.lineage._label &#8212; fluxus  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/bcgx.css?v=9d1a9f92" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/bcgx.js?v=6cc5c158"></script>
+    <script src="../../../_static/js/versions.js?v=9c680586"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/fluxus/lineage/_label';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../../../_static/bcgx_logo.png" class="logo__image only-light" alt="fluxus  documentation - Home"/>
+    <script>document.write(`<img src="../../../_static/bcgx_logo.png" class="logo__image only-dark" alt="fluxus  documentation - Home"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav class="navbar-nav">
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../_generated/home.html">
+    Home
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../apidoc/fluxus.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../contributor_guide/index.html">
+    Contributor Guide
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../faq.html">
+    FAQ
+  </a>
+</li>
+
+            <li class="nav-item dropdown pst-header-nav-item">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class="nav-item ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../_generated/release_notes.html">
+    Release Notes
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav class="navbar-nav">
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../_generated/home.html">
+    Home
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../apidoc/fluxus.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../contributor_guide/index.html">
+    Contributor Guide
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../_generated/release_notes.html">
+    Release Notes
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">fluxus.linea...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for fluxus.lineage._label</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -----------------------------------------------------------------------------</span>
+<span class="c1"># © 2024 Boston Consulting Group. All rights reserved.</span>
+<span class="c1">#</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1">#     http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+<span class="c1"># -----------------------------------------------------------------------------</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Implementation of class ``LabelingProducer``.</span>
+
+<span class="sd">The ``LabelingProducer`` and ``LabelingTransformer`` classes are designed to add</span>
+<span class="sd">labels to the products produced by a producer or transformer. These classes are</span>
+<span class="sd">subclasses of the ``Producer`` and ``Transformer`` classes, respectively, as well as the</span>
+<span class="sd">``_Delegator`` class, which delegates attribute access to a wrapped object, unless the</span>
+<span class="sd">dictionary of the wrapped object includes the attribute.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABCMeta</span><span class="p">,</span> <span class="n">abstractmethod</span>
+<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">AsyncIterator</span><span class="p">,</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">Mapping</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">cast</span>
+
+<span class="kn">from</span> <span class="nn">pytools.api</span> <span class="kn">import</span> <span class="n">inheritdoc</span><span class="p">,</span> <span class="n">subsdoc</span>
+
+<span class="kn">from</span> <span class="nn">.._producer</span> <span class="kn">import</span> <span class="n">Producer</span>
+<span class="kn">from</span> <span class="nn">.._transformer</span> <span class="kn">import</span> <span class="n">Transformer</span>
+<span class="kn">from</span> <span class="nn">..core</span> <span class="kn">import</span> <span class="n">SerialSource</span>
+<span class="kn">from</span> <span class="nn">._lineage</span> <span class="kn">import</span> <span class="n">HasLineage</span>
+
+<span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;LabelingProducer&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;LabelingTransformer&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+
+<span class="c1">#</span>
+<span class="c1"># Type variables</span>
+<span class="c1">#</span>
+<span class="c1"># Naming convention used here:</span>
+<span class="c1"># _ret for covariant type variables used in return positions</span>
+<span class="c1"># _arg for contravariant type variables used in argument positions</span>
+
+<span class="n">T_Labeler_ret</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;T_Labeler_ret&quot;</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="s2">&quot;_Labeler[Any]&quot;</span><span class="p">,</span> <span class="n">covariant</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">T_LabelingProducer_ret</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span>
+    <span class="s2">&quot;T_LabelingProducer_ret&quot;</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="s2">&quot;LabelingProducer[Any]&quot;</span>
+<span class="p">)</span>
+<span class="n">T_LabelingTransformer_ret</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span>
+    <span class="s2">&quot;T_LabelingTransformer_ret&quot;</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="s2">&quot;LabelingTransformer[Any, Any]&quot;</span>
+<span class="p">)</span>
+<span class="n">T_Product_ret</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;T_Product_ret&quot;</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="n">HasLineage</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">covariant</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">T_Source</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;T_Source&quot;</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="n">SerialSource</span><span class="p">[</span><span class="n">Any</span><span class="p">])</span>
+<span class="n">T_SourceProduct_arg</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;T_SourceProduct_arg&quot;</span><span class="p">,</span> <span class="n">contravariant</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">T_TransformedProduct_ret</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span>
+    <span class="s2">&quot;T_TransformedProduct_ret&quot;</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="n">HasLineage</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">covariant</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+
+<span class="c1">#</span>
+<span class="c1"># Constants</span>
+<span class="c1">#</span>
+
+<span class="c1"># Sentinel value for attribute not found</span>
+<span class="n">_NOT_FOUND</span> <span class="o">=</span> <span class="nb">object</span><span class="p">()</span>
+
+
+<span class="c1">#</span>
+<span class="c1"># Classes</span>
+<span class="c1">#</span>
+
+
+<span class="k">class</span> <span class="nc">_Labeler</span><span class="p">(</span><span class="n">SerialSource</span><span class="p">[</span><span class="n">T_Product_ret</span><span class="p">],</span> <span class="n">Generic</span><span class="p">[</span><span class="n">T_Product_ret</span><span class="p">],</span> <span class="n">metaclass</span><span class="o">=</span><span class="n">ABCMeta</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A mixin class, adding the ``label`` method to a producer or transformer to allow</span>
+<span class="sd">    adding labels to the products.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">label</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">T_Labeler_ret</span><span class="p">,</span> <span class="o">**</span><span class="n">labels</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T_Labeler_ret</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Label the product of this source.</span>
+
+<span class="sd">        :param labels: the labels to add</span>
+<span class="sd">        :return: a new source instance that will add the given labels to all products</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="nd">@subsdoc</span><span class="p">(</span>
+        <span class="n">pattern</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;(\n\n\s*:return:)&quot;</span><span class="p">,</span>
+        <span class="n">replacement</span><span class="o">=</span><span class="p">(</span>
+            <span class="sa">r</span><span class="s2">&quot;\n\nIncludes labels added to this conduit, prefixing their names &quot;</span>
+            <span class="sa">r</span><span class="s2">&quot;with a &#39;#&#39; character.\1&quot;</span>
+        <span class="p">),</span>
+        <span class="n">using</span><span class="o">=</span><span class="n">SerialSource</span><span class="o">.</span><span class="n">get_repr_attributes</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">def</span> <span class="nf">get_repr_attributes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;[see superclass]&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get_repr_attributes</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="LabelingProducer">
+<a class="viewcode-back" href="../../../apidoc/fluxus/lineage/fluxus.lineage.LabelingProducer.html#fluxus.lineage.LabelingProducer">[docs]</a>
+<span class="k">class</span> <span class="nc">LabelingProducer</span><span class="p">(</span>
+    <span class="n">Producer</span><span class="p">[</span><span class="n">T_Product_ret</span><span class="p">],</span>
+    <span class="n">_Labeler</span><span class="p">[</span><span class="n">T_Product_ret</span><span class="p">],</span>
+    <span class="n">Generic</span><span class="p">[</span><span class="n">T_Product_ret</span><span class="p">],</span>
+    <span class="n">metaclass</span><span class="o">=</span><span class="n">ABCMeta</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A producer that can label their products.</span>
+
+<span class="sd">    Implements the :meth:`.label` method, which defines labels that the producer will</span>
+<span class="sd">    add to all products.</span>
+
+<span class="sd">    Products must implement the :class:`.HasLineage` interface.</span>
+
+<span class="sd">    As an example, consider a producer of numbers:</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        class Number(HasLineage):</span>
+<span class="sd">            # Implementation goes here</span>
+
+<span class="sd">        class NumberProducer(Producer[Number], Labeler[A]):</span>
+<span class="sd">            \&quot;&quot;&quot;</span><span class="n">A</span> <span class="n">producer</span>\<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="s2">            def iter(self) -&gt; Iterator[int]:</span>
+<span class="s2">                for i in range(3):</span>
+<span class="s2">                    yield Number(i)</span>
+
+<span class="s2">    The producer can be labeled with an arbitrary number of labels:</span>
+
+<span class="s2">    .. code-block:: python</span>
+
+<span class="s2">        producer = NumberProducer().label(a=&quot;A&quot;, b=&quot;B&quot;)</span>
+
+<span class="s2">        for product in producer.iter():</span>
+<span class="s2">            print(product.product_labels)</span>
+
+<span class="s2">    The output confirms that the labels have been added to all products:</span>
+
+<span class="s2">    .. code-block:: python</span>
+
+<span class="s2">        {&#39;a&#39;: &#39;A&#39;, &#39;b&#39;: &#39;B&#39;}</span>
+<span class="s2">        {&#39;a&#39;: &#39;A&#39;, &#39;b&#39;: &#39;B&#39;}</span>
+<span class="s2">        {&#39;a&#39;: &#39;A&#39;, &#39;b&#39;: &#39;B&#39;}</span>
+
+<span class="s2">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="LabelingProducer.label">
+<a class="viewcode-back" href="../../../apidoc/fluxus/lineage/fluxus.lineage.LabelingProducer.html#fluxus.lineage.LabelingProducer.label">[docs]</a>
+    <span class="k">def</span> <span class="nf">label</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">T_LabelingProducer_ret</span><span class="p">,</span> <span class="o">**</span><span class="n">labels</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T_LabelingProducer_ret</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Label the product of this producer.</span>
+
+<span class="sd">        :param labels: the labels to add</span>
+<span class="sd">        :return: a new version of this producer that will add the given labels to all</span>
+<span class="sd">            products</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="n">cast</span><span class="p">(</span>
+            <span class="c1"># We cast the producer wrapper to the type of the delegate</span>
+            <span class="n">T_LabelingProducer_ret</span><span class="p">,</span>
+            <span class="n">_LabeledProducer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">labels</span><span class="p">),</span>
+        <span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="LabelingTransformer">
+<a class="viewcode-back" href="../../../apidoc/fluxus/lineage/fluxus.lineage.LabelingTransformer.html#fluxus.lineage.LabelingTransformer">[docs]</a>
+<span class="k">class</span> <span class="nc">LabelingTransformer</span><span class="p">(</span>
+    <span class="n">Transformer</span><span class="p">[</span><span class="n">T_SourceProduct_arg</span><span class="p">,</span> <span class="n">T_TransformedProduct_ret</span><span class="p">],</span>
+    <span class="n">_Labeler</span><span class="p">[</span><span class="n">T_TransformedProduct_ret</span><span class="p">],</span>
+    <span class="n">Generic</span><span class="p">[</span><span class="n">T_SourceProduct_arg</span><span class="p">,</span> <span class="n">T_TransformedProduct_ret</span><span class="p">],</span>
+    <span class="n">metaclass</span><span class="o">=</span><span class="n">ABCMeta</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A transformer that can label its products.</span>
+
+<span class="sd">    Implements the :meth:`.label` method, which defines labels that the transformer will</span>
+<span class="sd">    add to all products.</span>
+
+<span class="sd">    Products must implement the :class:`.HasLineage` interface.</span>
+
+<span class="sd">    As an example, consider a transformer that doubles numbers:</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">            class Number(HasLineage):</span>
+<span class="sd">                # Implementation goes here</span>
+
+<span class="sd">            class NumberDoubler(Transformer[Number, Number], Labeler[A]):</span>
+<span class="sd">                \&quot;&quot;&quot;</span><span class="n">A</span> <span class="n">transformer</span> <span class="n">that</span> <span class="n">doubles</span> <span class="n">numbers</span>\<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="s2">                def transform(self, source_product: Number) -&gt; Iterator[Number]:</span>
+<span class="s2">                    yield Number(source_product.value * 2)</span>
+
+<span class="s2">    The transformer can be labeled with an arbitrary number of labels:</span>
+
+<span class="s2">    .. code-block:: python</span>
+
+<span class="s2">            transformer = NumberDoubler().label(a=&quot;A&quot;, b=&quot;B&quot;)</span>
+
+<span class="s2">            for product in transformer.run([Number(1), Number(2)]):</span>
+<span class="s2">                print(product.product_labels)</span>
+
+<span class="s2">    The output confirms that the labels have been added to all products:</span>
+
+<span class="s2">    .. code-block:: python</span>
+
+<span class="s2">        {&#39;a&#39;: &#39;A&#39;, &#39;b&#39;: &#39;B&#39;}</span>
+<span class="s2">        {&#39;a&#39;: &#39;A&#39;, &#39;b&#39;: &#39;B&#39;}</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="LabelingTransformer.label">
+<a class="viewcode-back" href="../../../apidoc/fluxus/lineage/fluxus.lineage.LabelingTransformer.html#fluxus.lineage.LabelingTransformer.label">[docs]</a>
+    <span class="k">def</span> <span class="nf">label</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">T_LabelingTransformer_ret</span><span class="p">,</span> <span class="o">**</span><span class="n">labels</span><span class="p">:</span> <span class="n">Any</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T_LabelingTransformer_ret</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Label the product of this transformer.</span>
+
+<span class="sd">        :param labels: the labels to add</span>
+<span class="sd">        :return: a new transformer that will add the given labels to all products</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">cast</span><span class="p">(</span>
+            <span class="c1"># We cast the transformer wrapper to the type of the delegate</span>
+            <span class="n">T_LabelingTransformer_ret</span><span class="p">,</span>
+            <span class="n">_LabeledTransformer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">labels</span><span class="p">),</span>
+        <span class="p">)</span></div>
+</div>
+
+
+
+<span class="nd">@inheritdoc</span><span class="p">(</span><span class="n">match</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;[see superclass]&quot;&quot;&quot;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">_LabeledSource</span><span class="p">(</span><span class="n">_Labeler</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">Generic</span><span class="p">[</span><span class="n">T_Source</span><span class="p">],</span> <span class="n">metaclass</span><span class="o">=</span><span class="n">ABCMeta</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A producer or transformer with added labels. Delegates attribute access to a wrapped</span>
+<span class="sd">    ``LabelingProducer`` or ``LabelingTransformer``, except for a small number of</span>
+<span class="sd">    methods that this wrapper class overrides to add labels to the products.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_delegate</span><span class="p">:</span> <span class="n">T_Source</span>
+    <span class="n">_labels</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delegate</span><span class="p">:</span> <span class="n">T_Source</span><span class="p">,</span> <span class="n">labels</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param delegate: the producer to delegate to</span>
+<span class="sd">        :param labels: the labels to add to the products</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_delegate</span> <span class="o">=</span> <span class="n">delegate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_labels</span> <span class="o">=</span> <span class="n">labels</span>
+
+    <span class="k">def</span> <span class="fm">__getattribute__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+        <span class="c1"># We won&#39;t delegate access to protected attributes</span>
+        <span class="n">__getattribute__original</span> <span class="o">=</span> <span class="nb">object</span><span class="o">.</span><span class="fm">__getattribute__</span>
+        <span class="k">if</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">__getattribute__original</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="c1"># First, check if the attribute is in the local dictionary (excluding</span>
+        <span class="c1"># subclasses)</span>
+        <span class="n">local_attributes</span> <span class="o">=</span> <span class="n">__getattribute__original</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;__dict__&quot;</span><span class="p">)</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">local_attributes</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">_NOT_FOUND</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="n">_NOT_FOUND</span><span class="p">:</span>
+            <span class="c1"># If the attribute is not in the local dictionary, check if it is in the</span>
+            <span class="c1"># class dictionary</span>
+            <span class="n">mro</span> <span class="o">=</span> <span class="n">__getattribute__original</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;__class__&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mro</span><span class="p">()</span>
+            <span class="k">for</span> <span class="bp">cls</span> <span class="ow">in</span> <span class="n">mro</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">:</span>
+                    <span class="c1"># If it is, use the default behavior to get the attribute</span>
+                    <span class="k">return</span> <span class="n">__getattribute__original</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+                <span class="k">if</span> <span class="bp">cls</span> <span class="ow">is</span> <span class="n">_LabeledSource</span><span class="p">:</span>
+                    <span class="c1"># If we reach the _LabeledSource class, we stop searching</span>
+                    <span class="k">break</span>
+            <span class="c1"># If the attribute is not in the relevant class dictionaries, delegate to</span>
+            <span class="c1"># the wrapped object</span>
+            <span class="k">return</span> <span class="n">__getattribute__original</span><span class="p">(</span><span class="n">local_attributes</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;_delegate&quot;</span><span class="p">),</span> <span class="n">name</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Otherwise, return the value</span>
+            <span class="k">return</span> <span class="n">value</span>
+
+    <span class="k">def</span> <span class="nf">get_repr_attributes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;[see superclass]&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_delegate</span><span class="o">.</span><span class="n">get_repr_attributes</span><span class="p">())</span> <span class="o">|</span> <span class="p">{</span>
+            <span class="sa">f</span><span class="s2">&quot;#</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">:</span> <span class="n">value</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_labels</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+        <span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">label</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">T_Labeler_ret</span><span class="p">,</span> <span class="o">**</span><span class="n">labels</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T_Labeler_ret</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Label the product of this source.</span>
+
+<span class="sd">        :param labels: the labels to add</span>
+<span class="sd">        :return: a new source instance that will add the given labels to all products</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Combine the existing and new labels</span>
+        <span class="n">cast</span><span class="p">(</span><span class="n">_LabeledSource</span><span class="p">[</span><span class="n">T_Source</span><span class="p">],</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__labels</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+        <span class="c1"># We return self to allow method chaining</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+
+<span class="nd">@inheritdoc</span><span class="p">(</span><span class="n">match</span><span class="o">=</span><span class="s2">&quot;[see superclass]&quot;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">_LabeledProducer</span><span class="p">(</span>
+    <span class="n">LabelingProducer</span><span class="p">[</span><span class="n">T_Product_ret</span><span class="p">],</span>
+    <span class="n">_LabeledSource</span><span class="p">[</span><span class="n">Producer</span><span class="p">[</span><span class="n">T_Product_ret</span><span class="p">]],</span>
+    <span class="n">Generic</span><span class="p">[</span><span class="n">T_Product_ret</span><span class="p">],</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A producer that labels its products.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">product_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">type</span><span class="p">[</span><span class="n">T_Product_ret</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;[see superclass]&quot;&quot;&quot;</span>
+        <span class="c1"># Delegate to the wrapped object by invoking the property on the</span>
+        <span class="c1"># _Delegator class</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_delegate</span><span class="o">.</span><span class="n">product_type</span>
+
+    <span class="k">def</span> <span class="nf">produce</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">T_Product_ret</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;[see superclass]&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">product</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_delegate</span><span class="o">.</span><span class="n">produce</span><span class="p">():</span>
+            <span class="k">yield</span> <span class="n">product</span><span class="o">.</span><span class="n">label</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_labels</span><span class="p">)</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">aproduce</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncIterator</span><span class="p">[</span><span class="n">T_Product_ret</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;[see superclass]&quot;&quot;&quot;</span>
+        <span class="k">async</span> <span class="k">for</span> <span class="n">product</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_delegate</span><span class="o">.</span><span class="n">aproduce</span><span class="p">():</span>
+            <span class="k">yield</span> <span class="n">product</span><span class="o">.</span><span class="n">label</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_labels</span><span class="p">)</span>
+
+
+<span class="nd">@inheritdoc</span><span class="p">(</span><span class="n">match</span><span class="o">=</span><span class="s2">&quot;[see superclass]&quot;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">_LabeledTransformer</span><span class="p">(</span>
+    <span class="n">LabelingTransformer</span><span class="p">[</span><span class="n">T_SourceProduct_arg</span><span class="p">,</span> <span class="n">T_TransformedProduct_ret</span><span class="p">],</span>
+    <span class="n">_LabeledSource</span><span class="p">[</span><span class="n">LabelingTransformer</span><span class="p">[</span><span class="n">T_SourceProduct_arg</span><span class="p">,</span> <span class="n">T_TransformedProduct_ret</span><span class="p">]],</span>
+    <span class="n">Generic</span><span class="p">[</span><span class="n">T_SourceProduct_arg</span><span class="p">,</span> <span class="n">T_TransformedProduct_ret</span><span class="p">],</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A transformer that labels its products.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">input_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">type</span><span class="p">[</span><span class="n">T_SourceProduct_arg</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;[see superclass]&quot;&quot;&quot;</span>
+        <span class="c1"># Delegate to the wrapped object by invoking the property on the</span>
+        <span class="c1"># _Delegator class</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_delegate</span><span class="o">.</span><span class="n">input_type</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">product_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">type</span><span class="p">[</span><span class="n">T_TransformedProduct_ret</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;[see superclass]&quot;&quot;&quot;</span>
+        <span class="c1"># Delegate to the wrapped object by invoking the property on the</span>
+        <span class="c1"># _Delegator class</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_delegate</span><span class="o">.</span><span class="n">product_type</span>
+
+    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">source_product</span><span class="p">:</span> <span class="n">T_SourceProduct_arg</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">T_TransformedProduct_ret</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;[see superclass]&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">product</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_delegate</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">source_product</span><span class="p">):</span>
+            <span class="k">yield</span> <span class="n">product</span><span class="o">.</span><span class="n">label</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_labels</span><span class="p">)</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">atransform</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">source_product</span><span class="p">:</span> <span class="n">T_SourceProduct_arg</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncIterator</span><span class="p">[</span><span class="n">T_TransformedProduct_ret</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;[see superclass]&quot;&quot;&quot;</span>
+        <span class="k">async</span> <span class="k">for</span> <span class="n">product</span> <span class="ow">in</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">atransform</span><span class="p">(</span><span class="n">source_product</span><span class="p">):</span>
+            <span class="k">yield</span> <span class="n">product</span><span class="o">.</span><span class="n">label</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_labels</span><span class="p">)</span>
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2024, Boston Consulting Group (BCG).
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.3.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

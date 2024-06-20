@@ -1,0 +1,642 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>fluxus.viz.FlowGraphStyle &#8212; fluxus  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/bcgx.css?v=9d1a9f92" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/bcgx.js?v=6cc5c158"></script>
+    <script src="../../../_static/js/versions.js?v=9c680586"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'apidoc/fluxus/viz/fluxus.viz.FlowGraphStyle';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="fluxus.viz.FlowTextStyle" href="fluxus.viz.FlowTextStyle.html" />
+    <link rel="prev" title="fluxus.viz.FlowGraph" href="fluxus.viz.FlowGraph.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../../../_static/bcgx_logo.png" class="logo__image only-light" alt="fluxus  documentation - Home"/>
+    <script>document.write(`<img src="../../../_static/bcgx_logo.png" class="logo__image only-dark" alt="fluxus  documentation - Home"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav class="navbar-nav">
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../_generated/home.html">
+    Home
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item current active">
+  <a class="nav-link nav-internal" href="../../fluxus.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../contributor_guide/index.html">
+    Contributor Guide
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../faq.html">
+    FAQ
+  </a>
+</li>
+
+            <li class="nav-item dropdown pst-header-nav-item">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class="nav-item ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../_generated/release_notes.html">
+    Release Notes
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav class="navbar-nav">
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../_generated/home.html">
+    Home
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item current active">
+  <a class="nav-link nav-internal" href="../../fluxus.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../contributor_guide/index.html">
+    Contributor Guide
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../_generated/release_notes.html">
+    Release Notes
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../fluxus.html">API Reference</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../fluxus.AsyncConsumer.html">fluxus.AsyncConsumer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fluxus.AsyncProducer.html">fluxus.AsyncProducer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fluxus.AsyncTransformer.html">fluxus.AsyncTransformer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fluxus.Consumer.html">fluxus.Consumer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fluxus.Flow.html">fluxus.Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fluxus.Passthrough.html">fluxus.Passthrough</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fluxus.Producer.html">fluxus.Producer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fluxus.Transformer.html">fluxus.Transformer</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../fluxus.FlowWarning.html">fluxus.FlowWarning</a></li>
+</ul>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../fluxus.core.html">fluxus.core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fluxus.functional.html">fluxus.functional</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fluxus.lineage.html">fluxus.lineage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fluxus.simple.html">fluxus.simple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fluxus.util.html">fluxus.util</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../fluxus.viz.html">fluxus.viz</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../fluxus.viz.html">fluxus.viz</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fluxus.viz.FlowDrawer.html">fluxus.viz.FlowDrawer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fluxus.viz.FlowGraph.html">fluxus.viz.FlowGraph</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">fluxus.viz.FlowGraphStyle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fluxus.viz.FlowTextStyle.html">fluxus.viz.FlowTextStyle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fluxus.viz.TimelineDrawer.html">fluxus.viz.TimelineDrawer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fluxus.viz.TimelineMatplotStyle.html">fluxus.viz.TimelineMatplotStyle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fluxus.viz.TimelineTextStyle.html">fluxus.viz.TimelineTextStyle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fluxus.viz.base.html">fluxus.viz.base</a></li>
+</ul>
+</details></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../fluxus.html" class="nav-link">API Reference</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="../fluxus.viz.html" class="nav-link">fluxus.viz</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">fluxus.viz.F...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="fluxus-viz-flowgraphstyle">
+<h1>fluxus.viz.FlowGraphStyle<a class="headerlink" href="#fluxus-viz-flowgraphstyle" title="Link to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="fluxus.viz.FlowGraphStyle">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fluxus.viz.</span></span><span class="sig-name descname"><span class="pre">FlowGraphStyle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/fluxus/viz/_flow.html#FlowGraphStyle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fluxus.viz.FlowGraphStyle" title="Link to this definition">#</a></dt>
+<dd><p>A style for rendering flows as graphs.</p>
+<p>The graph is rendered using the <code class="docutils literal notranslate"><span class="pre">graphviz</span></code> package, which must be installed
+for this style to work.</p>
+<p>If no filename is given, displays the graph using the <code class="docutils literal notranslate"><span class="pre">IPython.display</span></code>
+package which, when used in a Jupyter notebook, will display the graph
+inline.</p>
+<p>If a filename is given, writes the graph to a file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Bases<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ColoredStyle</span></code> [~T_ColorScheme], <a class="reference internal" href="base/fluxus.viz.base.FlowStyle.html#fluxus.viz.base.FlowStyle" title="fluxus.viz.base.FlowStyle"><code class="xref py py-class docutils literal notranslate"><span class="pre">FlowStyle</span></code></a></p>
+</dd>
+<dt class="field-even">Generic types<span class="colon">:</span></dt>
+<dd class="field-even"><p>~T_ColorScheme(bound= <code class="xref py py-class docutils literal notranslate"><span class="pre">ColorScheme</span></code>)</p>
+</dd>
+<dt class="field-odd">Metaclasses<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/abc.html#abc.ABCMeta" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ABCMeta</span></code></a></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>file</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.7/library/typing.html#typing.Union" title="(in Python v3.7)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3.7/library/io.html#io.BytesIO" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BytesIO</span></code></a>, <a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>]</span>) – a filename or file-like object to write the graph to (optional)</p></li>
+<li><p><strong>format</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.7/library/typing.html#typing.Optional" title="(in Python v3.7)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</span>) – the format of the graph file (optional, defaults to “png”)</p></li>
+<li><p><strong>colors</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.7/library/typing.html#typing.Optional" title="(in Python v3.7)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3.7/library/typing.html#typing.TypeVar" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code></a>(<code class="docutils literal notranslate"><span class="pre">T_ColorScheme</span></code>, bound= <code class="xref py py-class docutils literal notranslate"><span class="pre">ColorScheme</span></code>)]</span>) – the color scheme to use (optional)</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Method summary</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fluxus.viz.FlowGraphStyle.finalize_drawing" title="fluxus.viz.FlowGraphStyle.finalize_drawing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">finalize_drawing</span></code></a></p></td>
+<td><p>See <code class="xref py py-meth docutils literal notranslate"><span class="pre">pytools.viz.DrawingStyle.finalize_drawing()</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#fluxus.viz.FlowGraphStyle.get_default_style_name" title="fluxus.viz.FlowGraphStyle.get_default_style_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_default_style_name</span></code></a></p></td>
+<td><p>Get the name of the default style associated with this style class.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fluxus.viz.FlowGraphStyle.get_named_styles" title="fluxus.viz.FlowGraphStyle.get_named_styles"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_named_styles</span></code></a></p></td>
+<td><p>See <code class="xref py py-meth docutils literal notranslate"><span class="pre">pytools.viz.ColoredStyle.get_named_styles()</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#fluxus.viz.FlowGraphStyle.render_flow" title="fluxus.viz.FlowGraphStyle.render_flow"><code class="xref py py-obj docutils literal notranslate"><span class="pre">render_flow</span></code></a></p></td>
+<td><p>Render the given flow.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fluxus.viz.FlowGraphStyle.start_drawing" title="fluxus.viz.FlowGraphStyle.start_drawing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">start_drawing</span></code></a></p></td>
+<td><p>See <code class="xref py py-meth docutils literal notranslate"><span class="pre">pytools.viz.DrawingStyle.start_drawing()</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="rubric">Attribute summary</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fluxus.viz.FlowGraphStyle.colors" title="fluxus.viz.FlowGraphStyle.colors"><code class="xref py py-obj docutils literal notranslate"><span class="pre">colors</span></code></a></p></td>
+<td><p>See <code class="xref py py-attr docutils literal notranslate"><span class="pre">pytools.viz.ColoredStyle.colors</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#fluxus.viz.FlowGraphStyle.file" title="fluxus.viz.FlowGraphStyle.file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file</span></code></a></p></td>
+<td><p>A filename or file-like object to write the graph to (optional)</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fluxus.viz.FlowGraphStyle.format" title="fluxus.viz.FlowGraphStyle.format"><code class="xref py py-obj docutils literal notranslate"><span class="pre">format</span></code></a></p></td>
+<td><p>The format of the graph file (optional, defaults to &quot;png&quot;)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="rubric">Definitions</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="fluxus.viz.FlowGraphStyle.finalize_drawing">
+<span class="sig-name descname"><span class="pre">finalize_drawing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fluxus.viz.FlowGraphStyle.finalize_drawing" title="Link to this definition">#</a></dt>
+<dd><p>See <code class="xref py py-meth docutils literal notranslate"><span class="pre">pytools.viz.DrawingStyle.finalize_drawing()</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fluxus.viz.FlowGraphStyle.get_default_style_name">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_default_style_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/fluxus/viz/_flow.html#FlowGraphStyle.get_default_style_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fluxus.viz.FlowGraphStyle.get_default_style_name" title="Link to this definition">#</a></dt>
+<dd><p>Get the name of the default style associated with this style class.</p>
+<p>The default style is obtained by instantiating this style class without
+parameters.</p>
+<p>Common examples for default style names are <cite>matplot</cite> and <cite>text</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the name of the default style</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fluxus.viz.FlowGraphStyle.get_named_styles">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_named_styles</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fluxus.viz.FlowGraphStyle.get_named_styles" title="Link to this definition">#</a></dt>
+<dd><p>See <code class="xref py py-meth docutils literal notranslate"><span class="pre">pytools.viz.ColoredStyle.get_named_styles()</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fluxus.viz.FlowGraphStyle.render_flow">
+<span class="sig-name descname"><span class="pre">render_flow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flow</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/fluxus/viz/_flow.html#FlowGraphStyle.render_flow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fluxus.viz.FlowGraphStyle.render_flow" title="Link to this definition">#</a></dt>
+<dd><p>Render the given flow.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>flow</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="../core/fluxus.core.Conduit.html#fluxus.core.Conduit" title="fluxus.core._conduit.Conduit"><code class="xref py py-class docutils literal notranslate"><span class="pre">Conduit</span></code></a>[<a class="reference external" href="https://docs.python.org/3.7/library/typing.html#typing.Any" title="(in Python v3.7)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]</span>) – the flow to render</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fluxus.viz.FlowGraphStyle.start_drawing">
+<span class="sig-name descname"><span class="pre">start_drawing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fluxus.viz.FlowGraphStyle.start_drawing" title="Link to this definition">#</a></dt>
+<dd><p>See <code class="xref py py-meth docutils literal notranslate"><span class="pre">pytools.viz.DrawingStyle.start_drawing()</span></code></p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="fluxus.viz.FlowGraphStyle.colors">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">colors</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#fluxus.viz.FlowGraphStyle" title="fluxus.viz._flow.FlowGraphStyle"><span class="pre">FlowGraphStyle</span></a></em><a class="headerlink" href="#fluxus.viz.FlowGraphStyle.colors" title="Link to this definition">#</a></dt>
+<dd><p>See <code class="xref py py-attr docutils literal notranslate"><span class="pre">pytools.viz.ColoredStyle.colors</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fluxus.viz.FlowGraphStyle.file">
+<span class="sig-name descname"><span class="pre">file</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/typing.html#typing.Union" title="(in Python v3.7)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a><span class="pre">[</span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a><span class="pre">,</span> <a class="reference external" href="https://docs.python.org/3.7/library/io.html#io.BytesIO" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BytesIO</span></code></a><span class="pre">,</span> <a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#fluxus.viz.FlowGraphStyle.file" title="Link to this definition">#</a></dt>
+<dd><p>A filename or file-like object to write the graph to (optional)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fluxus.viz.FlowGraphStyle.format">
+<span class="sig-name descname"><span class="pre">format</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/typing.html#typing.Optional" title="(in Python v3.7)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a><span class="pre">[</span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#fluxus.viz.FlowGraphStyle.format" title="Link to this definition">#</a></dt>
+<dd><p>The format of the graph file (optional, defaults to “png”)</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fluxus.viz.FlowGraphStyle"><code class="docutils literal notranslate"><span class="pre">FlowGraphStyle</span></code></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fluxus.viz.FlowGraphStyle.finalize_drawing"><code class="docutils literal notranslate"><span class="pre">FlowGraphStyle.finalize_drawing()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fluxus.viz.FlowGraphStyle.get_default_style_name"><code class="docutils literal notranslate"><span class="pre">FlowGraphStyle.get_default_style_name()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fluxus.viz.FlowGraphStyle.get_named_styles"><code class="docutils literal notranslate"><span class="pre">FlowGraphStyle.get_named_styles()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fluxus.viz.FlowGraphStyle.render_flow"><code class="docutils literal notranslate"><span class="pre">FlowGraphStyle.render_flow()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fluxus.viz.FlowGraphStyle.start_drawing"><code class="docutils literal notranslate"><span class="pre">FlowGraphStyle.start_drawing()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fluxus.viz.FlowGraphStyle.colors"><code class="docutils literal notranslate"><span class="pre">FlowGraphStyle.colors</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fluxus.viz.FlowGraphStyle.file"><code class="docutils literal notranslate"><span class="pre">FlowGraphStyle.file</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fluxus.viz.FlowGraphStyle.format"><code class="docutils literal notranslate"><span class="pre">FlowGraphStyle.format</span></code></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2024, Boston Consulting Group (BCG).
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.3.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

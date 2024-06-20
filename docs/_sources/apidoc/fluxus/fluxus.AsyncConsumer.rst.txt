@@ -1,0 +1,51 @@
+fluxus.AsyncConsumer
+====================
+
+.. currentmodule:: fluxus
+
+.. autoclass:: AsyncConsumer
+   :members:
+   :no-show-inheritance:
+   :inherited-members:
+   :special-members: __call__
+
+   
+   
+   .. rubric:: Method summary
+
+   .. autosummary::
+      :nosignatures:
+   
+      ~AsyncConsumer.aconsume
+      ~AsyncConsumer.aiter_concurrent_conduits
+      ~AsyncConsumer.aprocess
+      ~AsyncConsumer.consume
+      ~AsyncConsumer.draw
+      ~AsyncConsumer.get_connections
+      ~AsyncConsumer.get_final_conduits
+      ~AsyncConsumer.get_repr_attributes
+      ~AsyncConsumer.is_valid_source
+      ~AsyncConsumer.iter_concurrent_conduits
+      ~AsyncConsumer.process
+      ~AsyncConsumer.to_expression
+   
+   
+
+   
+   
+   .. rubric:: Attribute summary
+
+   .. autosummary::
+   
+      ~AsyncConsumer.chained_conduits
+      ~AsyncConsumer.final_conduit
+      ~AsyncConsumer.input_type
+      ~AsyncConsumer.is_atomic
+      ~AsyncConsumer.is_chained
+      ~AsyncConsumer.is_concurrent
+      ~AsyncConsumer.n_concurrent_conduits
+      ~AsyncConsumer.name
+   
+   
+
+   .. rubric:: Definitions

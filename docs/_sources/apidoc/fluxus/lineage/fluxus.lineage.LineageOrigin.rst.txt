@@ -1,0 +1,38 @@
+fluxus.lineage.LineageOrigin
+============================
+
+.. currentmodule:: fluxus.lineage
+
+.. autoclass:: LineageOrigin
+   :members:
+   :no-show-inheritance:
+   :inherited-members:
+   :special-members: __call__
+
+   
+   
+   .. rubric:: Method summary
+
+   .. autosummary::
+      :nosignatures:
+   
+      ~LineageOrigin.get_lineage
+      ~LineageOrigin.get_lineage_attributes
+      ~LineageOrigin.label
+   
+   
+
+   
+   
+   .. rubric:: Attribute summary
+
+   .. autosummary::
+   
+      ~LineageOrigin.precursor
+      ~LineageOrigin.product_attributes
+      ~LineageOrigin.product_labels
+      ~LineageOrigin.product_name
+   
+   
+
+   .. rubric:: Definitions

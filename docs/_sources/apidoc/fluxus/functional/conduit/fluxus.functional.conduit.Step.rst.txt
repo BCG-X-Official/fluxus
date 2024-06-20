@@ -1,0 +1,56 @@
+fluxus.functional.conduit.Step
+==============================
+
+.. currentmodule:: fluxus.functional.conduit
+
+.. autoclass:: Step
+   :members:
+   :no-show-inheritance:
+   :inherited-members:
+   :special-members: __call__
+
+   
+   
+   .. rubric:: Method summary
+
+   .. autosummary::
+      :nosignatures:
+   
+      ~Step.aiter
+      ~Step.aiter_concurrent_conduits
+      ~Step.aprocess
+      ~Step.atransform
+      ~Step.draw
+      ~Step.get_connections
+      ~Step.get_final_conduits
+      ~Step.get_repr_attributes
+      ~Step.is_valid_source
+      ~Step.iter
+      ~Step.iter_concurrent_conduits
+      ~Step.process
+      ~Step.to_expression
+      ~Step.transform
+   
+   
+
+   
+   
+   .. rubric:: Attribute summary
+
+   .. autosummary::
+   
+      ~Step.chained_conduits
+      ~Step.final_conduit
+      ~Step.function
+      ~Step.input_type
+      ~Step.is_atomic
+      ~Step.is_chained
+      ~Step.is_concurrent
+      ~Step.n_concurrent_conduits
+      ~Step.name
+      ~Step.product_type
+      ~Step.kwargs
+   
+   
+
+   .. rubric:: Definitions

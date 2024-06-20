@@ -1,0 +1,48 @@
+fluxus.core.producer.SerialProducer
+===================================
+
+.. currentmodule:: fluxus.core.producer
+
+.. autoclass:: SerialProducer
+   :members:
+   :no-show-inheritance:
+   :inherited-members:
+   :special-members: __call__
+
+   
+   
+   .. rubric:: Method summary
+
+   .. autosummary::
+      :nosignatures:
+   
+      ~SerialProducer.aiter_concurrent_conduits
+      ~SerialProducer.aproduce
+      ~SerialProducer.draw
+      ~SerialProducer.get_connections
+      ~SerialProducer.get_final_conduits
+      ~SerialProducer.get_repr_attributes
+      ~SerialProducer.iter_concurrent_conduits
+      ~SerialProducer.produce
+      ~SerialProducer.to_expression
+   
+   
+
+   
+   
+   .. rubric:: Attribute summary
+
+   .. autosummary::
+   
+      ~SerialProducer.chained_conduits
+      ~SerialProducer.final_conduit
+      ~SerialProducer.is_atomic
+      ~SerialProducer.is_chained
+      ~SerialProducer.is_concurrent
+      ~SerialProducer.n_concurrent_conduits
+      ~SerialProducer.name
+      ~SerialProducer.product_type
+   
+   
+
+   .. rubric:: Definitions

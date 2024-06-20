@@ -1,0 +1,49 @@
+fluxus.core.SerialProcessor
+===========================
+
+.. currentmodule:: fluxus.core
+
+.. autoclass:: SerialProcessor
+   :members:
+   :no-show-inheritance:
+   :inherited-members:
+   :special-members: __call__
+
+   
+   
+   .. rubric:: Method summary
+
+   .. autosummary::
+      :nosignatures:
+   
+      ~SerialProcessor.aiter_concurrent_conduits
+      ~SerialProcessor.aprocess
+      ~SerialProcessor.draw
+      ~SerialProcessor.get_connections
+      ~SerialProcessor.get_final_conduits
+      ~SerialProcessor.get_repr_attributes
+      ~SerialProcessor.is_valid_source
+      ~SerialProcessor.iter_concurrent_conduits
+      ~SerialProcessor.process
+      ~SerialProcessor.to_expression
+   
+   
+
+   
+   
+   .. rubric:: Attribute summary
+
+   .. autosummary::
+   
+      ~SerialProcessor.chained_conduits
+      ~SerialProcessor.final_conduit
+      ~SerialProcessor.input_type
+      ~SerialProcessor.is_atomic
+      ~SerialProcessor.is_chained
+      ~SerialProcessor.is_concurrent
+      ~SerialProcessor.n_concurrent_conduits
+      ~SerialProcessor.name
+   
+   
+
+   .. rubric:: Definitions

@@ -1,0 +1,55 @@
+fluxus.lineage.LabelingTransformer
+==================================
+
+.. currentmodule:: fluxus.lineage
+
+.. autoclass:: LabelingTransformer
+   :members:
+   :no-show-inheritance:
+   :inherited-members:
+   :special-members: __call__
+
+   
+   
+   .. rubric:: Method summary
+
+   .. autosummary::
+      :nosignatures:
+   
+      ~LabelingTransformer.aiter
+      ~LabelingTransformer.aiter_concurrent_conduits
+      ~LabelingTransformer.aprocess
+      ~LabelingTransformer.atransform
+      ~LabelingTransformer.draw
+      ~LabelingTransformer.get_connections
+      ~LabelingTransformer.get_final_conduits
+      ~LabelingTransformer.get_repr_attributes
+      ~LabelingTransformer.is_valid_source
+      ~LabelingTransformer.iter
+      ~LabelingTransformer.iter_concurrent_conduits
+      ~LabelingTransformer.label
+      ~LabelingTransformer.process
+      ~LabelingTransformer.to_expression
+      ~LabelingTransformer.transform
+   
+   
+
+   
+   
+   .. rubric:: Attribute summary
+
+   .. autosummary::
+   
+      ~LabelingTransformer.chained_conduits
+      ~LabelingTransformer.final_conduit
+      ~LabelingTransformer.input_type
+      ~LabelingTransformer.is_atomic
+      ~LabelingTransformer.is_chained
+      ~LabelingTransformer.is_concurrent
+      ~LabelingTransformer.n_concurrent_conduits
+      ~LabelingTransformer.name
+      ~LabelingTransformer.product_type
+   
+   
+
+   .. rubric:: Definitions

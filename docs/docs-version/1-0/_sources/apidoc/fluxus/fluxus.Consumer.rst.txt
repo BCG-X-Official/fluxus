@@ -1,0 +1,51 @@
+fluxus.Consumer
+===============
+
+.. currentmodule:: fluxus
+
+.. autoclass:: Consumer
+   :members:
+   :no-show-inheritance:
+   :inherited-members:
+   :special-members: __call__
+
+   
+   
+   .. rubric:: Method summary
+
+   .. autosummary::
+      :nosignatures:
+   
+      ~Consumer.aconsume
+      ~Consumer.aiter_concurrent_conduits
+      ~Consumer.aprocess
+      ~Consumer.consume
+      ~Consumer.draw
+      ~Consumer.get_connections
+      ~Consumer.get_final_conduits
+      ~Consumer.get_repr_attributes
+      ~Consumer.is_valid_source
+      ~Consumer.iter_concurrent_conduits
+      ~Consumer.process
+      ~Consumer.to_expression
+   
+   
+
+   
+   
+   .. rubric:: Attribute summary
+
+   .. autosummary::
+   
+      ~Consumer.chained_conduits
+      ~Consumer.final_conduit
+      ~Consumer.input_type
+      ~Consumer.is_atomic
+      ~Consumer.is_chained
+      ~Consumer.is_concurrent
+      ~Consumer.n_concurrent_conduits
+      ~Consumer.name
+   
+   
+
+   .. rubric:: Definitions

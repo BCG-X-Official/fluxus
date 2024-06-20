@@ -1,0 +1,79 @@
+.. _api:
+
+API Reference
+=============
+
+.. toctree::
+   :maxdepth: 1
+   :hidden:
+
+   self
+   
+.. automodule:: fluxus
+   :no-imported-members:
+
+   
+   .. include:: ../api_landing.rst
+   
+
+   
+   
+   =======
+   Classes
+   =======
+
+   .. autosummary::
+      :toctree: fluxus
+      :template: custom-class-template.rst
+      :nosignatures:
+   
+      AsyncConsumer
+      AsyncProducer
+      AsyncTransformer
+      Consumer
+      Flow
+      Passthrough
+      Producer
+      Transformer
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   ==========
+   Exceptions
+   ==========
+
+   .. autosummary::
+      :toctree: fluxus
+   
+      FlowWarning
+   
+   
+
+
+
+
+==========
+Submodules
+==========
+.. autosummary::
+   :toctree: fluxus
+   :template: custom-module-template.rst
+   :recursive:
+
+   fluxus.core
+   fluxus.functional
+   fluxus.lineage
+   fluxus.simple
+   fluxus.util
+   fluxus.viz
+

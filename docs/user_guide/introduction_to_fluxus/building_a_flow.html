@@ -1,0 +1,1051 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Creating a Flow with custom classes for Producers, Transformers, and Consumers &#8212; fluxus  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/bcgx.css?v=9d1a9f92" />
+    <link rel="stylesheet" type="text/css" href="../../_static/nbsphinx-code-cells.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/bcgx.js?v=6cc5c158"></script>
+    <script src="../../_static/js/versions.js?v=9c680586"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'user_guide/introduction_to_fluxus/building_a_flow';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="API Reference" href="../../apidoc/fluxus.html" />
+    <link rel="prev" title="User Guide" href="../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../../_static/bcgx_logo.png" class="logo__image only-light" alt="fluxus  documentation - Home"/>
+    <script>document.write(`<img src="../../_static/bcgx_logo.png" class="logo__image only-dark" alt="fluxus  documentation - Home"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav class="navbar-nav">
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../_generated/home.html">
+    Home
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../apidoc/fluxus.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../contributor_guide/index.html">
+    Contributor Guide
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../faq.html">
+    FAQ
+  </a>
+</li>
+
+            <li class="nav-item dropdown pst-header-nav-item">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class="nav-item ">
+  <a class="nav-link dropdown-item nav-internal" href="../../_generated/release_notes.html">
+    Release Notes
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav class="navbar-nav">
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../_generated/home.html">
+    Home
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../apidoc/fluxus.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../contributor_guide/index.html">
+    Contributor Guide
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../_generated/release_notes.html">
+    Release Notes
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction to FLUXUS</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Creating a Flow with custom classes for Producers, Transformers, and Consumers</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">User Guide</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">Creating a...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="Creating-a-Flow-with-custom-classes-for-Producers,-Transformers,-and-Consumers">
+<h1>Creating a Flow with custom classes for Producers, Transformers, and Consumers<a class="headerlink" href="#Creating-a-Flow-with-custom-classes-for-Producers,-Transformers,-and-Consumers" title="Link to this heading">#</a></h1>
+<section id="Introduction">
+<h2>Introduction<a class="headerlink" href="#Introduction" title="Link to this heading">#</a></h2>
+<p>This notebook introduces the object-oriented API of <em>fluxus</em>. You will learn how to:</p>
+<ul class="simple">
+<li><p>create your own classes for producers, transformers, and consumers</p></li>
+<li><p>compose these conduits using the <code class="docutils literal notranslate"><span class="pre">&gt;&gt;</span></code> operator for chaining and the <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> operator for concurrent execution</p></li>
+<li><p>build flows for asynchronous execution using the asynchronous versions of the classes</p></li>
+</ul>
+</section>
+<section id="Overview">
+<h2>Overview<a class="headerlink" href="#Overview" title="Link to this heading">#</a></h2>
+<p>Flows consist of building blocks that create, transform, or collect data items. We call these data items <em>products</em>, and the building blocks <em>conduits</em>.</p>
+<p>There are three types of conduits:</p>
+<ul class="simple">
+<li><p><strong>Producers</strong>: These generate products.</p></li>
+<li><p><strong>Transformers</strong>: These modify or process the products.</p></li>
+<li><p><strong>Consumers</strong>: These collect the final products.</p></li>
+</ul>
+</section>
+<section id="Creating-Conduit-classes">
+<h2>Creating Conduit classes<a class="headerlink" href="#Creating-Conduit-classes" title="Link to this heading">#</a></h2>
+<p>To build your own flow using the object-oriented API, you first need to define classes for the conduits in your flow (for an easier start with <em>fluxus</em>, consider first experimenting with the <em>functional</em> API where all products are dictionaries, and no custom classes are required).</p>
+<p>All of these classes must be a subclass of one of <code class="docutils literal notranslate"><span class="pre">Producer</span></code>, <code class="docutils literal notranslate"><span class="pre">Transformer</span></code>, or <code class="docutils literal notranslate"><span class="pre">Consumer</span></code>. All of these classes are subclasses of <code class="docutils literal notranslate"><span class="pre">Conduit</span></code>.</p>
+<p>We will show examples for defining producers, transformers and consumers in the following sections, and will then use these to build and run a complete flow.</p>
+<section id="Producers">
+<h3>Producers<a class="headerlink" href="#Producers" title="Link to this heading">#</a></h3>
+<p>When creating a <code class="docutils literal notranslate"><span class="pre">Producer</span></code> subclass, you need to specify the type of products it generates using a type hint. Implement the <code class="docutils literal notranslate"><span class="pre">produce</span></code> method to yield products of this type.</p>
+<p>Imagine a scenario where the <code class="docutils literal notranslate"><span class="pre">Producer</span></code> generates a sequence of numbers:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Iterator</span>
+<span class="kn">from</span> <span class="nn">fluxus</span> <span class="kn">import</span> <span class="n">Producer</span>
+<span class="kn">from</span> <span class="nn">fluxus.core.transformer._transformer_base</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">T_SourceProduct_arg</span><span class="p">,</span>
+    <span class="n">T_TransformedProduct_ret</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">NumberProducer</span><span class="p">(</span><span class="n">Producer</span><span class="p">[</span><span class="nb">int</span><span class="p">]):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">=</span> <span class="n">n</span>
+
+    <span class="k">def</span> <span class="nf">produce</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+        <span class="k">yield from</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Note that the type hint for the <code class="docutils literal notranslate"><span class="pre">Producer</span></code> parent class matches the type hint for the iterator.</p>
+<p>Producers are <em>iterable</em> so we can easily test them by iterating over them:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">list</span><span class="p">(</span><span class="n">NumberProducer</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[1, 2, 3, 4, 5]
+</pre></div></div>
+</div>
+</section>
+<section id="Transformers">
+<h3>Transformers<a class="headerlink" href="#Transformers" title="Link to this heading">#</a></h3>
+<p>When creating a <code class="docutils literal notranslate"><span class="pre">Transformer</span></code> subclass, you need to specify the input and output (product) types using type hints. Implement the <code class="docutils literal notranslate"><span class="pre">transform</span></code> method to process input products and yield transformed products of the specified output type.</p>
+<p>In our example, we will use <code class="docutils literal notranslate"><span class="pre">Transformer</span></code> classes to perform mathematical operations. We will create one transformer that doubles each number and another that calculates the square.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">fluxus</span> <span class="kn">import</span> <span class="n">Transformer</span>
+
+
+<span class="k">class</span> <span class="nc">DoublingTransformer</span><span class="p">(</span><span class="n">Transformer</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]):</span>
+    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+        <span class="k">yield</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span>
+
+
+<span class="k">class</span> <span class="nc">SquareTransformer</span><span class="p">(</span><span class="n">Transformer</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]):</span>
+    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+        <span class="k">yield</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span>
+</pre></div>
+</div>
+</div>
+<p>Once more, note that the type hints used for the <code class="docutils literal notranslate"><span class="pre">Transformer</span></code> base class match the input and output types of the <code class="docutils literal notranslate"><span class="pre">transform</span></code> method.</p>
+</section>
+<section id="Consumers">
+<h3>Consumers<a class="headerlink" href="#Consumers" title="Link to this heading">#</a></h3>
+<p>When creating a <code class="docutils literal notranslate"><span class="pre">Consumer</span></code> subclass, you need to specify the type of products it consumes and the type of output it generates using type hints (use <code class="docutils literal notranslate"><span class="pre">None</span></code> as the output type if there is no output). Implement the <code class="docutils literal notranslate"><span class="pre">consume</span></code> method to handle the consumed products.</p>
+<p>The following <code class="docutils literal notranslate"><span class="pre">Consumer</span></code> collects all processed numbers into a list. Note that the consumer method receives products as an iterator of tuples, where the first element is the index of the path taken through the flow and the second element is the product itself. The index is useful when the flow branches into multiple paths, and you want to distinguish between the products generated by each path. We will explore this in more detail further down.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">fluxus</span> <span class="kn">import</span> <span class="n">Consumer</span>
+
+
+<span class="k">class</span> <span class="nc">NumberConsumer</span><span class="p">(</span><span class="n">Consumer</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]]):</span>
+    <span class="k">def</span> <span class="nf">consume</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">products</span><span class="p">:</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+        <span class="c1"># ignore the path index and return the numbers</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">number</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">number</span> <span class="ow">in</span> <span class="n">products</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="Building-a-flow">
+<h2>Building a flow<a class="headerlink" href="#Building-a-flow" title="Link to this heading">#</a></h2>
+<p>Now that we have defined the classes for the conduits, we can build a flow by chaining them together using the <code class="docutils literal notranslate"><span class="pre">&gt;&gt;</span></code> operator.</p>
+<p>In this example, we will generate numbers from 1 to 5, double then square them, and then collect the results in a list.</p>
+<p>The flow is constructed as follows:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">flow</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">NumberProducer</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="o">&gt;&gt;</span> <span class="n">DoublingTransformer</span><span class="p">()</span>
+    <span class="o">&gt;&gt;</span> <span class="n">SquareTransformer</span><span class="p">()</span>
+    <span class="o">&gt;&gt;</span> <span class="n">NumberConsumer</span><span class="p">()</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">&gt;&gt;</span></code> operator chains the conduits together, passing the product of one conduit as the input to the next.</p>
+<p>If <em>Graphviz</em> is installed, we can visualize the flow:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">flow</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 9.0.0 (0)
+ -->
+<!-- Title: Flow Pages: 1 -->
+<svg width="564pt" height="52pt"
+ viewBox="0.00 0.00 564.00 52.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 48)">
+<title>Flow</title>
+<polygon fill="#ffffff" stroke="none" points="-4,4 -4,-48 560,-48 560,4 -4,4"/>
+<!-- NumberProducer_4949763216 -->
+<g id="node1" class="node">
+<title>NumberProducer_4949763216</title>
+<path fill="none" stroke="#30c1d7" d="M12,-0.5C12,-0.5 88,-0.5 88,-0.5 94,-0.5 100,-6.5 100,-12.5 100,-12.5 100,-31.5 100,-31.5 100,-37.5 94,-43.5 88,-43.5 88,-43.5 12,-43.5 12,-43.5 6,-43.5 0,-37.5 0,-31.5 0,-31.5 0,-12.5 0,-12.5 0,-6.5 6,-0.5 12,-0.5"/>
+<text text-anchor="middle" x="50" y="-30" font-family="Monaco, Consolas, monospace" font-size="10.00" fill="#000000">NumberProducer</text>
+<polyline fill="none" stroke="#30c1d7" points="0,-22 100,-22"/>
+<text text-anchor="start" x="8" y="-8.5" font-family="Monaco, Consolas, monospace" font-size="10.00" fill="#000000">n=5</text>
+</g>
+<!-- DoublingTransformer_4949758352 -->
+<g id="node4" class="node">
+<title>DoublingTransformer_4949758352</title>
+<path fill="#43fda2" stroke="#30c1d7" d="M254,-40C254,-40 148,-40 148,-40 142,-40 136,-34 136,-28 136,-28 136,-16 136,-16 136,-10 142,-4 148,-4 148,-4 254,-4 254,-4 260,-4 266,-10 266,-16 266,-16 266,-28 266,-28 266,-34 260,-40 254,-40"/>
+<text text-anchor="middle" x="201" y="-19.25" font-family="Monaco, Consolas, monospace" font-size="10.00" fill="#000000">DoublingTransformer</text>
+</g>
+<!-- NumberProducer_4949763216&#45;&gt;DoublingTransformer_4949758352 -->
+<g id="edge3" class="edge">
+<title>NumberProducer_4949763216&#45;&gt;DoublingTransformer_4949758352</title>
+<path fill="none" stroke="#30c1d7" d="M100.2,-22C107.92,-22 116.05,-22 124.21,-22"/>
+<polygon fill="#30c1d7" stroke="#30c1d7" points="124.19,-25.5 134.19,-22 124.19,-18.5 124.19,-25.5"/>
+</g>
+<!-- SquareTransformer_4949873680 -->
+<g id="node2" class="node">
+<title>SquareTransformer_4949873680</title>
+<path fill="#43fda2" stroke="#30c1d7" d="M408,-40C408,-40 314,-40 314,-40 308,-40 302,-34 302,-28 302,-28 302,-16 302,-16 302,-10 308,-4 314,-4 314,-4 408,-4 408,-4 414,-4 420,-10 420,-16 420,-16 420,-28 420,-28 420,-34 414,-40 408,-40"/>
+<text text-anchor="middle" x="361" y="-19.25" font-family="Monaco, Consolas, monospace" font-size="10.00" fill="#000000">SquareTransformer</text>
+</g>
+<!-- NumberConsumer_4949878224 -->
+<g id="node3" class="node">
+<title>NumberConsumer_4949878224</title>
+<path fill="none" stroke="#30c1d7" d="M544,-40C544,-40 468,-40 468,-40 462,-40 456,-34 456,-28 456,-28 456,-16 456,-16 456,-10 462,-4 468,-4 468,-4 544,-4 544,-4 550,-4 556,-10 556,-16 556,-16 556,-28 556,-28 556,-34 550,-40 544,-40"/>
+<text text-anchor="middle" x="506" y="-19.25" font-family="Monaco, Consolas, monospace" font-size="10.00" fill="#000000">NumberConsumer</text>
+</g>
+<!-- SquareTransformer_4949873680&#45;&gt;NumberConsumer_4949878224 -->
+<g id="edge1" class="edge">
+<title>SquareTransformer_4949873680&#45;&gt;NumberConsumer_4949878224</title>
+<path fill="none" stroke="#30c1d7" d="M420.16,-22C428.06,-22 436.18,-22 444.13,-22"/>
+<polygon fill="#30c1d7" stroke="#30c1d7" points="444.07,-25.5 454.07,-22 444.07,-18.5 444.07,-25.5"/>
+</g>
+<!-- DoublingTransformer_4949758352&#45;&gt;SquareTransformer_4949873680 -->
+<g id="edge2" class="edge">
+<title>DoublingTransformer_4949758352&#45;&gt;SquareTransformer_4949873680</title>
+<path fill="none" stroke="#30c1d7" d="M266.26,-22C274.13,-22 282.19,-22 290.14,-22"/>
+<polygon fill="#30c1d7" stroke="#30c1d7" points="290.13,-25.5 300.13,-22 290.13,-18.5 290.13,-25.5"/>
+</g>
+</g>
+</svg></div>
+</div>
+<p>Note that the graph includes the <code class="docutils literal notranslate"><span class="pre">n</span></code> property of the <code class="docutils literal notranslate"><span class="pre">NumberProducer</span></code>. All <code class="docutils literal notranslate"><span class="pre">__init__</span></code> parameters of a conduit that have a matching instance attribute will be included in representations of the flow, as is the case with the <code class="docutils literal notranslate"><span class="pre">n</span></code> parameter of the <code class="docutils literal notranslate"><span class="pre">NumberProducer</span></code>.</p>
+<p>More styles are available via the <code class="docutils literal notranslate"><span class="pre">style</span></code> argument of the <code class="docutils literal notranslate"><span class="pre">draw</span></code> method:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">flow</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;graph_dark&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/user_guide_introduction_to_fluxus_building_a_flow_18_0.svg" src="../../_images/user_guide_introduction_to_fluxus_building_a_flow_18_0.svg" /></div>
+</div>
+<p>We can now run the flow:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">flow</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[4, 16, 36, 64, 100]
+</pre></div></div>
+</div>
+</section>
+<section id="Parallel-flows">
+<h2>Parallel flows<a class="headerlink" href="#Parallel-flows" title="Link to this heading">#</a></h2>
+<p>In many cases, you will want to run multiple conduits concurrently. This can be achieved using the <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> operator.</p>
+<p>In the following example, we will generate numbers from 1 to 5. For each of these numbers, we will once calculate the square and once the doubled value, in parallel. We will then collect the results in a list.</p>
+<p>The flow is constructed as follows:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">flow</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">NumberProducer</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="n">DoublingTransformer</span><span class="p">()</span> <span class="o">&amp;</span> <span class="n">SquareTransformer</span><span class="p">())</span>
+    <span class="o">&gt;&gt;</span> <span class="n">NumberConsumer</span><span class="p">()</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>The flow looks like this:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">flow</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 9.0.0 (0)
+ -->
+<!-- Title: Flow Pages: 1 -->
+<svg width="410pt" height="98pt"
+ viewBox="0.00 0.00 410.00 98.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 94)">
+<title>Flow</title>
+<polygon fill="#ffffff" stroke="none" points="-4,4 -4,-94 406,-94 406,4 -4,4"/>
+<!-- SquareTransformer_4970669328 -->
+<g id="node1" class="node">
+<title>SquareTransformer_4970669328</title>
+<path fill="#43fda2" stroke="#30c1d7" d="M248,-90C248,-90 154,-90 154,-90 148,-90 142,-84 142,-78 142,-78 142,-66 142,-66 142,-60 148,-54 154,-54 154,-54 248,-54 248,-54 254,-54 260,-60 260,-66 260,-66 260,-78 260,-78 260,-84 254,-90 248,-90"/>
+<text text-anchor="middle" x="201" y="-69.25" font-family="Monaco, Consolas, monospace" font-size="10.00" fill="#000000">SquareTransformer</text>
+</g>
+<!-- NumberConsumer_4968685840 -->
+<g id="node3" class="node">
+<title>NumberConsumer_4968685840</title>
+<path fill="none" stroke="#30c1d7" d="M390,-63C390,-63 314,-63 314,-63 308,-63 302,-57 302,-51 302,-51 302,-39 302,-39 302,-33 308,-27 314,-27 314,-27 390,-27 390,-27 396,-27 402,-33 402,-39 402,-39 402,-51 402,-51 402,-57 396,-63 390,-63"/>
+<text text-anchor="middle" x="352" y="-42.25" font-family="Monaco, Consolas, monospace" font-size="10.00" fill="#000000">NumberConsumer</text>
+</g>
+<!-- SquareTransformer_4970669328&#45;&gt;NumberConsumer_4968685840 -->
+<g id="edge4" class="edge">
+<title>SquareTransformer_4970669328&#45;&gt;NumberConsumer_4968685840</title>
+<path fill="none" stroke="#30c1d7" d="M260.46,-61.41C270.41,-59.6 280.77,-57.73 290.76,-55.92"/>
+<polygon fill="#30c1d7" stroke="#30c1d7" points="291.15,-59.4 300.37,-54.17 289.9,-52.51 291.15,-59.4"/>
+</g>
+<!-- NumberProducer_4970669648 -->
+<g id="node2" class="node">
+<title>NumberProducer_4970669648</title>
+<path fill="none" stroke="#30c1d7" d="M12,-23.5C12,-23.5 88,-23.5 88,-23.5 94,-23.5 100,-29.5 100,-35.5 100,-35.5 100,-54.5 100,-54.5 100,-60.5 94,-66.5 88,-66.5 88,-66.5 12,-66.5 12,-66.5 6,-66.5 0,-60.5 0,-54.5 0,-54.5 0,-35.5 0,-35.5 0,-29.5 6,-23.5 12,-23.5"/>
+<text text-anchor="middle" x="50" y="-53" font-family="Monaco, Consolas, monospace" font-size="10.00" fill="#000000">NumberProducer</text>
+<polyline fill="none" stroke="#30c1d7" points="0,-45 100,-45"/>
+<text text-anchor="start" x="8" y="-31.5" font-family="Monaco, Consolas, monospace" font-size="10.00" fill="#000000">n=5</text>
+</g>
+<!-- NumberProducer_4970669648&#45;&gt;SquareTransformer_4970669328 -->
+<g id="edge2" class="edge">
+<title>NumberProducer_4970669648&#45;&gt;SquareTransformer_4970669328</title>
+<path fill="none" stroke="#30c1d7" d="M100.2,-53.92C109.91,-55.68 120.27,-57.55 130.51,-59.41"/>
+<polygon fill="#30c1d7" stroke="#30c1d7" points="129.58,-62.8 140.04,-61.13 130.82,-55.91 129.58,-62.8"/>
+</g>
+<!-- DoublingTransformer_4970669584 -->
+<g id="node4" class="node">
+<title>DoublingTransformer_4970669584</title>
+<path fill="#43fda2" stroke="#30c1d7" d="M254,-36C254,-36 148,-36 148,-36 142,-36 136,-30 136,-24 136,-24 136,-12 136,-12 136,-6 142,0 148,0 148,0 254,0 254,0 260,0 266,-6 266,-12 266,-12 266,-24 266,-24 266,-30 260,-36 254,-36"/>
+<text text-anchor="middle" x="201" y="-15.25" font-family="Monaco, Consolas, monospace" font-size="10.00" fill="#000000">DoublingTransformer</text>
+</g>
+<!-- NumberProducer_4970669648&#45;&gt;DoublingTransformer_4970669584 -->
+<g id="edge1" class="edge">
+<title>NumberProducer_4970669648&#45;&gt;DoublingTransformer_4970669584</title>
+<path fill="none" stroke="#30c1d7" d="M100.2,-36.08C108.01,-34.67 116.24,-33.18 124.49,-31.68"/>
+<polygon fill="#30c1d7" stroke="#30c1d7" points="125,-35.15 134.21,-29.92 123.75,-28.26 125,-35.15"/>
+</g>
+<!-- DoublingTransformer_4970669584&#45;&gt;NumberConsumer_4968685840 -->
+<g id="edge3" class="edge">
+<title>DoublingTransformer_4970669584&#45;&gt;NumberConsumer_4968685840</title>
+<path fill="none" stroke="#30c1d7" d="M266.49,-29.69C274.51,-31.14 282.68,-32.62 290.64,-34.06"/>
+<polygon fill="#30c1d7" stroke="#30c1d7" points="289.74,-37.46 300.2,-35.79 290.99,-30.57 289.74,-37.46"/>
+</g>
+</g>
+</svg></div>
+</div>
+<p>We run the flow as before:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">flow</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[2, 4, 6, 8, 10, 1, 4, 9, 16, 25]
+</pre></div></div>
+</div>
+<section id="The-Passthrough-transformer">
+<h3>The <code class="docutils literal notranslate"><span class="pre">Passthrough</span></code> transformer<a class="headerlink" href="#The-Passthrough-transformer" title="Link to this heading">#</a></h3>
+<p>In the previous example, we used the <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> operator to run two transformers in parallel. A special <code class="docutils literal notranslate"><span class="pre">Passthrough</span></code> transformer can be included in a parallel composition of conduits to pass the input product through without modification.</p>
+<p>Applying the <code class="docutils literal notranslate"><span class="pre">Passthrough</span></code> transformer to the previous example, we get:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">fluxus</span> <span class="kn">import</span> <span class="n">Passthrough</span>
+
+<span class="n">flow_passthrough</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">NumberProducer</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="n">DoublingTransformer</span><span class="p">()</span> <span class="o">&amp;</span> <span class="n">SquareTransformer</span><span class="p">()</span> <span class="o">&amp;</span> <span class="n">Passthrough</span><span class="p">())</span>
+    <span class="o">&gt;&gt;</span> <span class="n">NumberConsumer</span><span class="p">()</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>The flow looks like this:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">flow_passthrough</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 9.0.0 (0)
+ -->
+<!-- Title: Flow Pages: 1 -->
+<svg width="410pt" height="114pt"
+ viewBox="0.00 0.00 410.00 113.64" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 109.64)">
+<title>Flow</title>
+<polygon fill="#ffffff" stroke="none" points="-4,4 -4,-109.64 406,-109.64 406,4 -4,4"/>
+<!-- NumberConsumer_4959518928 -->
+<g id="node1" class="node">
+<title>NumberConsumer_4959518928</title>
+<path fill="none" stroke="#30c1d7" d="M390,-90C390,-90 314,-90 314,-90 308,-90 302,-84 302,-78 302,-78 302,-66 302,-66 302,-60 308,-54 314,-54 314,-54 390,-54 390,-54 396,-54 402,-60 402,-66 402,-66 402,-78 402,-78 402,-84 396,-90 390,-90"/>
+<text text-anchor="middle" x="352" y="-69.25" font-family="Monaco, Consolas, monospace" font-size="10.00" fill="#000000">NumberConsumer</text>
+</g>
+<!-- DoublingTransformer_4963709264 -->
+<g id="node2" class="node">
+<title>DoublingTransformer_4963709264</title>
+<path fill="#43fda2" stroke="#30c1d7" d="M254,-90C254,-90 148,-90 148,-90 142,-90 136,-84 136,-78 136,-78 136,-66 136,-66 136,-60 142,-54 148,-54 148,-54 254,-54 254,-54 260,-54 266,-60 266,-66 266,-66 266,-78 266,-78 266,-84 260,-90 254,-90"/>
+<text text-anchor="middle" x="201" y="-69.25" font-family="Monaco, Consolas, monospace" font-size="10.00" fill="#000000">DoublingTransformer</text>
+</g>
+<!-- DoublingTransformer_4963709264&#45;&gt;NumberConsumer_4959518928 -->
+<g id="edge4" class="edge">
+<title>DoublingTransformer_4963709264&#45;&gt;NumberConsumer_4959518928</title>
+<path fill="none" stroke="#30c1d7" d="M266.49,-72C274.41,-72 282.49,-72 290.36,-72"/>
+<polygon fill="#30c1d7" stroke="#30c1d7" points="290.18,-75.5 300.18,-72 290.18,-68.5 290.18,-75.5"/>
+</g>
+<!-- SquareTransformer_4963698128 -->
+<g id="node3" class="node">
+<title>SquareTransformer_4963698128</title>
+<path fill="#43fda2" stroke="#30c1d7" d="M248,-36C248,-36 154,-36 154,-36 148,-36 142,-30 142,-24 142,-24 142,-12 142,-12 142,-6 148,0 154,0 154,0 248,0 248,0 254,0 260,-6 260,-12 260,-12 260,-24 260,-24 260,-30 254,-36 248,-36"/>
+<text text-anchor="middle" x="201" y="-15.25" font-family="Monaco, Consolas, monospace" font-size="10.00" fill="#000000">SquareTransformer</text>
+</g>
+<!-- SquareTransformer_4963698128&#45;&gt;NumberConsumer_4959518928 -->
+<g id="edge5" class="edge">
+<title>SquareTransformer_4963698128&#45;&gt;NumberConsumer_4959518928</title>
+<path fill="none" stroke="#30c1d7" d="M252.86,-36.43C265.18,-40.9 278.46,-45.71 291.14,-50.31"/>
+<polygon fill="#30c1d7" stroke="#30c1d7" points="289.61,-53.47 300.21,-53.59 292,-46.89 289.61,-53.47"/>
+</g>
+<!-- NumberProducer_4959444688 -->
+<g id="node4" class="node">
+<title>NumberProducer_4959444688</title>
+<path fill="none" stroke="#30c1d7" d="M12,-50.5C12,-50.5 88,-50.5 88,-50.5 94,-50.5 100,-56.5 100,-62.5 100,-62.5 100,-81.5 100,-81.5 100,-87.5 94,-93.5 88,-93.5 88,-93.5 12,-93.5 12,-93.5 6,-93.5 0,-87.5 0,-81.5 0,-81.5 0,-62.5 0,-62.5 0,-56.5 6,-50.5 12,-50.5"/>
+<text text-anchor="middle" x="50" y="-80" font-family="Monaco, Consolas, monospace" font-size="10.00" fill="#000000">NumberProducer</text>
+<polyline fill="none" stroke="#30c1d7" points="0,-72 100,-72"/>
+<text text-anchor="start" x="8" y="-58.5" font-family="Monaco, Consolas, monospace" font-size="10.00" fill="#000000">n=5</text>
+</g>
+<!-- NumberProducer_4959444688&#45;&gt;NumberConsumer_4959518928 -->
+<g id="edge2" class="edge">
+<title>NumberProducer_4959444688&#45;&gt;NumberConsumer_4959518928</title>
+<path fill="none" stroke="#30c1d7" d="M100.28,-90.46C111.83,-94 124.22,-97.17 136,-99 193.1,-107.85 208.9,-107.85 266,-99 274.1,-97.74 282.48,-95.85 290.69,-93.64"/>
+<polygon fill="#30c1d7" stroke="#30c1d7" points="291.63,-97.02 300.27,-90.88 289.69,-90.29 291.63,-97.02"/>
+</g>
+<!-- NumberProducer_4959444688&#45;&gt;DoublingTransformer_4963709264 -->
+<g id="edge3" class="edge">
+<title>NumberProducer_4959444688&#45;&gt;DoublingTransformer_4963709264</title>
+<path fill="none" stroke="#30c1d7" d="M100.2,-72C107.92,-72 116.05,-72 124.21,-72"/>
+<polygon fill="#30c1d7" stroke="#30c1d7" points="124.19,-75.5 134.19,-72 124.19,-68.5 124.19,-75.5"/>
+</g>
+<!-- NumberProducer_4959444688&#45;&gt;SquareTransformer_4963698128 -->
+<g id="edge1" class="edge">
+<title>NumberProducer_4959444688&#45;&gt;SquareTransformer_4963698128</title>
+<path fill="none" stroke="#30c1d7" d="M100.2,-54.17C112.45,-49.73 125.74,-44.91 138.5,-40.29"/>
+<polygon fill="#30c1d7" stroke="#30c1d7" points="139.43,-43.67 147.64,-36.98 137.05,-37.09 139.43,-43.67"/>
+</g>
+</g>
+</svg></div>
+</div>
+<p>Running the flow:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">flow_passthrough</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[2, 4, 6, 8, 10, 1, 4, 9, 16, 25, 1, 2, 3, 4, 5]
+</pre></div></div>
+</div>
+</section>
+</section>
+<section id="Asynchronous-Flows">
+<h2>Asynchronous Flows<a class="headerlink" href="#Asynchronous-Flows" title="Link to this heading">#</a></h2>
+<p>The real power of the object-oriented API is that it allows you to run conduits concurrently using Python’s asynchronous capabilities. To do this, you need to use the <code class="docutils literal notranslate"><span class="pre">async</span></code> versions of the producer, transformer, and consumer classes: <code class="docutils literal notranslate"><span class="pre">AsyncProducer</span></code>, <code class="docutils literal notranslate"><span class="pre">AsyncTransformer</span></code>, and <code class="docutils literal notranslate"><span class="pre">AsyncConsumer</span></code>.</p>
+<p>Instead of implementing the <code class="docutils literal notranslate"><span class="pre">produce</span></code>, <code class="docutils literal notranslate"><span class="pre">transform</span></code>, and <code class="docutils literal notranslate"><span class="pre">consume</span></code> methods, you need to implement the <code class="docutils literal notranslate"><span class="pre">aproduce</span></code>, <code class="docutils literal notranslate"><span class="pre">atransform</span></code>, and <code class="docutils literal notranslate"><span class="pre">aconsume</span></code> methods, respectively. Calls to the original methods will create an event loop and will defer the execution of the asynchronous methods.</p>
+<p>In the following example, we will run the same flow as before, but this time we will use the asynchronous versions of the classes.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">AsyncIterator</span>
+<span class="kn">from</span> <span class="nn">fluxus</span> <span class="kn">import</span> <span class="n">AsyncProducer</span><span class="p">,</span> <span class="n">AsyncTransformer</span><span class="p">,</span> <span class="n">AsyncConsumer</span>
+
+
+<span class="k">class</span> <span class="nc">AsyncNumberProducer</span><span class="p">(</span><span class="n">AsyncProducer</span><span class="p">[</span><span class="nb">int</span><span class="p">]):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">=</span> <span class="n">n</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">aproduce</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncIterator</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">yield</span> <span class="n">i</span>
+
+
+<span class="k">class</span> <span class="nc">AsyncDoublingTransformer</span><span class="p">(</span><span class="n">AsyncTransformer</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]):</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">atransform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncIterator</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+        <span class="k">yield</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span>
+
+
+<span class="k">class</span> <span class="nc">AsyncSquareTransformer</span><span class="p">(</span><span class="n">AsyncTransformer</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]):</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">atransform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncIterator</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+        <span class="k">yield</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span>
+
+
+<span class="k">class</span> <span class="nc">AsyncNumberConsumer</span><span class="p">(</span><span class="n">AsyncConsumer</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]]):</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">aconsume</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">products</span><span class="p">:</span> <span class="n">AsyncIterator</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">number</span> <span class="k">async</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">number</span> <span class="ow">in</span> <span class="n">products</span><span class="p">]</span>
+
+
+<span class="n">flow_async</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">AsyncNumberProducer</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="o">&gt;&gt;</span> <span class="n">AsyncDoublingTransformer</span><span class="p">()</span>
+    <span class="o">&gt;&gt;</span> <span class="n">AsyncSquareTransformer</span><span class="p">()</span>
+    <span class="o">&gt;&gt;</span> <span class="n">AsyncNumberConsumer</span><span class="p">()</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>If you are already inside an event loop (as is the case in Jupyter notebooks), you can run the asynchronous flow using the asynchronous <code class="docutils literal notranslate"><span class="pre">arun</span></code> method:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">await</span> <span class="n">flow_async</span><span class="o">.</span><span class="n">arun</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[4, 16, 36, 64, 100]
+</pre></div></div>
+</div>
+<p>Alternatively, calling the synchronous <code class="docutils literal notranslate"><span class="pre">run</span></code> method on an asynchronous flow will create a new event loop behind the scenes and run the asynchronous methods from there:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">flow_async</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[4, 16, 36, 64, 100]
+</pre></div></div>
+</div>
+<p>While the above is a toy example which does not benefit from the asynchronous capabilities, asynchronous flows will bring dramatic performance improvements when dealing with I/O-bound tasks, such as calls to remote APIs or database queries.</p>
+</section>
+<section id="Concluding-remarks">
+<h2>Concluding remarks<a class="headerlink" href="#Concluding-remarks" title="Link to this heading">#</a></h2>
+<p>In this notebook, we have demonstrated how to create custom classes for producers, transformers, and consumers. We have built a flow by chaining these conduits together using the <code class="docutils literal notranslate"><span class="pre">&gt;&gt;</span></code> operator. We have also shown how to run multiple conduits concurrently using the <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> operator, and have introduced the <code class="docutils literal notranslate"><span class="pre">Passthrough</span></code> transformer, which can be used to pass the input product through without modification. Finally, we have demonstrated how to create and run asynchronous flows using the
+asynchronous versions of the classes.</p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Introduction">Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Overview">Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Creating-Conduit-classes">Creating Conduit classes</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#Producers">Producers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#Transformers">Transformers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#Consumers">Consumers</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Building-a-flow">Building a flow</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Parallel-flows">Parallel flows</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#The-Passthrough-transformer">The <code class="docutils literal notranslate"><span class="pre">Passthrough</span></code> transformer</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Asynchronous-Flows">Asynchronous Flows</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Concluding-remarks">Concluding remarks</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2024, Boston Consulting Group (BCG).
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.3.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

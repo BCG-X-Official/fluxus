@@ -1,0 +1,715 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>fluxus.viz._timeline &#8212; fluxus  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/bcgx.css?v=9d1a9f92" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/bcgx.js?v=6cc5c158"></script>
+    <script src="../../../_static/js/versions.js?v=9c680586"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/fluxus/viz/_timeline';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../../../_static/bcgx_logo.png" class="logo__image only-light" alt="fluxus  documentation - Home"/>
+    <script>document.write(`<img src="../../../_static/bcgx_logo.png" class="logo__image only-dark" alt="fluxus  documentation - Home"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav class="navbar-nav">
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../_generated/home.html">
+    Home
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../apidoc/fluxus.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../contributor_guide/index.html">
+    Contributor Guide
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../faq.html">
+    FAQ
+  </a>
+</li>
+
+            <li class="nav-item dropdown pst-header-nav-item">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class="nav-item ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../_generated/release_notes.html">
+    Release Notes
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav class="navbar-nav">
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../_generated/home.html">
+    Home
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../apidoc/fluxus.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../contributor_guide/index.html">
+    Contributor Guide
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../_generated/release_notes.html">
+    Release Notes
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">fluxus.viz._timeline</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for fluxus.viz._timeline</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -----------------------------------------------------------------------------</span>
+<span class="c1"># © 2024 Boston Consulting Group. All rights reserved.</span>
+<span class="c1">#</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1">#     http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+<span class="c1"># -----------------------------------------------------------------------------</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Implementation of the Timeline drawer.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Iterable</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+
+<span class="kn">from</span> <span class="nn">pytools.api</span> <span class="kn">import</span> <span class="n">inheritdoc</span>
+<span class="kn">from</span> <span class="nn">pytools.text</span> <span class="kn">import</span> <span class="n">format_table</span>
+<span class="kn">from</span> <span class="nn">pytools.viz</span> <span class="kn">import</span> <span class="n">Drawer</span><span class="p">,</span> <span class="n">MatplotStyle</span><span class="p">,</span> <span class="n">TextStyle</span>
+<span class="kn">from</span> <span class="nn">pytools.viz.util</span> <span class="kn">import</span> <span class="n">FittedText</span>
+
+<span class="kn">from</span> <span class="nn">..functional</span> <span class="kn">import</span> <span class="n">RunResult</span>
+<span class="kn">from</span> <span class="nn">..functional.product</span> <span class="kn">import</span> <span class="n">DictProduct</span>
+<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">TimelineStyle</span>
+
+<span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;TimelineDrawer&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TimelineTextStyle&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TimelineMatplotStyle&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+
+<div class="viewcode-block" id="TimelineDrawer">
+<a class="viewcode-back" href="../../../apidoc/fluxus/viz/fluxus.viz.TimelineDrawer.html#fluxus.viz.TimelineDrawer">[docs]</a>
+<span class="nd">@inheritdoc</span><span class="p">(</span><span class="n">match</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;[see superclass]&quot;&quot;&quot;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">TimelineDrawer</span><span class="p">(</span><span class="n">Drawer</span><span class="p">[</span><span class="n">RunResult</span><span class="p">,</span> <span class="n">TimelineStyle</span><span class="p">]):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A drawer for rendering timelines.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="TimelineDrawer.get_style_classes">
+<a class="viewcode-back" href="../../../apidoc/fluxus/viz/fluxus.viz.TimelineDrawer.html#fluxus.viz.TimelineDrawer.get_style_classes">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_style_classes</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">type</span><span class="p">[</span><span class="n">TimelineStyle</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;[see superclass]&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">TimelineTextStyle</span><span class="p">,</span> <span class="n">TimelineMatplotStyle</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="TimelineDrawer.get_default_style">
+<a class="viewcode-back" href="../../../apidoc/fluxus/viz/fluxus.viz.TimelineDrawer.html#fluxus.viz.TimelineDrawer.get_default_style">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_default_style</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TimelineStyle</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;[see superclass]&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">TimelineTextStyle</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="TimelineDrawer._draw">
+<a class="viewcode-back" href="../../../apidoc/fluxus/viz/fluxus.viz.TimelineDrawer.html#fluxus.viz.TimelineDrawer._draw">[docs]</a>
+    <span class="k">def</span> <span class="nf">_draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">RunResult</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">outputs</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span>
+            <span class="c1"># a list of individual flow outputs</span>
+            <span class="nb">list</span><span class="p">[</span>
+                <span class="c1"># a list of steps in a single flow output</span>
+                <span class="nb">tuple</span><span class="p">[</span>
+                    <span class="c1"># a single step in a flow output</span>
+                    <span class="nb">int</span><span class="p">,</span>  <span class="c1"># the path index</span>
+                    <span class="nb">str</span><span class="p">,</span>  <span class="c1"># the step name</span>
+                    <span class="nb">float</span><span class="p">,</span>  <span class="c1"># the start time</span>
+                    <span class="nb">float</span><span class="p">,</span>  <span class="c1"># the end time</span>
+                <span class="p">]</span>
+            <span class="p">]</span>
+        <span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">[</span>
+                <span class="p">(</span>
+                    <span class="c1"># the path index</span>
+                    <span class="n">path_index</span><span class="p">,</span>
+                    <span class="c1"># the step name</span>
+                    <span class="n">step</span><span class="p">,</span>
+                    <span class="c1"># the start time</span>
+                    <span class="n">step_result</span><span class="p">[</span><span class="n">DictProduct</span><span class="o">.</span><span class="n">KEY_START_TIME</span><span class="p">],</span>
+                    <span class="c1"># the end time</span>
+                    <span class="n">step_result</span><span class="p">[</span><span class="n">DictProduct</span><span class="o">.</span><span class="n">KEY_END_TIME</span><span class="p">],</span>
+                <span class="p">)</span>
+                <span class="k">for</span> <span class="n">step</span><span class="p">,</span> <span class="n">step_result</span> <span class="ow">in</span> <span class="n">output</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">DictProduct</span><span class="o">.</span><span class="n">KEY_START_TIME</span> <span class="ow">in</span> <span class="n">step_result</span>
+                <span class="ow">and</span> <span class="n">DictProduct</span><span class="o">.</span><span class="n">KEY_START_TIME</span> <span class="ow">in</span> <span class="n">step_result</span>
+            <span class="p">]</span>
+            <span class="k">for</span> <span class="n">path_index</span><span class="p">,</span> <span class="n">output</span> <span class="ow">in</span> <span class="p">(</span>
+                <span class="p">(</span><span class="n">path_index</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">path_index</span><span class="p">,</span> <span class="n">path_outputs</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">get_outputs_per_path</span><span class="p">())</span>
+                <span class="k">for</span> <span class="n">output</span> <span class="ow">in</span> <span class="n">path_outputs</span>
+            <span class="p">)</span>
+        <span class="p">]</span>
+
+        <span class="n">style</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">style</span>
+
+        <span class="c1"># the index of the flow output</span>
+        <span class="n">output_index</span><span class="p">:</span> <span class="nb">int</span>
+        <span class="c1"># a list of steps leading up to a single output</span>
+        <span class="n">execution</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span>
+
+        <span class="k">for</span> <span class="n">output_index</span><span class="p">,</span> <span class="n">execution</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">outputs</span><span class="p">):</span>
+            <span class="n">style</span><span class="o">.</span><span class="n">render_timeline</span><span class="p">(</span><span class="n">output_index</span><span class="p">,</span> <span class="n">execution</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="TimelineTextStyle">
+<a class="viewcode-back" href="../../../apidoc/fluxus/viz/fluxus.viz.TimelineTextStyle.html#fluxus.viz.TimelineTextStyle">[docs]</a>
+<span class="nd">@inheritdoc</span><span class="p">(</span><span class="n">match</span><span class="o">=</span><span class="s2">&quot;[see superclass]&quot;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">TimelineTextStyle</span><span class="p">(</span><span class="n">TimelineStyle</span><span class="p">,</span> <span class="n">TextStyle</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A style for rendering timelines as plain text.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">#: The header of the timeline table</span>
+    <span class="n">TABLE_HEADER</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Output&quot;</span><span class="p">,</span> <span class="s2">&quot;Path&quot;</span><span class="p">,</span> <span class="s2">&quot;Step&quot;</span><span class="p">,</span> <span class="s2">&quot;Start&quot;</span><span class="p">,</span> <span class="s2">&quot;End&quot;</span><span class="p">]</span>
+
+    <span class="c1">#: The format of the columns in the timeline table</span>
+    <span class="n">COLUMN_FORMATS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="s2">&quot;g&quot;</span><span class="p">,</span> <span class="s2">&quot;g&quot;</span><span class="p">]</span>
+
+    <span class="c1">#: The alignment of the columns in the timeline table</span>
+    <span class="n">COLUMN_ALIGNMENT</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&gt;&quot;</span><span class="p">]</span>
+
+    <span class="c1">#: The rows of the timeline table</span>
+    <span class="n">_table_rows</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span>
+
+<div class="viewcode-block" id="TimelineTextStyle.start_drawing">
+<a class="viewcode-back" href="../../../apidoc/fluxus/viz/fluxus.viz.TimelineTextStyle.html#fluxus.viz.TimelineTextStyle.start_drawing">[docs]</a>
+    <span class="k">def</span> <span class="nf">start_drawing</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">title</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;[see superclass]&quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">start_drawing</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_table_rows</span> <span class="o">=</span> <span class="p">[]</span></div>
+
+
+<div class="viewcode-block" id="TimelineTextStyle.render_timeline">
+<a class="viewcode-back" href="../../../apidoc/fluxus/viz/fluxus.viz.TimelineTextStyle.html#fluxus.viz.TimelineTextStyle.render_timeline">[docs]</a>
+    <span class="k">def</span> <span class="nf">render_timeline</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">output_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">timeline</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;[see superclass]&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_table_rows</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">output_index</span><span class="p">,</span> <span class="n">path_index</span><span class="p">,</span> <span class="n">step</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">path_index</span><span class="p">,</span> <span class="n">step</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="ow">in</span> <span class="n">timeline</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TimelineTextStyle.finalize_drawing">
+<a class="viewcode-back" href="../../../apidoc/fluxus/viz/fluxus.viz.TimelineTextStyle.html#fluxus.viz.TimelineTextStyle.finalize_drawing">[docs]</a>
+    <span class="k">def</span> <span class="nf">finalize_drawing</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;[see superclass]&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="n">format_table</span><span class="p">(</span>
+                <span class="n">headings</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">TABLE_HEADER</span><span class="p">,</span>
+                <span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_table_rows</span><span class="p">,</span>
+                <span class="n">formats</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">COLUMN_FORMATS</span><span class="p">,</span>
+                <span class="n">alignment</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">COLUMN_ALIGNMENT</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_table_rows</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">finalize_drawing</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="TimelineMatplotStyle">
+<a class="viewcode-back" href="../../../apidoc/fluxus/viz/fluxus.viz.TimelineMatplotStyle.html#fluxus.viz.TimelineMatplotStyle">[docs]</a>
+<span class="nd">@inheritdoc</span><span class="p">(</span><span class="n">match</span><span class="o">=</span><span class="s2">&quot;[see superclass]&quot;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">TimelineMatplotStyle</span><span class="p">(</span><span class="n">TimelineStyle</span><span class="p">,</span> <span class="n">MatplotStyle</span><span class="p">):</span>  <span class="c1"># pragma: no cover</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A style for rendering timelines as a horizontal bar chart in a Matplotlib plot.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># The minimum time in the timeline</span>
+    <span class="n">_min_time</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="c1"># The maximum time in the timeline</span>
+    <span class="n">_max_time</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="c1"># The maximum output index</span>
+    <span class="n">_max_output_index</span><span class="p">:</span> <span class="nb">int</span>
+
+<div class="viewcode-block" id="TimelineMatplotStyle.start_drawing">
+<a class="viewcode-back" href="../../../apidoc/fluxus/viz/fluxus.viz.TimelineMatplotStyle.html#fluxus.viz.TimelineMatplotStyle.start_drawing">[docs]</a>
+    <span class="k">def</span> <span class="nf">start_drawing</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">title</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;[see superclass]&quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">start_drawing</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_min_time</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">inf</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_max_time</span> <span class="o">=</span> <span class="o">-</span><span class="n">math</span><span class="o">.</span><span class="n">inf</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_max_output_index</span> <span class="o">=</span> <span class="mi">0</span></div>
+
+
+<div class="viewcode-block" id="TimelineMatplotStyle.render_timeline">
+<a class="viewcode-back" href="../../../apidoc/fluxus/viz/fluxus.viz.TimelineMatplotStyle.html#fluxus.viz.TimelineMatplotStyle.render_timeline">[docs]</a>
+    <span class="k">def</span> <span class="nf">render_timeline</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">output_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">timeline</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;[see superclass]&quot;&quot;&quot;</span>
+
+        <span class="n">start_time_all</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+        <span class="n">end_time_all</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+        <span class="n">start_time_all</span><span class="p">,</span> <span class="n">end_time_all</span><span class="p">,</span> <span class="n">step_all</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span>
+            <span class="o">*</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">start_time</span><span class="p">,</span> <span class="n">end_time</span><span class="p">,</span> <span class="n">step</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">step</span><span class="p">,</span> <span class="n">start_time</span><span class="p">,</span> <span class="n">end_time</span> <span class="ow">in</span> <span class="n">timeline</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_min_time</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_min_time</span><span class="p">,</span> <span class="o">*</span><span class="n">start_time_all</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_max_time</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_max_time</span><span class="p">,</span> <span class="o">*</span><span class="n">end_time_all</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_max_output_index</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_max_output_index</span><span class="p">,</span> <span class="n">output_index</span><span class="p">)</span>
+
+        <span class="n">colors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colors</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span>
+
+        <span class="c1"># Calculate the coordinates of the bars</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">start_time_all</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="o">-</span><span class="n">output_index</span>
+        <span class="n">x_all</span> <span class="o">=</span> <span class="n">start_time_all</span>
+        <span class="n">width_all</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">end_time</span> <span class="o">-</span> <span class="n">start_time</span>
+            <span class="k">for</span> <span class="n">start_time</span><span class="p">,</span> <span class="n">end_time</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">start_time_all</span><span class="p">,</span> <span class="n">end_time_all</span><span class="p">)</span>
+        <span class="p">]</span>
+        <span class="n">color_all</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">colors</span><span class="o">.</span><span class="n">accent_1</span> <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">colors</span><span class="o">.</span><span class="n">accent_2</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+        <span class="p">]</span>
+
+        <span class="c1"># Draw the bars</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span>
+            <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span>
+            <span class="n">width</span><span class="o">=</span><span class="n">width_all</span><span class="p">,</span>
+            <span class="n">left</span><span class="o">=</span><span class="n">x_all</span><span class="p">,</span>
+            <span class="n">height</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
+            <span class="c1"># fill color is accent 1 for even steps, accent 2 for odd steps</span>
+            <span class="n">color</span><span class="o">=</span><span class="n">color_all</span><span class="p">,</span>
+            <span class="c1"># black edge color, so that the bars are visually separated</span>
+            <span class="n">edgecolor</span><span class="o">=</span><span class="n">colors</span><span class="o">.</span><span class="n">background</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Draw the text</span>
+        <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x_all</span><span class="p">,</span> <span class="n">width_all</span><span class="p">,</span> <span class="n">color_all</span><span class="p">,</span> <span class="n">step_all</span><span class="p">):</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">add_artist</span><span class="p">(</span>
+                <span class="n">FittedText</span><span class="p">(</span>
+                    <span class="n">x</span><span class="o">=</span><span class="n">x</span> <span class="o">+</span> <span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
+                    <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span>
+                    <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span>
+                    <span class="n">height</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
+                    <span class="n">text</span><span class="o">=</span><span class="n">step</span><span class="p">,</span>
+                    <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+                    <span class="n">va</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+                    <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="o">.</span><span class="n">contrast_color</span><span class="p">(</span><span class="n">color</span><span class="p">),</span>
+                <span class="p">)</span>
+            <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TimelineMatplotStyle.finalize_drawing">
+<a class="viewcode-back" href="../../../apidoc/fluxus/viz/fluxus.viz.TimelineMatplotStyle.html#fluxus.viz.TimelineMatplotStyle.finalize_drawing">[docs]</a>
+    <span class="k">def</span> <span class="nf">finalize_drawing</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;[see superclass]&quot;&quot;&quot;</span>
+
+        <span class="n">ax</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span>
+
+        <span class="c1"># Set the x axis limits to the minimum and maximum times</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_min_time</span> <span class="o">!=</span> <span class="n">math</span><span class="o">.</span><span class="n">inf</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_max_time</span> <span class="o">!=</span> <span class="o">-</span><span class="n">math</span><span class="o">.</span><span class="n">inf</span><span class="p">:</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_min_time</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_max_time</span><span class="p">)</span>
+
+        <span class="c1"># Set axis labels</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Seconds&quot;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Output&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Set the y-axis ticks to the output indices, in descending order</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">_max_output_index</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">reversed</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_max_output_index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)))))</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">finalize_drawing</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2024, Boston Consulting Group (BCG).
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.3.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

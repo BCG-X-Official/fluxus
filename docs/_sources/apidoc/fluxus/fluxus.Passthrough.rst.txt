@@ -1,0 +1,45 @@
+fluxus.Passthrough
+==================
+
+.. currentmodule:: fluxus
+
+.. autoclass:: Passthrough
+   :members:
+   :no-show-inheritance:
+   :inherited-members:
+   :special-members: __call__
+
+   
+   
+   .. rubric:: Method summary
+
+   .. autosummary::
+      :nosignatures:
+   
+      ~Passthrough.aiter_concurrent_conduits
+      ~Passthrough.draw
+      ~Passthrough.get_connections
+      ~Passthrough.get_final_conduits
+      ~Passthrough.get_repr_attributes
+      ~Passthrough.iter_concurrent_conduits
+      ~Passthrough.to_expression
+   
+   
+
+   
+   
+   .. rubric:: Attribute summary
+
+   .. autosummary::
+   
+      ~Passthrough.chained_conduits
+      ~Passthrough.final_conduit
+      ~Passthrough.is_atomic
+      ~Passthrough.is_chained
+      ~Passthrough.is_concurrent
+      ~Passthrough.n_concurrent_conduits
+      ~Passthrough.name
+   
+   
+
+   .. rubric:: Definitions

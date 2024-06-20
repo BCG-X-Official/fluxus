@@ -1,0 +1,48 @@
+fluxus.AsyncProducer
+====================
+
+.. currentmodule:: fluxus
+
+.. autoclass:: AsyncProducer
+   :members:
+   :no-show-inheritance:
+   :inherited-members:
+   :special-members: __call__
+
+   
+   
+   .. rubric:: Method summary
+
+   .. autosummary::
+      :nosignatures:
+   
+      ~AsyncProducer.aiter_concurrent_conduits
+      ~AsyncProducer.aproduce
+      ~AsyncProducer.draw
+      ~AsyncProducer.get_connections
+      ~AsyncProducer.get_final_conduits
+      ~AsyncProducer.get_repr_attributes
+      ~AsyncProducer.iter_concurrent_conduits
+      ~AsyncProducer.produce
+      ~AsyncProducer.to_expression
+   
+   
+
+   
+   
+   .. rubric:: Attribute summary
+
+   .. autosummary::
+   
+      ~AsyncProducer.chained_conduits
+      ~AsyncProducer.final_conduit
+      ~AsyncProducer.is_atomic
+      ~AsyncProducer.is_chained
+      ~AsyncProducer.is_concurrent
+      ~AsyncProducer.n_concurrent_conduits
+      ~AsyncProducer.name
+      ~AsyncProducer.product_type
+   
+   
+
+   .. rubric:: Definitions
