@@ -10,10 +10,7 @@ streamline the development of complex data processing pipelines (called *flows*)
 enabling users to quickly and efficiently build, test, and deploy highly concurrent
 workflows, making complex operations more manageable.
 
-**FLUXUS** is inspired by the data stream paradigm and is designed to be simple,
-expressive, and composable.
-
-**FLUXUS** is inspired by the data stream paradigm and is designed to be simple,
+It is inspired by the data stream paradigm and is designed to be simple,
 expressive, and composable.
 
 Introducing Flows
