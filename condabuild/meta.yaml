@@ -20,7 +20,6 @@ requirements:
     - python {{ environ.get('FLUXUS_V_PYTHON') }}
     - gamma-pytools {{ environ.get('FLUXUS_V_GAMMA_PYTOOLS') }}
     - typing_inspect {{ environ.get('FLUXUS_V_TYPING_INSPECT') }}
-    - aiolimiter {{ environ.get('FLUXUS_V_AIOLIMITER') }}
 
 test:
   imports:
