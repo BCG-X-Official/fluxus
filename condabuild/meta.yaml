@@ -25,15 +25,7 @@ test:
   imports:
     - fluxus
   requires:
-    - pytest ~= 7.1
-    - aiofiles ~= 23.2.1
-    - "openai ~=1.33.0"
-    - "anthropic ~=0.28.0"
-    - "groq ~=0.8.0"
-    - "aiohttp ~=3.9.5"
-    - "pyyaml ~=6.0.1"
-    - "transformers ~=4.41.2"
-    - "pytorch ~=2.3.0"
+    - pytest ~= 8.2
   commands:
     - conda list
     - python -c "import fluxus; import os; assert fluxus.__version__ == os.environ['FLUXUS_BUILD_FLUXUS_VERSION']"
