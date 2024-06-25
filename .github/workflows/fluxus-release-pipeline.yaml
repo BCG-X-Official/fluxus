@@ -9,7 +9,7 @@ on:
     branches:
       - 1.0.x
       - release/*
-  schedule:  # run tests and full conda/tox build matrix every night at 2am
+  schedule: # run tests and full conda/tox build matrix every night at 2am
     - cron: "0 2 * * 1-5" # Every weekday at 2 AM
 
 env:
@@ -28,7 +28,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: 3.11
+          python-version: 3.10
 
       - name: Upgrade pip
         run: python -m pip install --upgrade pip
@@ -95,10 +95,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Python 3.11
+      - name: Set up Python 3.10
         uses: actions/setup-python@v5
         with:
-          python-version: 3.11
+          python-version: 3.10
 
       - name: Display directory contents
         run: ls ${{ github.workspace }}
@@ -142,17 +142,20 @@ jobs:
 
   conda_tox_essential:
     runs-on: ubuntu-latest
-    needs: [detect_build_config_changes, code_quality_checks]
+    needs: [ detect_build_config_changes, code_quality_checks ]
     if: ${{ needs.detect_build_config_changes.outputs.conda_build_config_changed == '1' && github.event_name != 'schedule' && !startsWith(github.head_ref, 'dev/') && !startsWith(github.head_ref, 'release/') }}
     strategy:
       matrix:
-        python-version: [3.11]
-        build-system: [conda, tox]
-        pkg-dependencies: [max, min]
+        python-version: [ 3.10, 3.12 ]
+        build-system: [ conda, tox ]
+        pkg-dependencies: [ max, min ]
         exclude:
-          - python-version: 3.11
-            build-system: conda
+          - build-system: conda
             pkg-dependencies: min
+          - python-version: 3.12
+            pkg-dependencies: min
+          - python-version: 3.10
+            pkg-dependencies: max
 
     steps:
       - name: Checkout code
@@ -206,13 +209,18 @@ jobs:
 
   conda_tox_matrix:
     runs-on: ubuntu-latest
-    needs: [detect_build_config_changes, code_quality_checks]
+    needs: [ detect_build_config_changes, code_quality_checks ]
     if: startsWith(github.head_ref, 'dev/') || startsWith(github.head_ref, 'release/') || github.event_name == 'schedule' || github.ref == 'refs/heads/1.0.x'
     strategy:
       matrix:
-        python-version: [3.11]
-        build-system: [conda, tox]
-        pkg-dependencies: [default, min, max]
+        python-version: [ 3.10 ,3.12]
+        build-system: [ conda, tox ]
+        pkg-dependencies: [ default, min, max ]
+        exclude:
+          - python-version: 3.12
+            pkg-dependencies: min
+          - python-version: 3.10
+            pkg-dependencies: max
 
     steps:
       - name: Checkout code
@@ -308,7 +316,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: 3.11
+          python-version: 3.10
 
       - name: Checkout fluxus
         uses: actions/checkout@v4
@@ -370,7 +378,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: 3.11
+          python-version: 3.10
 
       - name: Checkout fluxus
         uses: actions/checkout@v4
@@ -467,7 +475,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: 3.11
+          python-version: 3.10
 
       - name: Retrieve current documentation versions from github-pages
         run: |

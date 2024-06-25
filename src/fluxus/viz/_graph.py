@@ -23,7 +23,9 @@ from __future__ import annotations
 import logging
 from abc import ABCMeta, abstractmethod
 from collections.abc import Iterable, Iterator
-from typing import Any, Literal, Never
+from typing import Any, Literal
+
+from typing_extensions import Never
 
 from pytools.api import inheritdoc
 from pytools.viz.color import RgbColor, RgbaColor

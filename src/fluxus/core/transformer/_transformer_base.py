@@ -23,7 +23,9 @@ from __future__ import annotations
 import logging
 from abc import ABCMeta, abstractmethod
 from collections.abc import AsyncIterable, AsyncIterator, Iterable, Iterator
-from typing import Any, Generic, Self, TypeVar, final, overload
+from typing import Any, Generic, TypeVar, final, overload
+
+from typing_extensions import Self
 
 from pytools.api import inheritdoc
 from pytools.asyncio import async_flatten
