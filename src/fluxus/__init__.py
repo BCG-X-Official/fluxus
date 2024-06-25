@@ -58,8 +58,7 @@ from ._consumer import *
 from ._flow import *
 from ._passthrough import *
 from ._producer import *
-from ._repeat import *
 from ._transformer import *
 from ._warning import *
 
-__version__ = "1.0.0"
+__version__ = "1.0.1"
