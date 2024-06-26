@@ -12,9 +12,10 @@ import subprocess
 import sys
 import warnings
 from abc import ABCMeta, abstractmethod
+from collections.abc import Iterator, Mapping
 from glob import glob
 from traceback import print_exc
-from typing import Any, Collection, Dict, Iterator, List, Mapping, Optional, Set, cast
+from typing import Any, cast
 from urllib import request
 from urllib.error import HTTPError
 from xml.etree import ElementTree
@@ -78,7 +79,7 @@ RE_VERSION = re.compile(
 class Builder(metaclass=ABCMeta):
     def __init__(self, project: str, dependency_type: str) -> None:
         self.project = project
-        self.pyproject_toml: Optional[Mapping[str, Any]] = None
+        self.pyproject_toml: Mapping[str, Any] | None = None
         self.dependency_type = dependency_type
 
         if dependency_type not in KNOWN_DEPENDENCY_TYPES:
@@ -152,7 +153,7 @@ class Builder(metaclass=ABCMeta):
             os.environ[FLUXUS_PATH_ENV], self.project, "pyproject.toml"
         )
         log(f"Reading build configuration from {pyproject_toml_path}")
-        with open(pyproject_toml_path, "rt") as f:
+        with open(pyproject_toml_path) as f:
             self.pyproject_toml = cast(Mapping[str, Any], toml.load(f))
 
         return self.pyproject_toml
@@ -176,7 +177,7 @@ class Builder(metaclass=ABCMeta):
 
         log(f"Testing package version: {package} {new_version}")
 
-        released_versions: List[Version] = self._get_existing_releases(package)
+        released_versions: list[Version] = self._get_existing_releases(package)
 
         if new_version in released_versions:
             raise AssertionError(
@@ -207,7 +208,7 @@ class Builder(metaclass=ABCMeta):
                 f"release of major/minor version {new_version} can go ahead"
             )
 
-    def _get_existing_releases(self, package: str) -> List[Version]:
+    def _get_existing_releases(self, package: str) -> list[Version]:
         releases_uri = f"https://pypi.org/rss/project/{package}/releases.xml"
         log(f"Getting existing releases from {releases_uri}")
         try:
@@ -226,7 +227,7 @@ class Builder(metaclass=ABCMeta):
         tree = ElementTree.fromstring(releases_xml)
         releases_nodes = tree.findall(path=".//channel//item//title")
 
-        released_versions: List[Version] = sorted(
+        released_versions: list[Version] = sorted(
             Version(r if r is not None else "")
             for r in [r.text for r in releases_nodes]
         )
@@ -248,7 +249,7 @@ class Builder(metaclass=ABCMeta):
         """
         requirements_to_expose = self._get_requirements_to_expose()
 
-        environment_version_variables: Dict[str, str] = {
+        environment_version_variables: dict[str, str] = {
             # replace non-word characters with '_' to make valid environment variable
             # names
             (
@@ -262,7 +263,7 @@ class Builder(metaclass=ABCMeta):
             export_environment_variable(name=package, value=version)
 
         # get packages to be built from source
-        build_no_binaries: List[str] = (
+        build_no_binaries: list[str] = (
             self.get_pyproject_toml()[TOML_BUILD]
             .get(TOML_NO_BINARY, {})
             .get(self.dependency_type, [])
@@ -295,7 +296,7 @@ class Builder(metaclass=ABCMeta):
         flit_metadata = self.get_pyproject_toml()[TOML_TOOL][TOML_FLIT][TOML_METADATA]
 
         python_version = flit_metadata[TOML_REQUIRES_PYTHON]
-        run_dependencies: Dict[str, str] = {
+        run_dependencies: dict[str, str] = {
             name: validate_pip_version_spec(
                 dependency_type=DEP_DEFAULT, package=name, spec=version.lstrip()
             )
@@ -320,12 +321,12 @@ class Builder(metaclass=ABCMeta):
 
         # get full project specification from the TOML file
         # get the matrix test dependencies (min and max)
-        build_matrix_definition: Dict[str, Dict[str, str]] = self.get_pyproject_toml()[
+        build_matrix_definition: dict[str, dict[str, str]] = self.get_pyproject_toml()[
             TOML_BUILD
         ][TOML_MATRIX]
 
-        def get_matrix_dependencies(matrix_type: str) -> Dict[str, str]:
-            dependencies: Dict[str, str] = build_matrix_definition.get(matrix_type, {})
+        def get_matrix_dependencies(matrix_type: str) -> dict[str, str]:
+            dependencies: dict[str, str] = build_matrix_definition.get(matrix_type, {})
             if not dependencies:
                 return {}
             return {
@@ -337,11 +338,11 @@ class Builder(metaclass=ABCMeta):
                 for name, version in dependencies.items()
             }
 
-        min_dependencies: Dict[str, str] = get_matrix_dependencies(DEP_MIN)
-        max_dependencies: Dict[str, str] = get_matrix_dependencies(DEP_MAX)
+        min_dependencies: dict[str, str] = get_matrix_dependencies(DEP_MIN)
+        max_dependencies: dict[str, str] = get_matrix_dependencies(DEP_MAX)
 
         # check that the min and max dependencies supersede all default dependencies
-        dependencies_not_covered_in_matrix: Set[str] = (
+        dependencies_not_covered_in_matrix: set[str] = (
             run_dependencies.keys() - min_dependencies.keys()
         ) | (run_dependencies.keys() - max_dependencies.keys())
 
@@ -499,9 +500,9 @@ class ToxBuilder(Builder):
             dependencies that have been exposed as environment variables
         """
         if self.dependency_type == DEP_DEFAULT:
-            tox_env = "py311"
+            tox_env = "py3"
         else:
-            tox_env = "py311-custom-deps"
+            tox_env = "py3-custom-deps"
 
         original_dir = os.getcwd()
 
@@ -510,12 +511,8 @@ class ToxBuilder(Builder):
             os.makedirs(build_path, exist_ok=True)
             os.chdir(build_path)
 
-            # create a copy of tox.ini, removing all lines that reference
-            # dependencies that have not been exposed as environment variables
-            path_tox_ini = self._patch_tox_ini(exposed_package_dependencies.keys())
-
             # run tox
-            build_cmd = f"tox -c '{path_tox_ini}' -e {tox_env} -v"
+            build_cmd = f"tox -c '{self._get_tox_ini_path()}' -e {tox_env} -v"
             log(f"Build Command: {build_cmd}")
             subprocess.run(args=build_cmd, shell=True, check=True)
             log("Tox build completed – creating local PyPi index")
@@ -547,7 +544,7 @@ class ToxBuilder(Builder):
                 for package in glob(os.path.join(project_repo_path, package_glob))
             ]
             # store index.html
-            with open(project_index_html_path, "wt") as f:
+            with open(project_index_html_path, "w") as f:
                 f.writelines(package_file_links)
 
             log(f"Local PyPi Index created at: {pypi_index_path}")
@@ -555,13 +552,11 @@ class ToxBuilder(Builder):
         finally:
             os.chdir(original_dir)
 
-    def _patch_tox_ini(self, exposed_version_variables: Collection[str]) -> str:
+    def _get_tox_ini_path(self) -> str:
         """
         Remove all lines from the tox.ini file that reference environment variables
         that we have not exported.
 
-        :param exposed_version_variables: package names of the dependencies that have
-            been exposed as environment variables
         :return: the path to the resulting temporary tox.ini file
         """
 
@@ -572,53 +567,7 @@ class ToxBuilder(Builder):
             os.path.join(tox_ini_dir, ToxBuilder.FILE_TOX_INI)
         )
 
-        # create a temporary copy of tox.ini, with the prefix "tmp_" in the filename
-        tox_ini_tmp_path = os.path.abspath(
-            os.path.join(tox_ini_dir, ToxBuilder.FILE_TOX_INI_TMP)
-        )
-
-        # get the list of all environment variables starting with the FLUXUS prefix
-        print(
-            "Exported version variables: "
-            + ", ".join(sorted(exposed_version_variables))
-        )
-
-        # read all lines from the original tox.ini file and write them to the temporary
-        # file, unless they reference a FLUXUS dependency environment variable which
-        # has not been exported
-
-        removed_lines: List[str] = []
-        with open(tox_ini_path, "rt") as f_in, open(tox_ini_tmp_path, "wt") as f_out:
-            for line in f_in.readlines():
-                # get all environment variables referenced in the line
-                # these use the tox.ini `{env:` syntax and start with the
-                # FLUXUS_DEPENDENCY_VERSION_ENV_PREFIX
-                referenced_env_vars = re.findall(
-                    pattern=PATTERN_ENV_VERSION_REFERENCE, string=line
-                )
-                # if there are no such environment variables, or all of them have been
-                # exported, write the line to the temporary file
-                if not referenced_env_vars or all(
-                    env_var in exposed_version_variables
-                    for env_var in referenced_env_vars
-                ):
-                    f_out.write(line)
-                else:
-                    removed_lines.append(line.strip())
-
-        # if there were any lines removed, print a warning
-        if removed_lines:
-            log(
-                f"WARNING: The following lines were removed from {tox_ini_path} "
-                f"because they referenced environment variables that have not been "
-                f"exported: \n{self.INDENT}" + f"\n{self.INDENT}".join(removed_lines)
-            )
-
-        # log the path to the temporary tox.ini file
-        log(f"Temporary tox.ini file created at: {tox_ini_tmp_path}")
-
-        # return the path to the temporary tox.ini file
-        return tox_ini_tmp_path
+        return tox_ini_path
 
 
 def get_projects_root_path() -> str:
@@ -631,7 +580,7 @@ def get_projects_root_path() -> str:
     return fluxus_path
 
 
-def get_known_projects() -> Set[str]:
+def get_known_projects() -> set[str]:
     dir_entries: Iterator[os.DirEntry[str]] = cast(
         Iterator[os.DirEntry[str]], os.scandir(get_projects_root_path())
     )

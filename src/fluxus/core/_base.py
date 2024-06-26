@@ -26,7 +26,9 @@ from __future__ import annotations
 import logging
 from abc import ABCMeta, abstractmethod
 from collections.abc import AsyncIterable, Collection, Iterable, Iterator
-from typing import Any, Generic, Self, TypeVar, cast
+from typing import Any, Generic, TypeVar, cast
+
+from typing_extensions import Self
 
 from pytools.api import inheritdoc
 from pytools.typing import get_common_generic_base, issubclass_generic
