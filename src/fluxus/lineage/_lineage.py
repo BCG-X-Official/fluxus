@@ -23,7 +23,9 @@ from __future__ import annotations
 import logging
 from abc import ABCMeta, abstractmethod
 from collections.abc import Iterator, Mapping
-from typing import Any, Generic, Self, TypeVar, final
+from typing import Any, Generic, TypeVar, final
+
+from typing_extensions import Self
 
 from pytools.api import get_init_params
 
