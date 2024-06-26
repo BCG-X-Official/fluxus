@@ -20,7 +20,7 @@ requires = [
     "typing_inspect    ~=0.7",
 ]
 
-requires-python = ">=3.11,<4a"
+requires-python = ">=3.10,<4a"
 
 [tool.flit.metadata.requires-extra]
 dev = [
@@ -60,7 +60,7 @@ no-binary.min = []
 [build.matrix.min]
 matplotlib        = "~=3.6.3"
 pandas            = "~=2.1"
-python            = "==3.11"
+python            = ">=3.10.14,<3.11a"
 gamma-pytools     = "~=3.0.0"
 typing_inspect    = "~=0.7.1"
 

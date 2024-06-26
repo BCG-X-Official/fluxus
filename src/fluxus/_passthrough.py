@@ -22,7 +22,9 @@ from __future__ import annotations
 
 import logging
 from collections.abc import Collection, Iterator
-from typing import Any, Never, final
+from typing import Any, final
+
+from typing_extensions import Never
 
 from pytools.api import inheritdoc
 from pytools.meta import SingletonABCMeta

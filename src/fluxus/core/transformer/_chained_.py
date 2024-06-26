@@ -619,18 +619,22 @@ class _AsyncBufferedProducer(
 
 T = TypeVar("T")
 
+#: Tasks for the producer that need to be awaited before the producer is garbage
+#: collected
 _producer_tasks: set[asyncio.Task[Any]] = set()
+
+#: Sentinel to indicate the end of processing
+_END: Literal["END"] = cast(Literal["END"], "END")
 
 
 def _async_iter_parallel(
     iterable: AsyncIterable[T], n: int
 ) -> Iterator[AsyncIterator[T]]:
+    # Create a given number of asynchronous iterators that share the same items.
 
-    _END = "END"
-    barrier: asyncio.Barrier = asyncio.Barrier(n + 1)
-    queue: asyncio.Queue[T | Literal["END"]] = asyncio.Queue()
-
-    async def _shared_iterator() -> AsyncIterator[T]:
+    async def _shared_iterator(
+        queue: asyncio.Queue[T | Literal["END"]],
+    ) -> AsyncIterator[T]:
         while True:
             # Wait for the item to be available for this iterator
             item = await queue.get()
@@ -638,23 +642,21 @@ def _async_iter_parallel(
                 # The producer has finished
                 break
             yield cast(T, item)
-            # Wait for all iterators and the producer to reach this point
-            try:
-                await barrier.wait()
-            except asyncio.BrokenBarrierError:  # pragma: no covers
-                # The barrier may be broken if the producer has finished
-                # and there are no more items to process.
-                break
 
     async def _producer() -> None:
+        # Iterate over the items in the source iterable
         async for item in iterable:
-            for _ in range(n):
+            # Add the item to all queues
+            for queue in queues:
                 await queue.put(item)
-            # Wait for all consumers to process the item
-            await barrier.wait()
         # Notify all consumers that the producer has finished
-        for _ in range(n):
-            await queue.put(cast(Literal["END"], _END))
+        for queue in queues:
+            await queue.put(_END)
+
+    # Create a queue for each consumer
+    queues: list[asyncio.Queue[T | Literal["END"]]] = [
+        asyncio.Queue() for _ in range(n)
+    ]
 
     # Start the producer task, and store a reference to it to prevent it from being
     # garbage collected before it finishes
@@ -662,4 +664,4 @@ def _async_iter_parallel(
     _producer_tasks.add(task)
     task.add_done_callback(_producer_tasks.remove)
 
-    return (_shared_iterator() for _ in range(n))
+    return (_shared_iterator(queue) for queue in queues)

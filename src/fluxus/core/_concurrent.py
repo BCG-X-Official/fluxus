@@ -22,7 +22,9 @@ from __future__ import annotations
 
 import logging
 from abc import ABCMeta
-from typing import Any, Generic, Self, TypeVar, final
+from typing import Any, Generic, TypeVar, final
+
+from typing_extensions import Self
 
 from pytools.api import inheritdoc
 
