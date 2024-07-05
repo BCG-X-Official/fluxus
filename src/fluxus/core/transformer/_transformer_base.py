@@ -28,7 +28,6 @@ from typing import Any, Generic, TypeVar, final, overload
 from typing_extensions import Self
 
 from pytools.api import inheritdoc
-from pytools.asyncio import async_flatten
 from pytools.typing import (
     get_common_generic_base,
     get_common_generic_subclass,
@@ -294,30 +293,6 @@ class SerialTransformer(
         """
         for tx in self.transform(source_product):
             yield tx
-
-    def iter(
-        self, source: Iterable[T_SourceProduct_arg]
-    ) -> Iterator[T_TransformedProduct_ret]:
-        """
-        Generate new products, using an existing producer as input.
-
-        :param source: an existing producer to use as input (optional)
-        :return: the new products
-        """
-        for product in source:
-            yield from self.transform(product)
-
-    def aiter(
-        self, source: AsyncIterable[T_SourceProduct_arg]
-    ) -> AsyncIterator[T_TransformedProduct_ret]:
-        """
-        Generate new products asynchronously, using an existing producer as input.
-
-        :param source: an existing producer to use as input (optional)
-        :return: the new products
-        """
-        # noinspection PyTypeChecker
-        return async_flatten(self.atransform(product) async for product in source)
 
     @overload
     def __rshift__(
