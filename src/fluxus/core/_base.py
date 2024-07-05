@@ -24,8 +24,8 @@ Implementation of `source` and `processor` base classes.
 from __future__ import annotations
 
 import logging
-from abc import ABCMeta, abstractmethod
-from collections.abc import AsyncIterable, Collection, Iterable, Iterator
+from abc import ABCMeta
+from collections.abc import Collection, Iterator
 from typing import Any, Generic, TypeVar, cast
 
 from typing_extensions import Self
@@ -96,28 +96,6 @@ class Processor(
         The type of the input processed by this conduit.
         """
         return cast(type[T_SourceProduct_arg], self._get_type_arguments(Processor)[0])
-
-    @abstractmethod
-    def process(
-        self, input: Iterable[T_SourceProduct_arg]
-    ) -> list[T_Output_ret] | T_Output_ret:
-        """
-        Generate new products from the given input.
-
-        :param input: the input products
-        :return: the generated output or outputs
-        """
-
-    @abstractmethod
-    async def aprocess(
-        self, input: AsyncIterable[T_SourceProduct_arg]
-    ) -> list[T_Output_ret] | T_Output_ret:
-        """
-        Generate new products asynchronously from the given input.
-
-        :param input: the input products
-        :return: the generated output or outputs
-        """
 
     def is_valid_source(
         self,
