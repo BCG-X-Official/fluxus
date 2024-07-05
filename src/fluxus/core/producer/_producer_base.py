@@ -203,7 +203,7 @@ class ConcurrentProducer(
         # create tasks for each producer - these need to be coroutines that materialize
         # the producers
 
-        # noinspection PyTypeChecker
-        return async_flatten(
-            producer.aproduce() async for producer in self.aiter_concurrent_conduits()
-        )
+        # aiter_concurrent_conduits() creates an async iterable of producers, which
+        # in turn each are async iterables of products. We flatten this structure to
+        # get a single async iterable of products.
+        return async_flatten(self.aiter_concurrent_conduits())
