@@ -303,10 +303,10 @@ def test_concurrent_graph() -> None:
     _check_dot_notation(
         flow=(NumberProducer(0, 4) & (NumberProducer(8, 12) >> DoublingTransformer())),
         expected_nodes_and_edges="""\
-    DoublingTransformer_# -> _EndNode_#[style=dashed];
+    DoublingTransformer_# -> _EndNode_#
     DoublingTransformer_# [label=DoublingTransformer];
     NumberProducer_# -> DoublingTransformer_#
-    NumberProducer_# -> _EndNode_#[style=dashed];
+    NumberProducer_# -> _EndNode_#
     NumberProducer_# \
 [shape=record,label="NumberProducer|start=0\\lstop=4\\l",style=rounded];
     NumberProducer_# \
@@ -397,11 +397,11 @@ def test_dot_params() -> None:
 
     # noinspection SpellCheckingInspection
     assert sorted(dot.split("\n")) == [
-        "    DoublingTransformer_# -> _EndNode_#[style=dashed];",
+        "    DoublingTransformer_# -> _EndNode_#",
         "    DoublingTransformer_# [label=DoublingTransformer];",
         "    _EndNode_# "
         '[label="||\\n",shape=doublecircle,style=dashed,fontcolor="#800080"];',
-        "    _StartNode_# -> DoublingTransformer_#[style=dashed];",
+        "    _StartNode_# -> DoublingTransformer_#",
         "    _StartNode_# "
         '[label=">\\n",shape=circle,style=dashed,fontcolor="#800080"];',
         '    bgcolor="#0000ff";',
