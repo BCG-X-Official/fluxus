@@ -1,4 +1,10 @@
 repos:
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v3.16.0
+    hooks:
+      - id: pyupgrade
+        args: [--py310-plus]
+
   - repo: https://github.com/PyCQA/isort
     rev: 5.12.0
     hooks:
@@ -45,11 +51,8 @@ repos:
         pass_filenames: false
         additional_dependencies:
           - gamma-pytools~=3.0
-          - openai
           - pandas-stubs
           - pytest
-          - types-PyYAML
-          - aiohttp
 
   - repo: https://github.com/kynan/nbstripout
     rev: 0.6.1
