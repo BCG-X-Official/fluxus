@@ -173,7 +173,10 @@ class Conduit(HasExpressionRepr, Generic[T_Output_ret], metaclass=ABCMeta):
     @abstractmethod
     def get_connections(
         self, *, ingoing: Collection[SerialConduit[Any]]
-    ) -> Iterator[tuple[SerialConduit[Any], SerialConduit[Any]]]:
+    ) -> Iterator[
+        tuple[SerialConduit[Any], SerialConduit[Any]]
+        | tuple[SerialConduit[Any], SerialConduit[Any], str],
+    ]:
         """
         Get the connections between conduits in this conduit.
 

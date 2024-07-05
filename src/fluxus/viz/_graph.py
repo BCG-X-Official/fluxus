@@ -54,17 +54,22 @@ class FlowGraph:
     by any type of :class:`.Conduit`.
     """
 
+    #: connection style for reversed arrow direction
+    STYLE_BACK = "back"
+
     #: The set of all single, unconnected conduits in the graph.
     single_conduits: set[SerialConduit[Any]]
 
     #: The set of all connections between conduits in the graph.
-    connections: set[tuple[SerialConduit[Any], SerialConduit[Any]]]
+    connections: set[tuple[SerialConduit[Any], SerialConduit[Any], str | None]]
 
     def __init__(
         self,
         *,
         single_conduits: set[SerialConduit[Any]] | None = None,
-        connections: set[tuple[SerialConduit[Any], SerialConduit[Any]]] | None = None,
+        connections: (
+            set[tuple[SerialConduit[Any], SerialConduit[Any], str | None]] | None
+        ) = None,
     ) -> None:
         """
         :param single_conduits: the set of all single, unconnected conduits in the graph
@@ -94,9 +99,14 @@ class FlowGraph:
         if isinstance(conduit, BaseProducer):
             conduit = conduit >> _EndNode()
 
-        connections: set[tuple[SerialConduit[Any], SerialConduit[Any]]] = set(
-            conduit.get_connections(ingoing=[])
-        )
+        connections: set[tuple[SerialConduit[Any], SerialConduit[Any], str | None]] = {
+            (
+                connection[0],
+                connection[1],
+                None if len(connection) < 3 else connection[2],
+            )
+            for connection in conduit.get_connections(ingoing=[])
+        }
 
         single_conduits: set[SerialConduit[Any]] = {
             conduit
@@ -139,8 +149,8 @@ class FlowGraph:
         # get all connections
         connections = self.connections
         # get the sets of source nodes and processor nodes
-        nodes_source = {producer for producer, _ in connections}
-        nodes_processor = {processor for _, processor in connections}
+        nodes_source = {producer for producer, _, _ in connections}
+        nodes_processor = {processor for _, processor, _ in connections}
         # all nodes are the union of the two sets, plus the single conduits
         nodes = nodes_source | nodes_processor | self.single_conduits
 
@@ -216,10 +226,17 @@ class FlowGraph:
 
             digraph.add_node(_node_id(node), **node_attrs)
 
-        for source, processor in connections:
-            if isinstance(source, _SpecialNode) or isinstance(processor, _SpecialNode):
-                edge_attrs = {"style": "dashed"}
+        for source, processor, style in connections:
+            edge_attrs: dict[str, str]
+            if style == FlowGraph.STYLE_BACK:
+                edge_attrs = dict(
+                    # draw the arrow in the opposite direction
+                    dir="back",
+                    # draw the arrow line as a dashed line
+                    style="dashed",
+                )
             else:
+                # draw a regular arrow
                 edge_attrs = {}
             digraph.add_edge(_node_id(source), _node_id(processor), **edge_attrs)
 
@@ -255,7 +272,7 @@ class _DotGraph:
     nodes: dict[str, dict[str, str]]
 
     #: The edges of the graph, each with a dictionary of attributes.
-    edges: dict[tuple[str, str], dict[str, str]]
+    edges: list[tuple[tuple[str, str], dict[str, str]]]
 
     def __init__(
         self,
@@ -281,7 +298,7 @@ class _DotGraph:
         self.edge_defaults = edge_defaults or {}
 
         self.nodes = {}
-        self.edges = {}
+        self.edges = []
 
     def add_node(self, name: str, **attrs: str) -> None:
         """
@@ -302,7 +319,7 @@ class _DotGraph:
         :param attrs: the attributes of the edge, as additional keyword arguments
             (optional)
         """
-        self.edges[(source, target)] = attrs
+        self.edges.append(((source, target), attrs))
 
     def __str__(self) -> str:
 
@@ -329,7 +346,7 @@ class _DotGraph:
             dot += f"\n    {_escape_string(node)}"
             if attrs:
                 dot += f" [{_attr_string(attrs)}];"  # noqa: E702
-        for (source, target), attrs in self.edges.items():
+        for (source, target), attrs in self.edges:
             dot += f"\n    {_escape_string(source)} -> {_escape_string(target)}"
             if attrs:
                 dot += f"[{_attr_string(attrs)}];"  # noqa: E702

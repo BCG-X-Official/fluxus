@@ -108,7 +108,10 @@ class SimpleConcurrentProducer(
 
     def get_connections(
         self, *, ingoing: Collection[SerialConduit[Any]]
-    ) -> Iterator[tuple[SerialConduit[Any], SerialConduit[Any]]]:
+    ) -> Iterator[
+        tuple[SerialConduit[Any], SerialConduit[Any]]
+        | tuple[SerialConduit[Any], SerialConduit[Any], str],
+    ]:
         """[see superclass]"""
         assert not ingoing, "Producer groups cannot have ingoing conduits"
         for producer in self.producers:

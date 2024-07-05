@@ -9,7 +9,7 @@ from typing import Any, cast
 
 import pytest
 
-from fluxus import AsyncConsumer, Consumer, Passthrough, Producer, Transformer
+from fluxus import AsyncConsumer, Consumer, Passthrough, Producer, Repeat, Transformer
 from fluxus.core import Conduit
 from fluxus.core.producer import ConcurrentProducer
 from fluxus.core.transformer import BaseTransformer, ConcurrentTransformer
@@ -63,6 +63,21 @@ class IncrementingTransformer(NumberTransformer):
 
     def transform(self, source_product: int) -> Iterator[int]:
         yield source_product + 1
+
+
+class CountingRepeater(Repeat[int, int]):
+    """
+    A simple repeater that repeats until the product is above a given threshold.
+    """
+
+    def __init__(self, threshold: int) -> None:
+        self.threshold = threshold
+
+    def test(self, product: int) -> int | None:
+        if product < self.threshold:
+            return product
+        else:
+            return None
 
 
 class StringConsumer(Consumer[str, str]):
@@ -217,6 +232,24 @@ def test_chain_of_groups() -> None:
     assert asyncio.run(flow.arun()) == expected_result
 
 
+def test_repeat() -> None:
+    flow = (
+        NumberProducer(0, 2)
+        >> (IncrementingTransformer() >> DoublingTransformer()) @ CountingRepeater(5)
+        >> NumberConsumer()
+    )
+
+    expected_result = [6, 6, 5, 10, 8, 8, 5, 10, 5, 10, 6, 5, 10, 8, 5, 10]
+
+    actual_result = flow.run()
+    assert len(actual_result) == 1
+    assert actual_result[0] == expected_result
+
+    actual_result = asyncio.run(flow.arun())
+    assert len(actual_result) == 1
+    assert sorted(actual_result[0]) == sorted(expected_result)
+
+
 def test_expression() -> None:
     _DoublingTransformer = Id(DoublingTransformer)
     _NumberConsumer = Id(NumberConsumer)
@@ -243,6 +276,7 @@ def test_expression() -> None:
     [(Passthrough() & DoublingTransformer()), (DoublingTransformer() & Passthrough())],
 )
 def test_graph(transformer_concurrent: Transformer[int, int]) -> None:
+    # noinspection SpellCheckingInspection
     _check_dot_notation(
         flow=(
             (NumberProducer(0, 4) & NumberProducer(8, 12))
@@ -265,6 +299,7 @@ def test_graph(transformer_concurrent: Transformer[int, int]) -> None:
 
 
 def test_concurrent_graph() -> None:
+    # noinspection SpellCheckingInspection
     _check_dot_notation(
         flow=(NumberProducer(0, 4) & (NumberProducer(8, 12) >> DoublingTransformer())),
         expected_nodes_and_edges="""\
@@ -313,6 +348,7 @@ def test_flow_drawers() -> None:
     )
 
 
+# noinspection SpellCheckingInspection
 HEADER_EXPECTED = [
     'digraph "Flow" {',
     "    rankdir=LR;",
@@ -359,6 +395,7 @@ def test_dot_params() -> None:
         ),
     )
 
+    # noinspection SpellCheckingInspection
     assert sorted(dot.split("\n")) == [
         "    DoublingTransformer_# -> _EndNode_#[style=dashed];",
         "    DoublingTransformer_# [label=DoublingTransformer];",
@@ -468,6 +505,7 @@ def test_passthrough() -> None:
 
 
 def test_flow_construction() -> None:
+    # noinspection PyTypeChecker
     flow = (
         NumberProducer(0, 3)
         >> parallel(
@@ -498,10 +536,12 @@ def test_large_flows() -> None:
     Test a flow with 1000 parallel steps.
     """
 
+    # noinspection PyArgumentList
     parallel_transformer = parallel(*[DoublingTransformer() for _ in range(1000)])
 
     assert parallel_transformer.n_concurrent_conduits == 1000
 
+    # noinspection PyArgumentList
     parallel_producer = parallel(*[NumberProducer(0, i + 1) for i in range(1000)])
 
     assert parallel_producer.n_concurrent_conduits == 1000

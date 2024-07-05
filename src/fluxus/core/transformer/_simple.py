@@ -121,7 +121,10 @@ class SimpleConcurrentTransformer(
 
     def get_connections(
         self, *, ingoing: Collection[SerialConduit[Any]]
-    ) -> Iterator[tuple[SerialConduit[Any], SerialConduit[Any]]]:
+    ) -> Iterator[
+        tuple[SerialConduit[Any], SerialConduit[Any]]
+        | tuple[SerialConduit[Any], SerialConduit[Any], str],
+    ]:
         """[see superclass]"""
         for transformer in self.transformers:
             if transformer is not _PASSTHROUGH:

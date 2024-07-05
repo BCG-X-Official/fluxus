@@ -13,7 +13,8 @@ from typing import Any
 import pandas as pd
 import pytest
 
-from fluxus.functional import RunResult, chain, parallel, passthrough, run, step
+from fluxus.core.transformer import BaseTransformer
+from fluxus.functional import RunResult, chain, parallel, passthrough, repeat, run, step
 from fluxus.functional.product import DictProduct
 from pytools.asyncio import iter_async_to_sync, iter_sync_to_async
 
@@ -136,7 +137,7 @@ def test_flow() -> None:
 
     # The steps that process the input data
     # noinspection PyTypeChecker
-    steps = chain(
+    steps: BaseTransformer[DictProduct, DictProduct] = chain(
         parallel(
             step(
                 "multiply",
@@ -185,6 +186,7 @@ def test_flow() -> None:
     assert _sort_nested(run(steps, input=input_data)) == result_expected
 
     # construct the same flow, with parallel steps as an iterable
+    # noinspection PyTypeChecker
     steps = chain(
         parallel(
             iter(
@@ -302,6 +304,7 @@ def test_parallel_inputs() -> None:
         parallel(passthrough())  # type: ignore[call-overload]
 
     inc = step("increment", lambda a: dict(a=a + 1))
+    # noinspection PyTypeChecker
     assert run(parallel([inc], inc), input=[dict(a=2)]) == RunResult(
         [{"input": {"a": 2}, "increment": {"a": 3}}],
         [{"input": {"a": 2}, "increment": {"a": 3}}],
@@ -313,6 +316,7 @@ def test_parallel_inputs() -> None:
 
 def test_passthrough() -> None:
 
+    # noinspection PyTypeChecker
     flow = chain(
         # Create a producer step that produces a single dictionary
         step(
@@ -598,6 +602,41 @@ def test_implicit_input() -> None:
     )
 
 
+def test_repeat() -> None:
+    # Create a simple flow
+    flow = (
+        step(
+            "input",
+            dict(a=1, b=2, c=3),
+        )
+        >> repeat(
+            "while_ab_below_100",
+            step(
+                "multiply",
+                lambda a, b: dict(ab=a * b),
+            ),
+            test=lambda ab, c: None if ab > 100 else dict(a=10, b=15, c=c),
+        )
+        >> step("result", lambda **kwargs: kwargs)
+    )
+
+    # Run the flow
+    result = run(flow)
+
+    # Check the result
+    assert _sort_nested(result) == [
+        [
+            {
+                "input": dict(a=1, b=2, c=3),
+                "multiply": dict(ab=2),
+                "while_ab_below_100": dict(a=10, b=15, c=3),
+                "multiply#1": dict(ab=150),
+                "result": dict(a=10, ab=150, b=15, c=3),
+            }
+        ]
+    ]
+
+
 #
 # Auxiliary functions
 #
@@ -612,7 +651,6 @@ def _sort_nested(
     :param dicts: the dictionaries to sort
     :return: the sorted dictionaries
     """
-    log.debug(f"sort: {type(dicts)} {dicts!r}")
     if isinstance(dicts, RunResult):
         return _sort_nested(dicts.get_outputs_per_path())
     if isinstance(dicts, (Iterator, Sequence)):

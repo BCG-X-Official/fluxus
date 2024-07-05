@@ -28,8 +28,12 @@ The conduits are:
 - :class:`.Step`
     A step that transforms a dictionary product into one or more
     dictionary products.
+- :class:`.Repeat`
+    A flow controller that repeats a step or sub-flow until a given condition
+    is met.
 """
 
 from ._consumer import *
 from ._producer import *
+from ._repeat import *
 from ._step import *

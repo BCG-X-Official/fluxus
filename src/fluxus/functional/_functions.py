@@ -48,7 +48,7 @@ from ..core.transformer import (
     SimpleConcurrentTransformer,
 )
 from ._result import RunResult
-from .conduit import DictConsumer, DictProducer, Step
+from .conduit import DictConsumer, DictProducer, DictRepeat, Step
 from .product import DictProduct
 
 log = logging.getLogger(__name__)
@@ -57,6 +57,7 @@ __all__ = [
     "chain",
     "parallel",
     "passthrough",
+    "repeat",
     "run",
     "step",
 ]
@@ -577,6 +578,34 @@ def parallel(
         return SimpleConcurrentTransformer(
             *cast(list[BaseTransformer[T_Input, T_Product] | Passthrough], steps)
         )
+
+
+#
+# 'repeat' function, defining a repeated execution of steps in the flow
+
+# arg 'while' clashes with Python keyword, so as a synonym we use 'while_'
+# but we also considered names that are not 'while' or 'while_':
+
+
+def repeat(
+    _name: str,
+    _step: BaseTransformer[DictProduct, DictProduct],
+    /,
+    test: Callable[..., Mapping[str, Any] | Awaitable[Mapping[str, Any]] | None],
+    **kwargs: Any,
+) -> BaseTransformer[DictProduct, DictProduct]:
+    """
+    Repeat a step or steps in a flow using the dictionary returned by the given
+    function, unless the function returns ``None``.
+
+    :param _name: the name of the repeat condition
+    :param _step: the step or steps to repeat
+    :param test: the test function that returns a dictionary to use as input for the
+        repeated step or steps, or ``None`` to stop repeating
+    :param kwargs: additional keyword arguments to pass to the test function
+    :return: the repeating step
+    """
+    return _step @ DictRepeat(_name, test, **kwargs)
 
 
 #

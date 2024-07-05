@@ -91,7 +91,10 @@ class _ChainedConduit(
 
     def get_connections(
         self, *, ingoing: Collection[SerialConduit[Any]]
-    ) -> Iterator[tuple[SerialConduit[Any], SerialConduit[Any]]]:
+    ) -> Iterator[
+        tuple[SerialConduit[Any], SerialConduit[Any]]
+        | tuple[SerialConduit[Any], SerialConduit[Any], str],
+    ]:
         """
         Get all conduit-to-conduit connections in the flow leading up to this conduit.
 

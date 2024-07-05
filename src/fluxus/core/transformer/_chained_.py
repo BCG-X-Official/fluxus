@@ -535,7 +535,10 @@ class _BaseBufferedProducer(
 
     def get_connections(
         self, *, ingoing: Collection[SerialConduit[Any]]
-    ) -> Iterator[tuple[SerialConduit[Any], SerialConduit[Any]]]:
+    ) -> Iterator[
+        tuple[SerialConduit[Any], SerialConduit[Any]]
+        | tuple[SerialConduit[Any], SerialConduit[Any], str],
+    ]:
         """[see superclass]"""
         return self.source.get_connections(ingoing=ingoing)
 

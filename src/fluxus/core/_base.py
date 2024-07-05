@@ -87,7 +87,8 @@ class Processor(
     A transformer or consumer that attaches to a producer or transformer to process its
     products.
 
-    This is a base class for :class:`.Transformer` and :class:`.Consumer`.
+    This is a base class for :class:`.Transformer`, :class:`.Consumer`, and
+    :class:`.FlowControl`.
     """
 
     @property
@@ -158,7 +159,10 @@ class SerialProcessor(
 
     def get_connections(
         self, *, ingoing: Collection[SerialConduit[Any]]
-    ) -> Iterator[tuple[SerialConduit[Any], SerialConduit[Any]]]:
+    ) -> Iterator[
+        tuple[SerialConduit[Any], SerialConduit[Any]]
+        | tuple[SerialConduit[Any], SerialConduit[Any], str],
+    ]:
         """[see superclass]"""
         for conduit in ingoing:
             yield conduit, self
