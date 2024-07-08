@@ -128,7 +128,9 @@ class Step(DictConduit, AsyncTransformer[DictProduct, DictProduct]):
         Mapping[str, Any]
         | Iterable[Mapping[str, Any]]
         | AsyncIterable[Mapping[str, Any]]
-        | Awaitable[Mapping[str, Any]],
+        | Awaitable[Mapping[str, Any]]
+        | Awaitable[Iterable[dict[str, Any]]]
+        | Awaitable[AsyncIterable[dict[str, Any]]],
     ]
 
     #: Additional keyword arguments to pass to the function.
@@ -149,7 +151,9 @@ class Step(DictConduit, AsyncTransformer[DictProduct, DictProduct]):
             Mapping[str, Any]
             | Iterable[Mapping[str, Any]]
             | AsyncIterable[Mapping[str, Any]]
-            | Awaitable[Mapping[str, Any]],
+            | Awaitable[Mapping[str, Any]]
+            | Awaitable[Iterable[dict[str, Any]]]
+            | Awaitable[AsyncIterable[dict[str, Any]]],
         ],
         /,
         **kwargs: Any,
@@ -193,7 +197,9 @@ class Step(DictConduit, AsyncTransformer[DictProduct, DictProduct]):
         Mapping[str, Any]
         | Iterable[Mapping[str, Any]]
         | AsyncIterable[Mapping[str, Any]]
-        | Awaitable[Mapping[str, Any]],
+        | Awaitable[Mapping[str, Any]]
+        | Awaitable[Iterable[dict[str, Any]]]
+        | Awaitable[AsyncIterable[dict[str, Any]]],
     ]:
         """
         The function that this step applies to the source product.
@@ -247,10 +253,11 @@ class Step(DictConduit, AsyncTransformer[DictProduct, DictProduct]):
         # actual result, an iterable of results, or an async iterable of results.
         attribute_iterable = self._function(**input_args)
 
+        if isinstance(attribute_iterable, Awaitable):
+            attribute_iterable = await attribute_iterable
+
         if isinstance(attribute_iterable, Mapping):
             attribute_iterable = iter_sync_to_async([attribute_iterable])
-        elif isinstance(attribute_iterable, Awaitable):
-            attribute_iterable = _awaitable_to_async_iter(attribute_iterable)
         elif isinstance(attribute_iterable, Iterable):
             attribute_iterable = iter_sync_to_async(
                 cast(Iterable[Mapping[str, Any]], attribute_iterable)
