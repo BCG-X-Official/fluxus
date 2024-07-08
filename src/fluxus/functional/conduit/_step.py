@@ -276,8 +276,8 @@ class Step(DictConduit, AsyncTransformer[DictProduct, DictProduct]):
             if not isinstance(attributes, Mapping):
                 raise TypeError(
                     f"Expected function {self._function.__name__}() of step "
-                    f"{self.name!r} to return a Mapping or dict, but got: "
-                    f"{attributes!r}"
+                    f"{self.name!r} to return one or more instances of Mapping or "
+                    f"dict, but got: {attributes!r}"
                 )
 
             log.debug(
