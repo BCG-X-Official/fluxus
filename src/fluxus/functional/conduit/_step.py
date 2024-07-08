@@ -227,14 +227,15 @@ class Step(DictConduit, AsyncTransformer[DictProduct, DictProduct]):
         # source.
         shadowed_attributes = source_product_attributes.keys() & kwargs.keys()
         if shadowed_attributes:
-            logging.warning(
-                f"Fixed keyword arguments of step {self.name!r} shadow attributes of "
-                f"the source product: "
-                + ", ".join(
+            log.warning(
+                "Fixed keyword arguments of step %r shadow attributes of the source "
+                "product: %s",
+                self.name,
+                ", ".join(
                     f"{attr}={kwargs[attr]} shadows {attr}="
                     f"{source_product_attributes[attr]}"
                     for attr in sorted(shadowed_attributes)
-                )
+                ),
             )
 
         # Input arguments are the union of the source product attributes and the fixed
@@ -281,15 +282,14 @@ class Step(DictConduit, AsyncTransformer[DictProduct, DictProduct]):
                 )
 
             log.debug(
-                f"Completed step {self.name!r} in {end_time - start_time:g} "
-                f"seconds:\n"
-                + str(
-                    BinaryOperation(
-                        BinaryOperator.ASSIGN,
-                        Id(self._function)(**input_args),
-                        DictLiteral(**attributes),
-                    )
-                )
+                "Completed step %r in %g seconds:\n%s",
+                self.name,
+                end_time - start_time,
+                BinaryOperation(
+                    BinaryOperator.ASSIGN,
+                    Id(self._function)(**input_args),
+                    DictLiteral(**attributes),
+                ),
             )
 
             yield DictProduct(
