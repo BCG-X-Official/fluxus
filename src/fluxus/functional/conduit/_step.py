@@ -129,8 +129,8 @@ class Step(DictConduit, AsyncTransformer[DictProduct, DictProduct]):
         | Iterable[Mapping[str, Any]]
         | AsyncIterable[Mapping[str, Any]]
         | Awaitable[Mapping[str, Any]]
-        | Awaitable[Iterable[dict[str, Any]]]
-        | Awaitable[AsyncIterable[dict[str, Any]]],
+        | Awaitable[Iterable[Mapping[str, Any]]]
+        | Awaitable[AsyncIterable[Mapping[str, Any]]],
     ]
 
     #: Additional keyword arguments to pass to the function.
@@ -152,8 +152,8 @@ class Step(DictConduit, AsyncTransformer[DictProduct, DictProduct]):
             | Iterable[Mapping[str, Any]]
             | AsyncIterable[Mapping[str, Any]]
             | Awaitable[Mapping[str, Any]]
-            | Awaitable[Iterable[dict[str, Any]]]
-            | Awaitable[AsyncIterable[dict[str, Any]]],
+            | Awaitable[Iterable[Mapping[str, Any]]]
+            | Awaitable[AsyncIterable[Mapping[str, Any]]],
         ],
         /,
         **kwargs: Any,
@@ -198,8 +198,8 @@ class Step(DictConduit, AsyncTransformer[DictProduct, DictProduct]):
         | Iterable[Mapping[str, Any]]
         | AsyncIterable[Mapping[str, Any]]
         | Awaitable[Mapping[str, Any]]
-        | Awaitable[Iterable[dict[str, Any]]]
-        | Awaitable[AsyncIterable[dict[str, Any]]],
+        | Awaitable[Iterable[Mapping[str, Any]]]
+        | Awaitable[AsyncIterable[Mapping[str, Any]]],
     ]:
         """
         The function that this step applies to the source product.
