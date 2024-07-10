@@ -26,6 +26,8 @@ test:
     - fluxus
   requires:
     - pytest ~= 8.2
+    # additional requirements of gamma-pytools
+    - numpy         {{ environ.get('FLUXUS_V_NUMPY', '[False]') }}
   commands:
     - conda list
     - python -c "import fluxus; import os; assert fluxus.__version__ == os.environ['FLUXUS_BUILD_FLUXUS_VERSION']"

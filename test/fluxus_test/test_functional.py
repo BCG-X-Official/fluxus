@@ -136,7 +136,6 @@ def test_flow() -> None:
     )
 
     # The steps that process the input data
-    # noinspection PyTypeChecker
     steps: BaseTransformer[DictProduct, DictProduct] = chain(
         parallel(
             step(
@@ -180,9 +179,11 @@ def test_flow() -> None:
     ]
 
     # run once with input as part of the chain
+    # noinspection PyTypeChecker
     assert _sort_nested(run(chain(input_step, steps))) == result_expected
 
     # run again with input as a separate argument
+    # noinspection PyTypeChecker
     assert _sort_nested(run(steps, input=input_data)) == result_expected
 
     # construct the same flow, with parallel steps as an iterable
@@ -214,6 +215,7 @@ def test_flow() -> None:
     )
 
     # run again with input as a separate argument
+    # noinspection PyTypeChecker
     assert _sort_nested(run(steps, input=input_data)) == result_expected
 
 
@@ -600,6 +602,17 @@ def test_implicit_input() -> None:
             dict(multiply=dict(ab=6)),
         ]
     )
+
+
+def test_sync_from_async() -> None:
+    async def toy(a: int) -> list[dict[str, Any]]:
+        return [dict(a=i, a_previous=a) for i in range(3)]
+
+    pipeline = chain(
+        step("toy", toy),
+        step("toy", toy),
+    )
+    run(pipeline, input=dict(a=3))
 
 
 def test_repeat() -> None:

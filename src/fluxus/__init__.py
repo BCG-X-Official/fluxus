@@ -62,4 +62,4 @@ from ._repeat import *
 from ._transformer import *
 from ._warning import *
 
-__version__ = "1.0.2"
+__version__ = "1.1rc0r"

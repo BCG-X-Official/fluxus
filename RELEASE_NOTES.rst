@@ -21,6 +21,12 @@ of more complex, non-linear workflows.
 *fluxus* 1.0
 ------------
 
+*fluxus* 1.0.2
+~~~~~~~~~~~~~~
+
+- FIX: Allow asynchronous step functions to return iterators and asynchronous iterators.
+
+
 *fluxus* 1.0.1
 ~~~~~~~~~~~~~~
 
