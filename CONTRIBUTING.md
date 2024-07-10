@@ -11,15 +11,6 @@ There are many ways to contribute, including:
 - Address an open [issue](https://github.com/BCG-X-Official/fluxus/issues)
 - Create tutorials
 - Improve documentation
-- Submit pull requests
-
-Known opportunities:
-
-- Add new model connectors
-- Add or improve unit tests
-
-We especially encourage contributions that integrate additional model providers and 
-enhance our documentation.
 
 ### How to contribute
 
@@ -84,7 +75,7 @@ changes immediately reflected.
 To install *fluxus* in developer mode, run the following from your project root:
 
 ```
-pip install -e ".[testing]"
+pip install -e ".[dev]"
 ```
 This makes sure that dependencies for testing are installed along with the *fluxus* 
 package. As an alternative approach, you can add the folder `fluxus/src` to your 
