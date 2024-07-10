@@ -3,19 +3,19 @@ name: FLUXUS Release Pipeline
 on:
   push:
     # The push trigger will cause the workflow to run when:
-    # - Commits are pushed directly to the 1.0.x branch or any release/* branch.
-    # - A pull request is merged into the 1.0.x branch or any release/* branch.
-    # - Changes are pushed to the 1.0.x or release/* branches through re-bases or
+    # - Commits are pushed directly to the 1.1.x branch or any release/* branch.
+    # - A pull request is merged into the 1.1.x branch or any release/* branch.
+    # - Changes are pushed to the 1.1.x or release/* branches through re-bases or
     #   fast-forwards.
     #
     # The GitHub actions variable for the branch being pushed to is `github.ref`.
     # values formatted as `refs/heads/<branch-name>`
     branches:
-      - 1.0.x
+      - 1.1.x
       - release/*
   pull_request:
     # The workflow will run when:
-    # - A pull request targeting the 1.0.x branch or any branch matching release/* is
+    # - A pull request targeting the 1.1.x branch or any branch matching release/* is
     #   created.
     # - Commits are pushed to the source branch of an open pull request targeting these
     #   branches.
@@ -31,7 +31,7 @@ on:
     # result of merging the pull request into the target branch, and it is formatted as
     # `refs/pull/<pull-request-number>/merge`.
     branches:
-      - 1.0.x
+      - 1.1.x
       - release/*
   schedule: # runs on default branch
     - cron: "0 3 * * 1-5" # Every weekday at 3 AM
