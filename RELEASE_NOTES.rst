@@ -1,11 +1,15 @@
 Release Notes
 =============
 
-*fluxus 1.1*
+*fluxus* 1.1
 ------------
 
 *fluxus* 1.1.0
 ~~~~~~~~~~~~~~
+
+- API: Removed functions `iter()` and `aiter()` from class :class:`.SerialTransformer`,
+  to further streamline the API and given they can be easily replaced by repeated calls
+  to :meth:`.SerialTransformer.transform` and :meth:`.SerialTransformer.atransform`.
 
 
 *fluxus* 1.0
