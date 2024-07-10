@@ -82,7 +82,9 @@ def step(
         Mapping[str, Any]
         | Iterable[dict[str, Any]]
         | AsyncIterable[dict[str, Any]]
-        | Awaitable[Mapping[str, Any]],
+        | Awaitable[Mapping[str, Any]]
+        | Awaitable[Iterable[Mapping[str, Any]]]
+        | Awaitable[AsyncIterable[Mapping[str, Any]]],
     ],
     /,
     **kwargs: Any,
@@ -103,7 +105,9 @@ def step(  # type: ignore[misc]
         Mapping[str, Any]
         | Iterable[dict[str, Any]]
         | AsyncIterable[dict[str, Any]]
-        | Awaitable[Mapping[str, Any]],
+        | Awaitable[Mapping[str, Any]]
+        | Awaitable[Iterable[Mapping[str, Any]]]
+        | Awaitable[AsyncIterable[Mapping[str, Any]]],
     ],
     /,
     **kwargs: Any,
@@ -130,7 +134,9 @@ def step(
             Mapping[str, Any]
             | Iterable[dict[str, Any]]
             | AsyncIterable[dict[str, Any]]
-            | Awaitable[Mapping[str, Any]],
+            | Awaitable[Mapping[str, Any]]
+            | Awaitable[Iterable[Mapping[str, Any]]]
+            | Awaitable[AsyncIterable[Mapping[str, Any]]],
         ]
         | Iterable[Mapping[str, Any]]
         | AsyncIterable[dict[str, Any]]
