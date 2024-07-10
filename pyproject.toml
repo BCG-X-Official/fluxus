@@ -63,6 +63,8 @@ pandas            = "~=2.1"
 python            = ">=3.10.14,<3.11a"
 gamma-pytools     = "~=3.0.0"
 typing_inspect    = "~=0.7.1"
+# additional minimum requirements of gamma-pytools
+numpy             = ">=1.23.5,<1.24a"  # cannot use ~= due to conda bug
 
 [build.matrix.max]
 matplotlib        = "~=3.8"
@@ -70,6 +72,8 @@ pandas            = "~=2.2"
 python            = ">=3.12,<4a"
 gamma-pytools     = "~=3.0"
 typing_inspect    = "~=0.9"
+# additional minimum requirements of gamma-pytools
+numpy             = ">=2.0,<3a"  # cannot use ~= due to conda bug
 
 [tool.black]
 required-version = '24.4.2'

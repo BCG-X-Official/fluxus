@@ -128,7 +128,9 @@ class Step(DictConduit, AsyncTransformer[DictProduct, DictProduct]):
         Mapping[str, Any]
         | Iterable[Mapping[str, Any]]
         | AsyncIterable[Mapping[str, Any]]
-        | Awaitable[Mapping[str, Any]],
+        | Awaitable[Mapping[str, Any]]
+        | Awaitable[Iterable[Mapping[str, Any]]]
+        | Awaitable[AsyncIterable[Mapping[str, Any]]],
     ]
 
     #: Additional keyword arguments to pass to the function.
@@ -149,7 +151,9 @@ class Step(DictConduit, AsyncTransformer[DictProduct, DictProduct]):
             Mapping[str, Any]
             | Iterable[Mapping[str, Any]]
             | AsyncIterable[Mapping[str, Any]]
-            | Awaitable[Mapping[str, Any]],
+            | Awaitable[Mapping[str, Any]]
+            | Awaitable[Iterable[Mapping[str, Any]]]
+            | Awaitable[AsyncIterable[Mapping[str, Any]]],
         ],
         /,
         **kwargs: Any,
@@ -193,7 +197,9 @@ class Step(DictConduit, AsyncTransformer[DictProduct, DictProduct]):
         Mapping[str, Any]
         | Iterable[Mapping[str, Any]]
         | AsyncIterable[Mapping[str, Any]]
-        | Awaitable[Mapping[str, Any]],
+        | Awaitable[Mapping[str, Any]]
+        | Awaitable[Iterable[Mapping[str, Any]]]
+        | Awaitable[AsyncIterable[Mapping[str, Any]]],
     ]:
         """
         The function that this step applies to the source product.
@@ -221,14 +227,15 @@ class Step(DictConduit, AsyncTransformer[DictProduct, DictProduct]):
         # source.
         shadowed_attributes = source_product_attributes.keys() & kwargs.keys()
         if shadowed_attributes:
-            logging.warning(
-                f"Fixed keyword arguments of step {self.name!r} shadow attributes of "
-                f"the source product: "
-                + ", ".join(
+            log.warning(
+                "Fixed keyword arguments of step %r shadow attributes of the source "
+                "product: %s",
+                self.name,
+                ", ".join(
                     f"{attr}={kwargs[attr]} shadows {attr}="
                     f"{source_product_attributes[attr]}"
                     for attr in sorted(shadowed_attributes)
-                )
+                ),
             )
 
         # Input arguments are the union of the source product attributes and the fixed
@@ -247,10 +254,11 @@ class Step(DictConduit, AsyncTransformer[DictProduct, DictProduct]):
         # actual result, an iterable of results, or an async iterable of results.
         attribute_iterable = self._function(**input_args)
 
+        if isinstance(attribute_iterable, Awaitable):
+            attribute_iterable = await attribute_iterable
+
         if isinstance(attribute_iterable, Mapping):
             attribute_iterable = iter_sync_to_async([attribute_iterable])
-        elif isinstance(attribute_iterable, Awaitable):
-            attribute_iterable = _awaitable_to_async_iter(attribute_iterable)
         elif isinstance(attribute_iterable, Iterable):
             attribute_iterable = iter_sync_to_async(
                 cast(Iterable[Mapping[str, Any]], attribute_iterable)
@@ -269,20 +277,19 @@ class Step(DictConduit, AsyncTransformer[DictProduct, DictProduct]):
             if not isinstance(attributes, Mapping):
                 raise TypeError(
                     f"Expected function {self._function.__name__}() of step "
-                    f"{self.name!r} to return a Mapping or dict, but got: "
-                    f"{attributes!r}"
+                    f"{self.name!r} to return one or more instances of Mapping or "
+                    f"dict, but got: {attributes!r}"
                 )
 
             log.debug(
-                f"Completed step {self.name!r} in {end_time - start_time:g} "
-                f"seconds:\n"
-                + str(
-                    BinaryOperation(
-                        BinaryOperator.ASSIGN,
-                        Id(self._function)(**input_args),
-                        DictLiteral(**attributes),
-                    )
-                )
+                "Completed step %r in %g seconds:\n%s",
+                self.name,
+                end_time - start_time,
+                BinaryOperation(
+                    BinaryOperator.ASSIGN,
+                    Id(self._function)(**input_args),
+                    DictLiteral(**attributes),
+                ),
             )
 
             yield DictProduct(
