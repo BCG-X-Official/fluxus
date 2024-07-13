@@ -232,9 +232,7 @@ class BaseTransformer(
             from ._chained_ import _ChainedConcurrentTransformedProducer
 
             # noinspection PyTypeChecker
-            return _ChainedConcurrentTransformedProducer(
-                source=other, transformer_group=self
-            )
+            return _ChainedConcurrentTransformedProducer(source=other, transformer=self)
         elif isinstance(other, BaseProducer):
             from ._chained_ import _ChainedConcurrentProducer
 

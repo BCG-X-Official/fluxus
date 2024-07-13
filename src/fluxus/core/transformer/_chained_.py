@@ -327,22 +327,22 @@ class _ChainedConcurrentTransformedProducer(
     #: The source producer
     _producer: SerialProducer[T_SourceProduct_ret]
 
-    #: The transformer group to apply to the producer
-    transformer_group: BaseTransformer[T_SourceProduct_ret, T_Product_ret]
+    #: The transformer to apply to the producer
+    transformer: BaseTransformer[T_SourceProduct_ret, T_Product_ret]
 
     def __init__(
         self,
         *,
         source: SerialProducer[T_SourceProduct_ret],
-        transformer_group: BaseTransformer[T_SourceProduct_ret, T_Product_ret],
+        transformer: BaseTransformer[T_SourceProduct_ret, T_Product_ret],
     ) -> None:
         """
         :param source: the producer to use as input
-        :param transformer_group: the transformer group to apply to the producer
+        :param transformer: the transformer to apply to the producer
         """
         super().__init__()
         self._producer = source
-        self.transformer_group = transformer_group
+        self.transformer = transformer
 
     @property
     def source(self) -> SerialProducer[T_SourceProduct_ret]:
@@ -352,12 +352,12 @@ class _ChainedConcurrentTransformedProducer(
     @property
     def processor(self) -> BaseTransformer[T_SourceProduct_ret, T_Product_ret]:
         """[see superclass]"""
-        return self.transformer_group
+        return self.transformer
 
     @property
     def n_concurrent_conduits(self) -> int:
         """[see superclass]"""
-        return self.transformer_group.n_concurrent_conduits
+        return self.transformer.n_concurrent_conduits
 
     def iter_concurrent_conduits(self) -> Iterator[SerialProducer[T_Product_ret]]:
         """[see superclass]"""
@@ -366,7 +366,7 @@ class _ChainedConcurrentTransformedProducer(
         producer = _BufferedProducer(self._producer)
 
         # for synchronous iteration, we need to materialize the source products
-        for transformer in self.transformer_group.iter_concurrent_conduits():
+        for transformer in self.transformer.iter_concurrent_conduits():
             if isinstance(transformer, Passthrough):
                 # We cast to T_Product_ret, since the Passthrough does not change the
                 # type of the source
@@ -381,10 +381,10 @@ class _ChainedConcurrentTransformedProducer(
 
         # Create parallel synchronized iterators for the source products
         concurrent_producers = _AsyncBufferedProducer.create(
-            source=self._producer, n=self.transformer_group.n_concurrent_conduits
+            source=self._producer, n=self.transformer.n_concurrent_conduits
         )
 
-        async for transformer in self.transformer_group.aiter_concurrent_conduits():
+        async for transformer in self.transformer.aiter_concurrent_conduits():
             producer = next(concurrent_producers)
             if isinstance(transformer, Passthrough):
                 # We cast to T_Product_ret, since the Passthrough does not change the
