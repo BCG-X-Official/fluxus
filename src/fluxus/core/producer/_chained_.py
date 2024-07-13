@@ -99,14 +99,14 @@ class _ProducerFlow(
         return self._consumer
 
     @property
-    def _source(self) -> SerialProducer[T_SourceProduct_ret]:
+    def source(self) -> SerialProducer[T_SourceProduct_ret]:
         """
         The source producer.
         """
         return self._producer
 
     @property
-    def _processor(self) -> Consumer[T_SourceProduct_ret, T_Output_ret]:
+    def processor(self) -> Consumer[T_SourceProduct_ret, T_Output_ret]:
         """
         The final processor of this flow.
         """
@@ -181,12 +181,12 @@ class _ProducerGroupFlow(
         return self._consumer
 
     @property
-    def _source(self) -> BaseProducer[T_SourceProduct_ret]:
+    def source(self) -> BaseProducer[T_SourceProduct_ret]:
         """[see superclass]"""
         return self._producer
 
     @property
-    def _processor(self) -> Consumer[T_SourceProduct_ret, T_Output_ret]:
+    def processor(self) -> Consumer[T_SourceProduct_ret, T_Output_ret]:
         """[see superclass]"""
         return self._consumer
 
