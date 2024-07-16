@@ -113,6 +113,11 @@ class SimpleConcurrentTransformer(
         )
 
     @property
+    def is_chained(self) -> bool:
+        """[see superclass]"""
+        return any(transformer.is_chained for transformer in self.transformers)
+
+    @property
     def n_concurrent_conduits(self) -> int:
         """[see superclass]"""
         return sum(

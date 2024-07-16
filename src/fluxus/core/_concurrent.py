@@ -72,11 +72,6 @@ class ConcurrentConduit(
         return True
 
     @property
-    def is_chained(self) -> bool:
-        """[see superclass]"""
-        return any(conduit.is_chained for conduit in self.iter_concurrent_conduits())
-
-    @property
     def final_conduit(self) -> Self:
         """
         ``self``, since this is a group of concurrent conduits and has no final

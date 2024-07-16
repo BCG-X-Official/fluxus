@@ -103,6 +103,11 @@ class SimpleConcurrentProducer(
         return get_common_generic_base(source.product_type for source in self.producers)
 
     @property
+    def is_chained(self) -> bool:
+        """[see superclass]"""
+        return any(producer.is_chained for producer in self.producers)
+
+    @property
     def n_concurrent_conduits(self) -> int:
         """[see superclass]"""
         return sum(producer.n_concurrent_conduits for producer in self.producers)
