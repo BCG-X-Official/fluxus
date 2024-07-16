@@ -70,6 +70,11 @@ class Passthrough(SerialConduit[Any], metaclass=SingletonABCMeta):
         """[see superclass]"""
         raise NotImplementedError("Final conduit is not defined for passthroughs")
 
+    @property
+    def chained_conduits(self) -> Never:
+        """[see superclass]"""
+        raise NotImplementedError("Chained conduits are not defined for passthroughs")
+
     def get_final_conduits(self) -> Iterator[Never]:
         """
         Returns an empty iterator since passthroughs do not define a final conduit.

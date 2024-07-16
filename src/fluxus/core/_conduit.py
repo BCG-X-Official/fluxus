@@ -298,6 +298,7 @@ class SerialConduit(Conduit[T_Product_ret], Generic[T_Product_ret], metaclass=AB
         yield self
 
     @property
+    @abstractmethod
     def chained_conduits(self) -> Iterator[SerialConduit[T_Product_ret]]:
         """
         An iterator yielding the chained conduits that make up this conduit, starting
@@ -305,7 +306,6 @@ class SerialConduit(Conduit[T_Product_ret], Generic[T_Product_ret], metaclass=AB
 
         For atomic conduit, yields the conduit itself.
         """
-        yield self.final_conduit
 
     def get_repr_attributes(self) -> Mapping[str, Any]:
         """
@@ -349,6 +349,12 @@ class AtomicConduit(
         granular level.
         """
         return self
+
+    @property
+    @final
+    def chained_conduits(self) -> Iterator[SerialConduit[T_Product_ret]]:
+        """[see superclass]"""
+        yield self.final_conduit
 
     @final
     def get_final_conduits(self) -> Iterator[Self]:
