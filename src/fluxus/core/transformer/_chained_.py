@@ -506,6 +506,13 @@ class _ChainedConcurrentTransformer(
         )
 
 
+#
+# Auxiliary constants, functions and classes
+#
+
+T = TypeVar("T")
+
+
 @inheritdoc(match="[see superclass]")
 class _BaseBufferedProducer(
     SerialProducer[T_Output_ret], Generic[T_Output_ret], metaclass=ABCMeta
@@ -612,12 +619,6 @@ class _AsyncBufferedProducer(
     def aproduce(self) -> AsyncIterator[T_Output_ret]:
         return self.products
 
-
-#
-# Auxiliary constants, functions and classes
-#
-
-T = TypeVar("T")
 
 #: Tasks for the producer that need to be awaited before the producer is garbage
 #: collected
