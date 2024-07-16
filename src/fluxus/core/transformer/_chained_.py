@@ -231,6 +231,12 @@ class _ChainedConcurrentProducer(
         self.transformer = transformer
 
     @property
+    @final
+    def product_type(self) -> type[T_TransformedProduct_ret]:
+        """[see superclass]"""
+        return self.transformer.product_type
+
+    @property
     def source(self) -> BaseProducer[T_SourceProduct_ret]:
         """[see superclass]"""
         return self._producer
@@ -345,6 +351,12 @@ class _ChainedConcurrentTransformedProducer(
         self.transformer = transformer
 
     @property
+    @final
+    def product_type(self) -> type[T_Product_ret]:
+        """[see superclass]"""
+        return self.transformer.product_type
+
+    @property
     def source(self) -> SerialProducer[T_SourceProduct_ret]:
         """[see superclass]"""
         return self._producer
@@ -423,6 +435,12 @@ class _ChainedConcurrentTransformer(
         super().__init__()
         self.first = first
         self.second = second
+
+    @property
+    @final
+    def product_type(self) -> type[T_TransformedProduct_ret]:
+        """[see superclass]"""
+        return self.second.product_type
 
     @property
     def source(self) -> Source[T_SourceProduct_ret]:

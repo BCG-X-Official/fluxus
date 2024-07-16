@@ -29,7 +29,7 @@ from collections.abc import AsyncIterable, Collection, Iterable, Iterator
 from typing import Any, Generic, TypeVar, cast, final
 
 from pytools.api import inheritdoc
-from pytools.typing import get_common_generic_base, issubclass_generic
+from pytools.typing import issubclass_generic
 
 from ._conduit import Conduit, SerialConduit
 
@@ -63,17 +63,11 @@ class Source(Conduit[T_Product_ret], Generic[T_Product_ret], metaclass=ABCMeta):
     """
 
     @property
+    @abstractmethod
     def product_type(self) -> type[T_Product_ret]:
         """
         The type of the products produced by this conduit.
         """
-        from .. import Passthrough
-
-        return get_common_generic_base(
-            cast(SerialSource[T_Product_ret], source).product_type
-            for source in self.iter_concurrent_conduits()
-            if not isinstance(source, Passthrough)
-        )
 
 
 class Processor(

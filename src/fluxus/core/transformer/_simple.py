@@ -30,6 +30,7 @@ from typing import Any, Generic, TypeVar, cast
 from pytools.api import as_tuple, inheritdoc
 from pytools.asyncio import async_flatten, iter_sync_to_async
 from pytools.expression import Expression
+from pytools.typing import get_common_generic_base
 
 from ... import Passthrough
 from .. import SerialConduit
@@ -100,6 +101,15 @@ class SimpleConcurrentTransformer(
                 ],
                 (BaseTransformer, Passthrough),
             ),
+        )
+
+    @property
+    def product_type(self) -> type[T_TransformedProduct_ret]:
+        """[see superclass]"""
+        return get_common_generic_base(
+            source.product_type
+            for source in self.iter_concurrent_conduits()
+            if not isinstance(source, Passthrough)
         )
 
     @property

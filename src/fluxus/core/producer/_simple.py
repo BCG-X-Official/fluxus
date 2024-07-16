@@ -30,6 +30,7 @@ from typing import Any, Generic, TypeVar, cast
 from pytools.api import as_tuple, inheritdoc
 from pytools.asyncio import async_flatten, iter_sync_to_async
 from pytools.expression import Expression
+from pytools.typing import get_common_generic_base
 
 from ... import Passthrough
 from .. import SerialConduit
@@ -95,6 +96,11 @@ class SimpleConcurrentProducer(
             ),
             arg_name="producers",
         )
+
+    @property
+    def product_type(self) -> type[T_SourceProduct_ret]:
+        """[see superclass]"""
+        return get_common_generic_base(source.product_type for source in self.producers)
 
     @property
     def n_concurrent_conduits(self) -> int:
