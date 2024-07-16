@@ -24,7 +24,7 @@ import asyncio
 import logging
 from abc import ABCMeta
 from collections.abc import AsyncIterable, AsyncIterator, Collection, Iterator
-from typing import Any, Generic, Literal, TypeVar, cast
+from typing import Any, Generic, Literal, TypeVar, cast, final
 
 from pytools.api import inheritdoc
 from pytools.asyncio import async_flatten
@@ -438,6 +438,11 @@ class _ChainedConcurrentTransformer(
     def n_concurrent_conduits(self) -> int:
         """[see superclass]"""
         return self.first.n_concurrent_conduits * self.second.n_concurrent_conduits
+
+    @final
+    def is_valid_source(self, source: SerialConduit[T_SourceProduct_arg]) -> bool:
+        """[see superclass]"""
+        return self.first.is_valid_source(source=source)
 
     def iter_concurrent_conduits(
         self,

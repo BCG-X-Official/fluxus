@@ -109,6 +109,14 @@ class SimpleConcurrentTransformer(
             transformer.n_concurrent_conduits for transformer in self.transformers
         )
 
+    def is_valid_source(self, source: SerialConduit[T_SourceProduct_arg]) -> bool:
+        """[see superclass]"""
+        return all(
+            transformer.is_valid_source(source=source)
+            for transformer in self.transformers
+            if not isinstance(transformer, Passthrough)
+        )
+
     def get_final_conduits(self) -> Iterator[SerialConduit[T_TransformedProduct_ret]]:
         """[see superclass]"""
         for transformer in self.transformers:

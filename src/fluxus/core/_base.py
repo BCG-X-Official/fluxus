@@ -26,9 +26,7 @@ from __future__ import annotations
 import logging
 from abc import ABCMeta, abstractmethod
 from collections.abc import AsyncIterable, Collection, Iterable, Iterator
-from typing import Any, Generic, TypeVar, cast
-
-from typing_extensions import Self
+from typing import Any, Generic, TypeVar, cast, final
 
 from pytools.api import inheritdoc
 from pytools.typing import get_common_generic_base, issubclass_generic
@@ -119,6 +117,7 @@ class Processor(
         :return: the generated output or outputs
         """
 
+    @abstractmethod
     def is_valid_source(
         self,
         source: SerialConduit[T_SourceProduct_arg],
@@ -133,20 +132,6 @@ class Processor(
         :return: ``True`` if the given conduit is valid source for this conduit,
             ``False`` otherwise
         """
-        from .. import Passthrough
-
-        if not isinstance(source, SerialSource):
-            return False
-
-        ingoing_product_type = source.product_type
-        return all(
-            issubclass_generic(
-                ingoing_product_type,
-                cast(Self, processor).input_type,
-            )
-            for processor in self.iter_concurrent_conduits()
-            if not isinstance(processor, Passthrough)
-        )
 
 
 class SerialSource(
@@ -177,6 +162,17 @@ class SerialProcessor(
     """
     A processor that processes products sequentially.
     """
+
+    @final
+    def is_valid_source(
+        self,
+        source: SerialConduit[T_SourceProduct_arg],
+    ) -> bool:
+        """[see superclass]"""
+        if not isinstance(source, SerialSource):
+            return False
+
+        return issubclass_generic(source.product_type, self.input_type)
 
     def get_connections(
         self, *, ingoing: Collection[SerialConduit[Any]]
