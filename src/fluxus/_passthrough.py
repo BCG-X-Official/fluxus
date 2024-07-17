@@ -96,6 +96,16 @@ class Passthrough(SerialConduit[Any], metaclass=SingletonABCMeta):
 
         :param ingoing: the ingoing conduits (ignored)
         :return: nothing; passthroughs do not define connections
-        :raises NotImplementedError: passthroughs do not define connections
+        :raises NotImplementedError: connections are not defined for passthroughs
         """
         raise NotImplementedError("Connections are not defined for passthroughs")
+
+    def get_isolated_conduits(self) -> Never:
+        """
+        Fails with a :class:`NotImplementedError` since passthroughs are transparent in
+        flows and therefore isolated conduits are not defined.
+
+        :return: nothing; passthroughs do not define isolated conduits
+        :raises NotImplementedError: isolated conduits are not defined for passthroughs
+        """
+        raise NotImplementedError("Isolated conduits are not defined for passthroughs")

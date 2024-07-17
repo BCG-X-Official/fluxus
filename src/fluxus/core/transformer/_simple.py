@@ -150,6 +150,13 @@ class SimpleConcurrentTransformer(
             if transformer is not _PASSTHROUGH:
                 yield from transformer.get_connections(ingoing=ingoing)
 
+    def get_isolated_conduits(
+        self,
+    ) -> Iterator[SerialConduit[T_TransformedProduct_ret]]:
+        """[see superclass]"""
+        for transformer in self.transformers:
+            yield from transformer.get_isolated_conduits()
+
     def iter_concurrent_conduits(
         self,
     ) -> Iterator[

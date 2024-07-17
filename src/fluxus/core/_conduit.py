@@ -181,6 +181,17 @@ class Conduit(HasExpressionRepr, Generic[T_Output_ret], metaclass=ABCMeta):
         :return: an iterator yielding connections between conduits
         """
 
+    @abstractmethod
+    def get_isolated_conduits(self) -> Iterator[SerialConduit[T_Output_ret]]:
+        """
+        Get an iterator yielding the isolated conduits in this conduit.
+
+        An isolated conduit is a conduit that is not connected to any other conduit in
+        the flow.
+
+        :return: an iterator yielding the isolated conduits
+        """
+
     def _repr_svg_(self) -> str:  # pragma: no cover
         """
         Get the SVG representation of the flow.
@@ -358,5 +369,9 @@ class AtomicConduit(
 
     @final
     def get_final_conduits(self) -> Iterator[Self]:
+        """[see superclass]"""
+        yield self
+
+    def get_isolated_conduits(self) -> Iterator[SerialConduit[T_Product_ret]]:
         """[see superclass]"""
         yield self

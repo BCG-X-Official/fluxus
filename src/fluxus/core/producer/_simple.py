@@ -125,6 +125,11 @@ class SimpleConcurrentProducer(
         for producer in self.producers:
             yield from producer.get_connections(ingoing=ingoing)
 
+    def get_isolated_conduits(self) -> Iterator[SerialConduit[T_SourceProduct_ret]]:
+        """[see superclass]"""
+        for producer in self.producers:
+            yield from producer.get_isolated_conduits()
+
     def iter_concurrent_conduits(
         self,
     ) -> Iterator[SerialProducer[T_SourceProduct_ret]]:

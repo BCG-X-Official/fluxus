@@ -113,6 +113,11 @@ class _ChainedConduit(
         # Then we get all connections of the processor, including ingoing connections
         yield from processor.get_connections(ingoing=processor_ingoing)
 
+    def get_isolated_conduits(self) -> Iterator[SerialConduit[T_Output_ret]]:
+        """[see superclass]"""
+        # Chained conduits are never isolated
+        yield from ()
+
     def to_expression(self, *, compact: bool = False) -> Expression:
         """[see superclass]"""
         return self.source.to_expression(
