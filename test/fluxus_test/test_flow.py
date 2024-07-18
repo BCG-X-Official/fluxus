@@ -9,7 +9,7 @@ from typing import Any, cast
 
 import pytest
 
-from fluxus import AsyncConsumer, Consumer, Passthrough, Producer, Transformer
+from fluxus import AsyncConsumer, Consumer, Flow, Passthrough, Producer, Transformer
 from fluxus.core import Conduit
 from fluxus.core.producer import ConcurrentProducer
 from fluxus.core.transformer import BaseTransformer, ConcurrentTransformer
@@ -63,6 +63,23 @@ class IncrementingTransformer(NumberTransformer):
 
     def transform(self, source_product: int) -> Iterator[int]:
         yield source_product + 1
+
+
+class Counter(NumberTransformer):
+    """
+    Ignores the input and outputs a number that increments each time transform is
+    called.
+    """
+
+    counter: int
+
+    def __init__(self, start: int) -> None:
+        self.counter = start
+
+    def transform(self, source_product: int) -> Iterator[int]:
+        value = self.counter
+        self.counter += 1
+        yield value
 
 
 class StringConsumer(Consumer[str, str]):
@@ -495,6 +512,37 @@ def test_flow_construction() -> None:
             >> NumberConsumer()
         ).to_expression()
     )
+
+
+@pytest.mark.asyncio
+async def test_shared_conduits() -> None:
+    # This test ensures that shared conduits are not called more than once
+
+    def make_flow() -> Flow[list[list[int]]]:
+        return (
+            NumberProducer(0, 1)
+            >> Counter(start=10)
+            >> (
+                (Counter(start=100) >> (DoublingTransformer() & Passthrough()))
+                & (DoublingTransformer() >> (DoublingTransformer() & Passthrough()))
+                & Passthrough()
+            )
+            >> NumberConsumer()
+        )
+
+    # The expected result is a list of lists, where each list contains the values
+    # produced by a single path through the flow. The test is designed to confirm
+    # that each counter is evaluated only once.
+    expected_result = [
+        [100, 200],
+        [100],
+        [10, 20, 20, 40],
+        [10, 20],
+        [10],
+    ]
+
+    assert make_flow().run() == expected_result
+    assert await make_flow().arun() == expected_result
 
 
 def test_large_flows() -> None:
