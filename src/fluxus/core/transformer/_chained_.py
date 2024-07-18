@@ -20,18 +20,16 @@ Implementation of composition classes.
 
 from __future__ import annotations
 
-import asyncio
 import logging
-from abc import ABCMeta
-from collections.abc import AsyncIterable, AsyncIterator, Collection, Iterator
-from typing import Any, Generic, Literal, TypeVar, cast, final
+from collections.abc import AsyncIterator, Iterator
+from typing import Generic, TypeVar, final
 
 from pytools.api import inheritdoc
 from pytools.asyncio import async_flatten
 
 from .._base import Processor, Source
 from .._chained_base_ import _ChainedConduit, _SerialChainedConduit
-from .._conduit import AtomicConduit, SerialConduit
+from .._conduit import SerialConduit
 from ..producer import BaseProducer, ConcurrentProducer, SerialProducer
 from ._transformer_base import BaseTransformer, ConcurrentTransformer, SerialTransformer
 
@@ -45,7 +43,6 @@ log = logging.getLogger(__name__)
 # _ret for covariant type variables used in return positions
 # _arg for contravariant type variables used in argument positions
 
-T_Output_ret = TypeVar("T_Output_ret", covariant=True)
 T_Product_ret = TypeVar("T_Product_ret", covariant=True)
 T_TransformedProduct_ret = TypeVar("T_TransformedProduct_ret", covariant=True)
 T_SourceProduct_ret = TypeVar("T_SourceProduct_ret", covariant=True)
@@ -432,165 +429,3 @@ class _ChainedConcurrentTransformer(
             self.second.aiter_concurrent_producers(source=product)
             async for product in self.first.aiter_concurrent_producers(source=source)
         )
-
-
-#
-# Auxiliary constants, functions and classes
-#
-
-T = TypeVar("T")
-
-
-@inheritdoc(match="[see superclass]")
-class _BaseBufferedProducer(
-    SerialProducer[T_Output_ret], Generic[T_Output_ret], metaclass=ABCMeta
-):
-    """
-    A producer that materializes the products of another producer
-    to allow multiple iterations over the same products.
-    """
-
-    source: SerialProducer[T_Output_ret]
-    _products: list[T_Output_ret] | None
-
-    def __init__(self, source: SerialProducer[T_Output_ret]) -> None:
-        """
-        :param source: the producer from which to buffer the products
-        """
-        self.source = source
-
-    @property
-    def product_type(self) -> type[T_Output_ret]:
-        """[see superclass]"""
-        return self.source.product_type
-
-    def get_final_conduits(self) -> Iterator[SerialConduit[T_Output_ret]]:
-        """[see superclass]"""
-        return self.source.get_final_conduits()
-
-    def get_connections(
-        self, *, ingoing: Collection[SerialConduit[Any]]
-    ) -> Iterator[tuple[SerialConduit[Any], SerialConduit[Any]]]:
-        """[see superclass]"""
-        return self.source.get_connections(ingoing=ingoing)
-
-
-@inheritdoc(match="[see superclass]")
-class _BufferedProducer(
-    AtomicConduit[T_Output_ret],
-    _BaseBufferedProducer[T_Output_ret],
-    Generic[T_Output_ret],
-):
-    """
-    A producer that materializes the products of another producer
-    to allow multiple iterations over the same products.
-    """
-
-    source: SerialProducer[T_Output_ret]
-    _products: list[T_Output_ret] | None = None
-
-    def produce(self) -> Iterator[T_Output_ret]:
-        """[see superclass]"""
-        if self._products is None:
-            self._products = list(self.source.produce())
-        return iter(self._products)
-
-
-class _AsyncBufferedProducer(
-    AtomicConduit[T_Output_ret],
-    _BaseBufferedProducer[T_Output_ret],
-    Generic[T_Output_ret],
-):
-    """
-    A producer that creates multiple synchronized iterators over the same products,
-    allowing multiple asynchronous iterations over the same products where each
-    iteration blocks until all iterators have processed the current item, ensuring
-    that the original producer is only iterated once.
-    """
-
-    products: AsyncIterator[T_Output_ret]
-    k: int
-
-    def __init__(
-        self,
-        *,
-        source: SerialProducer[T_Output_ret],
-        products: AsyncIterator[T_Output_ret],
-        k: int,
-    ) -> None:
-        super().__init__(source=source)
-        self.products = products
-        self.k = k
-
-    @classmethod
-    def create(
-        cls, source: SerialProducer[T_Output_ret], *, n: int
-    ) -> Iterator[_AsyncBufferedProducer[T_Output_ret]]:
-        """
-        Create multiple synchronized asynchronous producers over the products of the
-        given source producer.
-
-        :param source: the source producer
-        :param n: the number of synchronized producers to create
-        :return: the synchronized producers
-        """
-        return (
-            _AsyncBufferedProducer(source=source, products=products, k=k)
-            for k, products in enumerate(_async_iter_parallel(source.aproduce(), n))
-        )
-
-    def produce(self) -> Iterator[T_Output_ret]:
-        raise NotImplementedError(
-            "Not implemented; use `aiter` to iterate asynchronously."
-        )
-
-    def aproduce(self) -> AsyncIterator[T_Output_ret]:
-        return self.products
-
-
-#: Tasks for the producer that need to be awaited before the producer is garbage
-#: collected
-_producer_tasks: set[asyncio.Task[Any]] = set()
-
-#: Sentinel to indicate the end of processing
-_END: Literal["END"] = cast(Literal["END"], "END")
-
-
-def _async_iter_parallel(
-    iterable: AsyncIterable[T], n: int
-) -> Iterator[AsyncIterator[T]]:
-    # Create a given number of asynchronous iterators that share the same items.
-
-    async def _shared_iterator(
-        queue: asyncio.Queue[T | Literal["END"]],
-    ) -> AsyncIterator[T]:
-        while True:
-            # Wait for the item to be available for this iterator
-            item = await queue.get()
-            if item is _END:
-                # The producer has finished
-                break
-            yield cast(T, item)
-
-    async def _producer() -> None:
-        # Iterate over the items in the source iterable
-        async for item in iterable:
-            # Add the item to all queues
-            for queue in queues:
-                await queue.put(item)
-        # Notify all consumers that the producer has finished
-        for queue in queues:
-            await queue.put(_END)
-
-    # Create a queue for each consumer
-    queues: list[asyncio.Queue[T | Literal["END"]]] = [
-        asyncio.Queue() for _ in range(n)
-    ]
-
-    # Start the producer task, and store a reference to it to prevent it from being
-    # garbage collected before it finishes
-    task = asyncio.create_task(_producer())
-    _producer_tasks.add(task)
-    task.add_done_callback(_producer_tasks.remove)
-
-    return (_shared_iterator(queue) for queue in queues)
