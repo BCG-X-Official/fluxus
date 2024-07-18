@@ -133,25 +133,6 @@ class Conduit(HasExpressionRepr, Generic[T_Output_ret], metaclass=ABCMeta):
         The number of concurrent conduits in this conduit.
         """
 
-    @abstractmethod
-    def iter_concurrent_conduits(self) -> Iterator[SerialConduit[T_Output_ret]]:
-        """
-        Iterate over the concurrent conduits that make up this conduit.
-
-        :return: an iterator over the concurrent conduits
-        """
-
-    async def aiter_concurrent_conduits(
-        self,
-    ) -> AsyncIterator[SerialConduit[T_Output_ret]]:
-        """
-        Asynchronously iterate over the concurrent conduits that make up this conduit.
-
-        :return: an asynchronous iterator over the concurrent conduits
-        """
-        for conduit in self.iter_concurrent_conduits():
-            yield conduit
-
     def draw(self, style: str = "graph") -> None:
         """
         Draw the flow.

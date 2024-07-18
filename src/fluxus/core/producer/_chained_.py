@@ -21,7 +21,7 @@ Implementation of composition classes.
 from __future__ import annotations
 
 import logging
-from collections.abc import AsyncIterator, Iterator
+from collections.abc import AsyncIterator
 from typing import Generic, TypeVar, final
 
 from pytools.api import inheritdoc
@@ -156,9 +156,9 @@ class _ProducerGroupFlow(
         """
         super().__init__()
         invalid_producers = {
-            type(producer.final_conduit).__name__
-            for producer in producer.iter_concurrent_conduits()
-            if not consumer.is_valid_source(producer.final_conduit)
+            type(final_conduit).__name__
+            for final_conduit in producer.get_final_conduits()
+            if not consumer.is_valid_source(final_conduit)
         }
         if invalid_producers:
             raise TypeError(
@@ -195,20 +195,6 @@ class _ProducerGroupFlow(
         """[see superclass]"""
         return self._producer.n_concurrent_conduits
 
-    def iter_concurrent_conduits(
-        self,
-    ) -> Iterator[_ProducerFlow[T_SourceProduct_ret, T_Output_ret]]:
-        """[see superclass]"""
-        for producer in self._producer.iter_concurrent_conduits():
-            yield _ProducerFlow(producer=producer, consumer=self._consumer)
-
-    async def aiter_concurrent_conduits(
-        self,
-    ) -> AsyncIterator[_ProducerFlow[T_SourceProduct_ret, T_Output_ret]]:
-        """[see superclass]"""
-        async for producer in self._producer.aiter_concurrent_conduits():
-            yield _ProducerFlow(producer=producer, consumer=self._consumer)
-
     @final
     def run(self) -> T_Output_ret:
         """[see superclass]"""
@@ -242,7 +228,7 @@ def _consume(
     """
     return consumer.consume(
         (index, product)
-        for index, producer in enumerate(producer.iter_concurrent_conduits())
+        for index, producer in enumerate(producer.iter_concurrent_producers())
         for product in producer
     )
 
@@ -275,7 +261,7 @@ async def _aconsume(
         async_flatten(
             _annotate(producer_index, producer)
             async for producer_index, producer in (
-                aenumerate(producer.aiter_concurrent_conduits())
+                aenumerate(producer.aiter_concurrent_producers())
             )
         )
     )

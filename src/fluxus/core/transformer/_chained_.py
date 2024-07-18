@@ -29,7 +29,6 @@ from typing import Any, Generic, Literal, TypeVar, cast, final
 from pytools.api import inheritdoc
 from pytools.asyncio import async_flatten
 
-from ..._passthrough import Passthrough
 from .._base import Processor, Source
 from .._chained_base_ import _ChainedConduit, _SerialChainedConduit
 from .._conduit import AtomicConduit, SerialConduit
@@ -254,55 +253,23 @@ class _ChainedConcurrentProducer(
             * self.transformer.n_concurrent_conduits
         )
 
-    def iter_concurrent_conduits(
+    def iter_concurrent_producers(
         self,
     ) -> Iterator[SerialProducer[T_TransformedProduct_ret]]:
         """[see superclass]"""
 
-        def _iter_chained_producers(
-            tx: (
-                SerialTransformer[T_SourceProduct_ret, T_TransformedProduct_ret]
-                | Passthrough
-            ),
-        ) -> Iterator[SerialProducer[T_TransformedProduct_ret]]:
-            if isinstance(tx, Passthrough):
-                # Passthrough does not change the type, so we can cast the input type
-                # to the type of the transformed product
-                yield from cast(
-                    Iterator[SerialProducer[T_TransformedProduct_ret]],
-                    self.source.iter_concurrent_conduits(),
-                )
-            else:
-                for source in self._producer.iter_concurrent_conduits():
-                    yield _ChainedProducer(producer=source, transformer=tx)
+        for source in self._producer.iter_concurrent_producers():
+            yield from self.transformer.iter_concurrent_producers(source=source)
 
-        for transformer in self.transformer.iter_concurrent_conduits():
-            yield from _iter_chained_producers(transformer)
-
-    def aiter_concurrent_conduits(
+    def aiter_concurrent_producers(
         self,
     ) -> AsyncIterator[SerialProducer[T_TransformedProduct_ret]]:
         """[see superclass]"""
 
-        async def _aiter_chained_producers(
-            tx: (
-                SerialTransformer[T_SourceProduct_ret, T_TransformedProduct_ret]
-                | Passthrough
-            ),
-        ) -> AsyncIterator[SerialProducer[T_TransformedProduct_ret]]:
-            if isinstance(tx, Passthrough):
-                async for source in self._producer.aiter_concurrent_conduits():
-                    # Passthrough does not change the type, so we can cast the
-                    # input type to the type of the transformed product
-                    yield cast(SerialProducer[T_TransformedProduct_ret], source)
-            else:
-                async for source in self._producer.aiter_concurrent_conduits():
-                    yield _ChainedProducer(producer=source, transformer=tx)
-
         # noinspection PyTypeChecker
         return async_flatten(
-            _aiter_chained_producers(transformer)
-            async for transformer in self.transformer.aiter_concurrent_conduits()
+            self.transformer.aiter_concurrent_producers(source=source)
+            async for source in self._producer.aiter_concurrent_producers()
         )
 
 
@@ -371,39 +338,20 @@ class _ChainedConcurrentTransformedProducer(
         """[see superclass]"""
         return self.transformer.n_concurrent_conduits
 
-    def iter_concurrent_conduits(self) -> Iterator[SerialProducer[T_Product_ret]]:
+    def iter_concurrent_producers(self) -> Iterator[SerialProducer[T_Product_ret]]:
         """[see superclass]"""
 
-        # create one shared buffered producer for synchronous iteration
-        producer = _BufferedProducer(self._producer)
+        yield from self.transformer.iter_concurrent_producers(source=self._producer)
 
-        # for synchronous iteration, we need to materialize the source products
-        for transformer in self.transformer.iter_concurrent_conduits():
-            if isinstance(transformer, Passthrough):
-                # We cast to T_Product_ret, since the Passthrough does not change the
-                # type of the source
-                yield cast(SerialProducer[T_Product_ret], producer)
-            else:
-                yield producer >> transformer
-
-    async def aiter_concurrent_conduits(
+    async def aiter_concurrent_producers(
         self,
     ) -> AsyncIterator[SerialProducer[T_Product_ret]]:
         """[see superclass]"""
 
-        # Create parallel synchronized iterators for the source products
-        concurrent_producers = _AsyncBufferedProducer.create(
-            source=self._producer, n=self.transformer.n_concurrent_conduits
-        )
-
-        async for transformer in self.transformer.aiter_concurrent_conduits():
-            producer = next(concurrent_producers)
-            if isinstance(transformer, Passthrough):
-                # We cast to T_Product_ret, since the Passthrough does not change the
-                # type of the source
-                yield cast(SerialProducer[T_Product_ret], producer)
-            else:
-                yield producer >> transformer
+        async for producer in self.transformer.aiter_concurrent_producers(
+            source=self._producer
+        ):
+            yield producer
 
 
 @inheritdoc(match="[see superclass]")
@@ -437,6 +385,11 @@ class _ChainedConcurrentTransformer(
         self.second = second
 
     @property
+    def input_type(self) -> type[T_SourceProduct_arg]:
+        """[see superclass]"""
+        return self.first.input_type
+
+    @property
     @final
     def product_type(self) -> type[T_TransformedProduct_ret]:
         """[see superclass]"""
@@ -462,70 +415,22 @@ class _ChainedConcurrentTransformer(
         """[see superclass]"""
         return self.first.is_valid_source(source=source)
 
-    def iter_concurrent_conduits(
-        self,
-    ) -> Iterator[
-        SerialTransformer[T_SourceProduct_arg, T_TransformedProduct_ret] | Passthrough
-    ]:
+    def iter_concurrent_producers(
+        self, *, source: SerialProducer[T_SourceProduct_arg]
+    ) -> Iterator[SerialProducer[T_TransformedProduct_ret]]:
         """[see superclass]"""
-        for first in self.first.iter_concurrent_conduits():
-            if isinstance(first, Passthrough):
-                yield from cast(
-                    Iterator[
-                        SerialTransformer[T_SourceProduct_arg, T_TransformedProduct_ret]
-                    ],
-                    self.second.iter_concurrent_conduits(),
-                )
-            else:
-                for second in self.second.iter_concurrent_conduits():
-                    if isinstance(second, Passthrough):
-                        yield cast(
-                            SerialTransformer[
-                                T_SourceProduct_arg, T_TransformedProduct_ret
-                            ],
-                            first,
-                        )
-                    else:
-                        yield first >> second
+        for producer in self.first.iter_concurrent_producers(source=source):
+            yield from self.second.iter_concurrent_producers(source=producer)
 
-    def aiter_concurrent_conduits(
-        self,
-    ) -> AsyncIterator[
-        SerialTransformer[T_SourceProduct_arg, T_TransformedProduct_ret] | Passthrough
-    ]:
+    def aiter_concurrent_producers(
+        self, *, source: SerialProducer[T_SourceProduct_arg]
+    ) -> AsyncIterator[SerialProducer[T_TransformedProduct_ret]]:
         """[see superclass]"""
-
-        async def _aiter(
-            first: (
-                SerialTransformer[T_SourceProduct_arg, T_SourceProduct_ret]
-                | Passthrough
-            )
-        ) -> AsyncIterator[
-            SerialTransformer[T_SourceProduct_arg, T_TransformedProduct_ret]
-            | Passthrough
-        ]:
-            if isinstance(first, Passthrough):
-                async for second in self.second.aiter_concurrent_conduits():
-                    yield cast(
-                        SerialTransformer[T_SourceProduct_arg, T_TransformedProduct_ret]
-                        | Passthrough,
-                        second,
-                    )
-            else:
-                async for second in self.second.aiter_concurrent_conduits():
-                    if isinstance(second, Passthrough):
-                        yield cast(
-                            SerialTransformer[
-                                T_SourceProduct_arg, T_TransformedProduct_ret
-                            ],
-                            first,
-                        )
-                    else:
-                        yield first >> second
 
         # noinspection PyTypeChecker
         return async_flatten(
-            _aiter(first) async for first in self.first.aiter_concurrent_conduits()
+            self.second.aiter_concurrent_producers(source=product)
+            async for product in self.first.aiter_concurrent_producers(source=source)
         )
 
 

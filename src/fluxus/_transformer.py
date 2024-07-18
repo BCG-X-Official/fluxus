@@ -23,12 +23,10 @@ from __future__ import annotations
 import logging
 from abc import ABCMeta, abstractmethod
 from collections.abc import AsyncIterator, Iterator
-from typing import Any, Generic, TypeVar, final
+from typing import Generic, TypeVar, final
 
 from pytools.asyncio import arun, iter_async_to_sync
-from pytools.typing import issubclass_generic
 
-from ._passthrough import Passthrough
 from .core import AtomicConduit
 from .core.transformer import SerialTransformer
 
@@ -111,30 +109,3 @@ class AsyncTransformer(
         :param source_product: the existing product to use as input
         :return: the new product
         """
-
-
-#
-# Auxiliary functions
-#
-
-
-def _validate_concurrent_passthrough(
-    conduit: SerialTransformer[Any, Any] | Passthrough
-) -> None:
-    """
-    Validate that the given conduit is valid as a concurrent conduit with a passthrough.
-
-    To be valid, its input type must be a subtype of its product type.
-
-    :param conduit: the conduit to validate
-    """
-
-    if not (
-        isinstance(conduit, Passthrough)
-        or issubclass_generic(conduit.input_type, conduit.product_type)
-    ):
-        raise TypeError(
-            "Conduit is not a valid concurrent conduit with a passthrough because its "
-            f"input type {conduit.input_type} is not a subtype of its product type "
-            f"{conduit.product_type}:\n{conduit}"
-        )

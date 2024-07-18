@@ -130,21 +130,21 @@ class SimpleConcurrentProducer(
         for producer in self.producers:
             yield from producer.get_isolated_conduits()
 
-    def iter_concurrent_conduits(
+    def iter_concurrent_producers(
         self,
     ) -> Iterator[SerialProducer[T_SourceProduct_ret]]:
         """[see superclass]"""
         for prod in self.producers:
-            yield from prod.iter_concurrent_conduits()
+            yield from prod.iter_concurrent_producers()
 
-    def aiter_concurrent_conduits(
+    def aiter_concurrent_producers(
         self,
     ) -> AsyncIterator[SerialProducer[T_SourceProduct_ret]]:
         """[see superclass]"""
 
         # noinspection PyTypeChecker
         return async_flatten(
-            prod.aiter_concurrent_conduits()
+            prod.aiter_concurrent_producers()
             async for prod in iter_sync_to_async(self.producers)
         )
 

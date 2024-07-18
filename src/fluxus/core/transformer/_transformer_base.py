@@ -78,22 +78,29 @@ class BaseTransformer(
     """
 
     @abstractmethod
-    def iter_concurrent_conduits(
-        self,
-    ) -> Iterator[
-        SerialTransformer[T_SourceProduct_arg, T_TransformedProduct_ret] | Passthrough
-    ]:
-        """[see superclass]"""
+    def iter_concurrent_producers(
+        self, *, source: SerialProducer[T_SourceProduct_arg]
+    ) -> Iterator[SerialProducer[T_TransformedProduct_ret]]:
+        """
+        Generate serial producers which, run concurrently, will produce all transformed
+        products.
+
+        :param source: the source producer whose products to transform
+        :return: the concurrent producers for all concurrent paths of this transformer
+        """
 
     @abstractmethod
-    def aiter_concurrent_conduits(
-        self,
-    ) -> AsyncIterator[
-        SerialTransformer[T_SourceProduct_arg, T_TransformedProduct_ret] | Passthrough
-    ]:
-        """[see superclass]"""
+    def aiter_concurrent_producers(
+        self, *, source: SerialProducer[T_SourceProduct_arg]
+    ) -> AsyncIterator[SerialProducer[T_TransformedProduct_ret]]:
+        """
+        Generate serial producers which, run concurrently, will produce all transformed
+        products.
 
-    @final
+        :param source: the source producer whose products to transform
+        :return: the concurrent producers for all concurrent paths of this transformer
+        """
+
     def process(
         self, input: Iterable[T_SourceProduct_arg]
     ) -> list[T_TransformedProduct_ret]:
@@ -109,7 +116,6 @@ class BaseTransformer(
             SimpleProducer[self.input_type](input) >> self  # type: ignore[name-defined]
         )
 
-    @final
     async def aprocess(
         self, input: AsyncIterable[T_SourceProduct_arg]
     ) -> list[T_TransformedProduct_ret]:
@@ -141,8 +147,7 @@ class BaseTransformer(
         product_type: type[T_TransformedProduct_ret]
 
         if isinstance(other, Passthrough):
-            for transformer in self.iter_concurrent_conduits():
-                _validate_concurrent_passthrough(transformer)
+            _validate_concurrent_passthrough(self)
             input_type = self.input_type
             product_type = self.product_type
         elif not isinstance(other, BaseTransformer):
@@ -164,8 +169,7 @@ class BaseTransformer(
         self, other: Passthrough
     ) -> BaseTransformer[T_SourceProduct_arg, T_TransformedProduct_ret]:
         if isinstance(other, Passthrough):
-            for transformer in self.iter_concurrent_conduits():
-                _validate_concurrent_passthrough(transformer)
+            _validate_concurrent_passthrough(self)
 
             from . import SimpleConcurrentTransformer
 
@@ -253,20 +257,30 @@ class SerialTransformer(
     """
 
     @final
-    def iter_concurrent_conduits(
-        self,
-    ) -> Iterator[SerialTransformer[T_SourceProduct_arg, T_TransformedProduct_ret]]:
+    def iter_concurrent_producers(
+        self, *, source: SerialProducer[T_SourceProduct_arg]
+    ) -> Iterator[SerialProducer[T_TransformedProduct_ret]]:
         """[see superclass]"""
-        yield self
+        yield source >> self
 
     @final
-    async def aiter_concurrent_conduits(
-        self,
-    ) -> AsyncIterator[
-        SerialTransformer[T_SourceProduct_arg, T_TransformedProduct_ret]
-    ]:
+    async def aiter_concurrent_producers(
+        self, *, source: SerialProducer[T_SourceProduct_arg]
+    ) -> AsyncIterator[SerialProducer[T_TransformedProduct_ret]]:
         """[see superclass]"""
-        yield self
+        yield source >> self
+
+    def process(
+        self, input: Iterable[T_SourceProduct_arg]
+    ) -> list[T_TransformedProduct_ret]:
+        """[see superclass]"""
+        return list(self.iter(input))
+
+    async def aprocess(
+        self, input: AsyncIterable[T_SourceProduct_arg]
+    ) -> list[T_TransformedProduct_ret]:
+        """[see superclass]"""
+        return [product async for product in self.aiter(input)]
 
     @abstractmethod
     def transform(
@@ -381,7 +395,7 @@ class SerialTransformer(
 
 
 def _validate_concurrent_passthrough(
-    conduit: SerialTransformer[Any, Any] | Passthrough
+    conduit: BaseTransformer[Any, Any] | Passthrough
 ) -> None:
     """
     Validate that the given conduit is valid as a concurrent conduit with a passthrough.
@@ -412,12 +426,3 @@ class ConcurrentTransformer(
     """
     A collection of one or more transformers, operating in parallel.
     """
-
-    @property
-    def input_type(self) -> type[T_SourceProduct_arg]:
-        """[see superclass]"""
-        return get_common_generic_subclass(
-            transformer.input_type
-            for transformer in self.iter_concurrent_conduits()
-            if not isinstance(transformer, Passthrough)
-        )

@@ -25,16 +25,16 @@ import itertools
 import logging
 import operator
 from collections.abc import AsyncIterator, Collection, Iterator
-from typing import Any, Generic, TypeVar, cast
+from typing import Any, Generic, TypeVar, cast, final
 
 from pytools.api import as_tuple, inheritdoc
-from pytools.asyncio import async_flatten, iter_sync_to_async
 from pytools.expression import Expression
-from pytools.typing import get_common_generic_base
+from pytools.typing import get_common_generic_base, get_common_generic_subclass
 
 from ... import Passthrough
 from .. import SerialConduit
-from ._transformer_base import BaseTransformer, ConcurrentTransformer, SerialTransformer
+from ..producer import SerialProducer
+from ._transformer_base import BaseTransformer, ConcurrentTransformer
 
 log = logging.getLogger(__name__)
 
@@ -54,17 +54,11 @@ T_TransformedProduct_ret = TypeVar("T_TransformedProduct_ret", covariant=True)
 
 
 #
-# Constants
-#
-
-# The passthrough singleton instance.
-_PASSTHROUGH = Passthrough()
-
-#
 # Classes
 #
 
 
+@final
 @inheritdoc(match="[see superclass]")
 class SimpleConcurrentTransformer(
     ConcurrentTransformer[T_SourceProduct_arg, T_TransformedProduct_ret],
@@ -89,7 +83,7 @@ class SimpleConcurrentTransformer(
         """
         :param transformers: the transformers in this group
         """
-        self.transformers = as_tuple(
+        self.transformers = transformers = as_tuple(
             itertools.chain(*map(_flatten_concurrent_transformers, transformers)),
             element_type=cast(
                 tuple[
@@ -103,14 +97,43 @@ class SimpleConcurrentTransformer(
             ),
         )
 
+        input_types = {
+            transformer.input_type
+            for transformer in transformers
+            if not isinstance(transformer, Passthrough)
+        }
+        try:
+            self._input_type = get_common_generic_subclass(input_types)
+        except TypeError as e:
+            raise TypeError(
+                "Transformers have incompatible input types: "
+                + ", ".join(sorted(input_type.__name__ for input_type in input_types))
+            ) from e
+
+        product_types = {
+            transformer.product_type
+            for transformer in transformers
+            if not isinstance(transformer, Passthrough)
+        }
+        try:
+            self._product_type = get_common_generic_base(product_types)
+        except TypeError as e:
+            raise TypeError(
+                "Transformers have incompatible product types: "
+                + ", ".join(
+                    sorted(product_type.__name__ for product_type in product_types)
+                )
+            ) from e
+
+    @property
+    def input_type(self) -> type[T_SourceProduct_arg]:
+        """[see superclass]"""
+        return self._input_type
+
     @property
     def product_type(self) -> type[T_TransformedProduct_ret]:
         """[see superclass]"""
-        return get_common_generic_base(
-            source.product_type
-            for source in self.iter_concurrent_conduits()
-            if not isinstance(source, Passthrough)
-        )
+        return self._product_type
 
     @property
     def is_chained(self) -> bool:
@@ -147,7 +170,7 @@ class SimpleConcurrentTransformer(
     ) -> Iterator[tuple[SerialConduit[Any], SerialConduit[Any]]]:
         """[see superclass]"""
         for transformer in self.transformers:
-            if transformer is not _PASSTHROUGH:
+            if not isinstance(transformer, Passthrough):
                 yield from transformer.get_connections(ingoing=ingoing)
 
     def get_isolated_conduits(
@@ -157,26 +180,39 @@ class SimpleConcurrentTransformer(
         for transformer in self.transformers:
             yield from transformer.get_isolated_conduits()
 
-    def iter_concurrent_conduits(
-        self,
-    ) -> Iterator[
-        SerialTransformer[T_SourceProduct_arg, T_TransformedProduct_ret] | Passthrough
-    ]:
+    def iter_concurrent_producers(
+        self, *, source: SerialProducer[T_SourceProduct_arg]
+    ) -> Iterator[SerialProducer[T_TransformedProduct_ret]]:
         """[see superclass]"""
-        for transformer in self.transformers:
-            yield from transformer.iter_concurrent_conduits()
+        from ..transformer._chained_ import _BufferedProducer
 
-    def aiter_concurrent_conduits(
-        self,
-    ) -> AsyncIterator[
-        SerialTransformer[T_SourceProduct_arg, T_TransformedProduct_ret] | Passthrough
-    ]:
+        source_product_type = source.product_type
+        buffered_source = _BufferedProducer[
+            source_product_type  # type: ignore[valid-type]
+        ](source)
+        for transformer in self.transformers:
+            if isinstance(transformer, Passthrough):
+                yield buffered_source
+            else:
+                yield from transformer.iter_concurrent_producers(source=buffered_source)
+
+    async def aiter_concurrent_producers(
+        self, *, source: SerialProducer[T_SourceProduct_arg]
+    ) -> AsyncIterator[SerialProducer[T_TransformedProduct_ret]]:
         """[see superclass]"""
-        # noinspection PyTypeChecker
-        return async_flatten(
-            transformer.aiter_concurrent_conduits()
-            async for transformer in iter_sync_to_async(self.transformers)
-        )
+        n_transformers = len(self.transformers)
+        from ..transformer._chained_ import _AsyncBufferedProducer
+
+        for buffered_source, transformer in zip(
+            _AsyncBufferedProducer.create(source, n=n_transformers), self.transformers
+        ):
+            if isinstance(transformer, Passthrough):
+                yield cast(SerialProducer[T_TransformedProduct_ret], buffered_source)
+            else:
+                async for producer in transformer.aiter_concurrent_producers(
+                    source=buffered_source
+                ):
+                    yield producer
 
     def to_expression(self, *, compact: bool = False) -> Expression:
         """[see superclass]"""

@@ -81,12 +81,24 @@ class BaseProducer(Source[T_Product_ret], Generic[T_Product_ret], metaclass=ABCM
         """
 
     @abstractmethod
-    def iter_concurrent_conduits(self) -> Iterator[SerialProducer[T_Product_ret]]:
-        """[see superclass]"""
+    def iter_concurrent_producers(self) -> Iterator[SerialProducer[T_Product_ret]]:
+        """
+        Iterate over the concurrent producers that make up this (potentially)
+        composite producer.
+
+        :return: an iterator over the concurrent producers
+        """
 
     @abstractmethod
-    def aiter_concurrent_conduits(self) -> AsyncIterator[SerialProducer[T_Product_ret]]:
-        """[see superclass]"""
+    def aiter_concurrent_producers(
+        self,
+    ) -> AsyncIterator[SerialProducer[T_Product_ret]]:
+        """
+        Asynchronously iterate over the concurrent producers that make up this
+        (potentially) composite producer.
+
+        :return: an asynchronous iterator over the concurrent producers
+        """
 
     @final
     def __iter__(self) -> Iterator[T_Product_ret]:
@@ -141,11 +153,11 @@ class SerialProducer(
     It can run synchronously or asynchronously.
     """
 
-    def iter_concurrent_conduits(self) -> Iterator[SerialProducer[T_Product_ret]]:
+    def iter_concurrent_producers(self) -> Iterator[SerialProducer[T_Product_ret]]:
         """[see superclass]"""
         yield self
 
-    async def aiter_concurrent_conduits(
+    async def aiter_concurrent_producers(
         self,
     ) -> AsyncIterator[SerialProducer[T_Product_ret]]:
         """[see superclass]"""
@@ -191,7 +203,7 @@ class ConcurrentProducer(
 
         :return: an iterator of the new products
         """
-        for producer in self.iter_concurrent_conduits():
+        for producer in self.iter_concurrent_producers():
             yield from producer
 
     def aproduce(self) -> AsyncIterator[T_Product_ret]:
@@ -205,5 +217,5 @@ class ConcurrentProducer(
 
         # noinspection PyTypeChecker
         return async_flatten(
-            producer.aproduce() async for producer in self.aiter_concurrent_conduits()
+            producer.aproduce() async for producer in self.aiter_concurrent_producers()
         )

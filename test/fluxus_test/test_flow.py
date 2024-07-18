@@ -129,7 +129,7 @@ def test_group_construction() -> None:
     assert isinstance(producer_group, ConcurrentProducer)
     assert producer_group.n_concurrent_conduits == 2
     producers = cast(
-        tuple[NumberProducer, ...], tuple(producer_group.iter_concurrent_conduits())
+        tuple[NumberProducer, ...], tuple(producer_group.iter_concurrent_producers())
     )
     assert len(producers) == 2
     assert all(isinstance(prod, NumberProducer) for prod in producers)
@@ -143,9 +143,13 @@ def test_group_construction() -> None:
     )
     assert isinstance(transformer_group, ConcurrentTransformer)
     assert transformer_group.n_concurrent_conduits == 2
-    transformers = tuple(transformer_group.iter_concurrent_conduits())
+    transformers = tuple(
+        transformer_group.iter_concurrent_producers(source=NumberProducer(0, 4))
+    )
     assert len(transformers) == 2
-    assert isinstance(transformers[0], DoublingTransformer)
+    assert tuple(
+        type(conduit).__name__ for conduit in transformers[0].chained_conduits
+    ) == ("_BufferedProducer", "DoublingTransformer")
 
 
 def test_producer_group_construction() -> None:
@@ -196,25 +200,25 @@ def test_chain_of_groups() -> None:
     )
 
     expected_result = [
-        [2, 2, 3, 4],
-        [12, 22],
-        [1, 1, 2, 3],
-        [11, 21],
-        [1, 1, 1, 1, 2, 3, 3, 5],
-        [11, 21, 21, 41],
         [0, 0, 0, 0, 1, 2, 2, 4],
-        [10, 20, 20, 40],
-        [2, 3],
-        [12],
-        [1, 2],
-        [11],
-        [1, 1, 2, 3],
-        [11, 21],
         [0, 0, 1, 2],
+        [1, 1, 1, 1, 2, 3, 3, 5],
+        [1, 1, 2, 3],
+        [1, 1, 2, 3],
+        [1, 2],
+        [2, 2, 3, 4],
+        [2, 3],
         [10, 20],
+        [10, 20, 20, 40],
+        [11],
+        [11, 21],
+        [11, 21],
+        [11, 21, 21, 41],
+        [12],
+        [12, 22],
     ]
-    assert flow.run() == expected_result
-    assert asyncio.run(flow.arun()) == expected_result
+    assert sorted(flow.run()) == expected_result
+    assert sorted(asyncio.run(flow.arun())) == expected_result
 
 
 def test_expression() -> None:
