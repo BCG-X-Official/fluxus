@@ -26,8 +26,6 @@ from typing import Any, Generic, TypeVar, final
 
 from typing_extensions import Self
 
-from pytools.api import inheritdoc
-
 from ._conduit import Conduit
 
 log = logging.getLogger(__name__)
@@ -52,7 +50,6 @@ T_Product_ret = TypeVar("T_Product_ret", covariant=True)
 #
 
 
-@inheritdoc(match="[see superclass]")
 class ConcurrentConduit(
     Conduit[T_Product_ret], Generic[T_Product_ret], metaclass=ABCMeta
 ):

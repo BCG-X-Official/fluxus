@@ -57,7 +57,6 @@ T_Output_ret = TypeVar("T_Output_ret", covariant=True)
 #
 
 
-@inheritdoc(match="[see superclass]")
 class BaseProducer(Source[T_Product_ret], Generic[T_Product_ret], metaclass=ABCMeta):
     """
     A source that generates products from scratch – this is either a

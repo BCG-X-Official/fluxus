@@ -65,7 +65,6 @@ T_TransformedProduct_ret = TypeVar("T_TransformedProduct_ret", covariant=True)
 #
 
 
-@inheritdoc(match="[see superclass]")
 class BaseTransformer(
     Processor[T_SourceProduct_arg, T_TransformedProduct_ret],
     Source[T_TransformedProduct_ret],
@@ -416,7 +415,6 @@ def _validate_concurrent_passthrough(
         )
 
 
-@inheritdoc(match="[see superclass]")
 class ConcurrentTransformer(
     BaseTransformer[T_SourceProduct_arg, T_TransformedProduct_ret],
     ConcurrentConduit[T_TransformedProduct_ret],
