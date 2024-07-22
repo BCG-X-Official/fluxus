@@ -118,7 +118,7 @@ class BaseProducer(Source[T_Product_ret], Generic[T_Product_ret], metaclass=ABCM
             # indicate the type for static type checks
             return cast(
                 ConcurrentProducer[T_Product_ret],
-                SimpleConcurrentProducer[  # type: ignore[misc]
+                SimpleConcurrentProducer[  # type: ignore[misc, operator]
                     get_common_generic_base((self.product_type, other.product_type))
                 ](self, other),
             )
