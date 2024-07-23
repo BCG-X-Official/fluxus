@@ -194,9 +194,6 @@ class ConcurrentProducer(
 
         :return: an async iterator of the new products
         """
-        # create tasks for each producer - these need to be coroutines that materialize
-        # the producers
-
         # noinspection PyTypeChecker
         return async_flatten(
             producer.aproduce()
