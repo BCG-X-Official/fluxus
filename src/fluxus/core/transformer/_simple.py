@@ -26,6 +26,7 @@ import itertools
 import logging
 import operator
 from abc import ABCMeta
+from collections import deque
 from collections.abc import AsyncIterable, AsyncIterator, Collection, Iterator
 from typing import Any, Generic, Literal, TypeVar, cast, final
 
@@ -189,32 +190,18 @@ class SimpleConcurrentTransformer(
     ) -> Iterator[SerialProducer[T_TransformedProduct_ret]]:
         """[see superclass]"""
 
-        source_product_type = source.product_type
-        buffered_source = _BufferedProducer[
-            source_product_type  # type: ignore[valid-type]
-        ](source)
-        for transformer in self.transformers:
-            if isinstance(transformer, Passthrough):
-                yield buffered_source
-            else:
-                yield from transformer.iter_concurrent_producers(source=buffered_source)
-
-    async def aiter_concurrent_producers(
-        self, *, source: SerialProducer[T_SourceProduct_arg]
-    ) -> AsyncIterator[SerialProducer[T_TransformedProduct_ret]]:
-        """[see superclass]"""
         n_transformers = len(self.transformers)
 
-        for buffered_source, transformer in zip(
-            _AsyncBufferedProducer.create(source, n=n_transformers), self.transformers
-        ):
+        buffered_source = _BufferedSource(source=source, n=n_transformers)
+
+        for k, transformer in enumerate(self.transformers):
+            buffered_producer = _BufferedProducer(source=buffered_source, k=k)
             if isinstance(transformer, Passthrough):
-                yield cast(SerialProducer[T_TransformedProduct_ret], buffered_source)
+                yield cast(SerialProducer[T_TransformedProduct_ret], buffered_producer)
             else:
-                async for producer in transformer.aiter_concurrent_producers(
-                    source=buffered_source
-                ):
-                    yield producer
+                yield from transformer.iter_concurrent_producers(
+                    source=buffered_producer
+                )
 
     def to_expression(self, *, compact: bool = False) -> Expression:
         """[see superclass]"""
@@ -263,7 +250,6 @@ class _BaseBufferedProducer(
     """
 
     source: SerialProducer[T_Output_ret]
-    _products: list[T_Output_ret] | None
 
     def __init__(self, source: SerialProducer[T_Output_ret]) -> None:
         """
@@ -287,77 +273,95 @@ class _BaseBufferedProducer(
         return self.source.get_connections(ingoing=ingoing)
 
 
-@inheritdoc(match="[see superclass]")
-class _BufferedProducer(
-    AtomicConduit[T_Output_ret],
-    _BaseBufferedProducer[T_Output_ret],
-    Generic[T_Output_ret],
-):
+class _BufferedSource(Generic[T_Output_ret]):
     """
-    A producer that materializes the products of another producer
-    to allow multiple iterations over the same products.
+    A source shared by multiple buffered producers.
     """
 
     source: SerialProducer[T_Output_ret]
-    _products: list[T_Output_ret] | None = None
+    n: int
 
-    def produce(self) -> Iterator[T_Output_ret]:
-        """[see superclass]"""
+    _products: list[deque[T_Output_ret]] | None = None
+    _products_async: list[AsyncIterator[T_Output_ret]] | None = None
+
+    def __init__(self, source: SerialProducer[T_Output_ret], n: int) -> None:
+        """
+        :param source: the source producer
+        :param n: the number of buffered producers
+        """
+        self.source = source
+        self.n = n
+
+    def get_products(self, k: int) -> Iterator[T_Output_ret]:
+        """
+        Get the products of the source producer.
+
+        :return: the products
+        """
         if self._products is None:
-            self._products = list(self.source.produce())
-        return iter(self._products)
+            products = list(self.source.produce())
+            self._products = [deque(products) for _ in range(self.n)]
+
+        my_deque = self._products[k]
+        while my_deque:
+            yield my_deque.popleft()
+
+    def get_products_async(self, k: int) -> AsyncIterator[T_Output_ret]:
+        """
+        Get the products of the source producer asynchronously.
+
+        :param k: the index of the buffered producer
+        :return: the k-th async iterator over the products
+        """
+
+        if self._products_async is None:
+            self._products_async = list(
+                _async_iter_parallel(self.source.aproduce(), self.n)
+            )
+        return self._products_async[k]
 
 
-class _AsyncBufferedProducer(
+@inheritdoc(match="[see superclass]")
+class _BufferedProducer(
     AtomicConduit[T_Output_ret],
-    _BaseBufferedProducer[T_Output_ret],
+    SerialProducer[T_Output_ret],
     Generic[T_Output_ret],
 ):
     """
-    A producer that creates multiple synchronized iterators over the same products,
-    allowing multiple asynchronous iterations over the same products where each
-    iteration blocks until all iterators have processed the current item, ensuring
-    that the original producer is only iterated once.
+    A producer that creates multiple iterators over the same products, allowing multiple
+    synchronous or asynchronous iterations, ensuring that the original producer is only
+    iterated once.
     """
 
-    products: AsyncIterator[T_Output_ret]
+    source: _BufferedSource[T_Output_ret]
     k: int
 
-    def __init__(
-        self,
-        *,
-        source: SerialProducer[T_Output_ret],
-        products: AsyncIterator[T_Output_ret],
-        k: int,
-    ) -> None:
-        super().__init__(source=source)
-        self.products = products
+    def __init__(self, source: _BufferedSource[T_Output_ret], k: int) -> None:
+        """
+        :param source: the source shared by multiple buffered producers
+        :param k: the index of this buffered producer
+        """
+        self.source = source
         self.k = k
 
-    @classmethod
-    def create(
-        cls, source: SerialProducer[T_Output_ret], *, n: int
-    ) -> Iterator[_AsyncBufferedProducer[T_Output_ret]]:
-        """
-        Create multiple synchronized asynchronous producers over the products of the
-        given source producer.
-
-        :param source: the source producer
-        :param n: the number of synchronized producers to create
-        :return: the synchronized producers
-        """
-        return (
-            _AsyncBufferedProducer(source=source, products=products, k=k)
-            for k, products in enumerate(_async_iter_parallel(source.aproduce(), n))
-        )
+    @property
+    def product_type(self) -> type[T_Output_ret]:
+        """[see superclass]"""
+        return self.source.source.product_type
 
     def produce(self) -> Iterator[T_Output_ret]:
-        raise NotImplementedError(
-            "Not implemented; use `aiter` to iterate asynchronously."
-        )
+        """[see superclass]"""
+        return self.source.get_products(self.k)
 
     def aproduce(self) -> AsyncIterator[T_Output_ret]:
-        return self.products
+        """[see superclass]"""
+        return self.source.get_products_async(self.k)
+
+    def get_connections(
+        self, *, ingoing: Collection[SerialConduit[Any]]
+    ) -> Iterator[tuple[SerialConduit[Any], SerialConduit[Any]]]:
+        """[see superclass]"""
+        return self.source.source.get_connections(ingoing=ingoing)
 
 
 #: Tasks for the producer that need to be awaited before the producer is garbage
@@ -371,7 +375,8 @@ _END: Literal["END"] = cast(Literal["END"], "END")
 def _async_iter_parallel(
     iterable: AsyncIterable[T], n: int
 ) -> Iterator[AsyncIterator[T]]:
-    # Create a given number of asynchronous iterators that share the same items.
+    # Create a given number of asynchronous iterators that share the same items
+    # from the given source iterable.
 
     async def _shared_iterator(
         queue: asyncio.Queue[T | Literal["END"]],

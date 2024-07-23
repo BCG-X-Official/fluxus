@@ -26,7 +26,7 @@ from collections.abc import AsyncIterator, Iterator
 from typing import Generic, TypeVar, cast, final
 
 from pytools.api import inheritdoc
-from pytools.asyncio import async_flatten
+from pytools.asyncio import async_flatten, iter_sync_to_async
 from pytools.typing import get_common_generic_base
 
 from ..._consumer import Consumer
@@ -88,17 +88,6 @@ class BaseProducer(Source[T_Product_ret], Generic[T_Product_ret], metaclass=ABCM
         :return: an iterator over the concurrent producers
         """
 
-    @abstractmethod
-    def aiter_concurrent_producers(
-        self,
-    ) -> AsyncIterator[SerialProducer[T_Product_ret]]:
-        """
-        Asynchronously iterate over the concurrent producers that make up this
-        (potentially) composite producer.
-
-        :return: an asynchronous iterator over the concurrent producers
-        """
-
     @final
     def __iter__(self) -> Iterator[T_Product_ret]:
         return self.produce()
@@ -156,12 +145,6 @@ class SerialProducer(
         """[see superclass]"""
         yield self
 
-    async def aiter_concurrent_producers(
-        self,
-    ) -> AsyncIterator[SerialProducer[T_Product_ret]]:
-        """[see superclass]"""
-        yield self
-
     async def aproduce(self) -> AsyncIterator[T_Product_ret]:
         """
         Generate new products asynchronously.
@@ -216,5 +199,6 @@ class ConcurrentProducer(
 
         # noinspection PyTypeChecker
         return async_flatten(
-            producer.aproduce() async for producer in self.aiter_concurrent_producers()
+            producer.aproduce()
+            async for producer in iter_sync_to_async(self.iter_concurrent_producers())
         )

@@ -78,7 +78,7 @@ class _ChainedConduit(
     def processor(self) -> Processor[T_SourceProduct_ret, T_Output_ret]:
         """
         The second conduit in this chained conduit, processing the output of the
-        :attr:`._source` conduit.
+        :attr:`.source` conduit.
         """
 
     def get_final_conduits(self) -> Iterator[SerialConduit[T_Output_ret]]:

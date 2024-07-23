@@ -25,7 +25,7 @@ from collections.abc import AsyncIterator
 from typing import Generic, TypeVar, final
 
 from pytools.api import inheritdoc
-from pytools.asyncio import aenumerate, async_flatten
+from pytools.asyncio import async_flatten, iter_sync_to_async
 
 from ..._consumer import Consumer
 from ..._flow import Flow
@@ -261,7 +261,7 @@ async def _aconsume(
         async_flatten(
             _annotate(producer_index, producer)
             async for producer_index, producer in (
-                aenumerate(producer.aiter_concurrent_producers())
+                iter_sync_to_async(enumerate(producer.iter_concurrent_producers()))
             )
         )
     )

@@ -24,11 +24,10 @@ import functools
 import itertools
 import logging
 import operator
-from collections.abc import AsyncIterator, Collection, Iterator
+from collections.abc import Collection, Iterator
 from typing import Any, Generic, TypeVar, cast
 
 from pytools.api import as_tuple, inheritdoc
-from pytools.asyncio import async_flatten, iter_sync_to_async
 from pytools.expression import Expression
 from pytools.typing import get_common_generic_base
 
@@ -136,17 +135,6 @@ class SimpleConcurrentProducer(
         """[see superclass]"""
         for prod in self.producers:
             yield from prod.iter_concurrent_producers()
-
-    def aiter_concurrent_producers(
-        self,
-    ) -> AsyncIterator[SerialProducer[T_SourceProduct_ret]]:
-        """[see superclass]"""
-
-        # noinspection PyTypeChecker
-        return async_flatten(
-            prod.aiter_concurrent_producers()
-            async for prod in iter_sync_to_async(self.producers)
-        )
 
     def to_expression(self, *, compact: bool = False) -> Expression:
         """[see superclass]"""

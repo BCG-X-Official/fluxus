@@ -258,17 +258,6 @@ class _ChainedConcurrentProducer(
         for source in self._producer.iter_concurrent_producers():
             yield from self.transformer.iter_concurrent_producers(source=source)
 
-    def aiter_concurrent_producers(
-        self,
-    ) -> AsyncIterator[SerialProducer[T_TransformedProduct_ret]]:
-        """[see superclass]"""
-
-        # noinspection PyTypeChecker
-        return async_flatten(
-            self.transformer.aiter_concurrent_producers(source=source)
-            async for source in self._producer.aiter_concurrent_producers()
-        )
-
 
 @inheritdoc(match="[see superclass]")
 class _ChainedConcurrentTransformedProducer(
@@ -340,16 +329,6 @@ class _ChainedConcurrentTransformedProducer(
 
         yield from self.transformer.iter_concurrent_producers(source=self._producer)
 
-    async def aiter_concurrent_producers(
-        self,
-    ) -> AsyncIterator[SerialProducer[T_Product_ret]]:
-        """[see superclass]"""
-
-        async for producer in self.transformer.aiter_concurrent_producers(
-            source=self._producer
-        ):
-            yield producer
-
 
 @inheritdoc(match="[see superclass]")
 class _ChainedConcurrentTransformer(
@@ -418,14 +397,3 @@ class _ChainedConcurrentTransformer(
         """[see superclass]"""
         for producer in self.first.iter_concurrent_producers(source=source):
             yield from self.second.iter_concurrent_producers(source=producer)
-
-    def aiter_concurrent_producers(
-        self, *, source: SerialProducer[T_SourceProduct_arg]
-    ) -> AsyncIterator[SerialProducer[T_TransformedProduct_ret]]:
-        """[see superclass]"""
-
-        # noinspection PyTypeChecker
-        return async_flatten(
-            self.second.aiter_concurrent_producers(source=product)
-            async for product in self.first.aiter_concurrent_producers(source=source)
-        )

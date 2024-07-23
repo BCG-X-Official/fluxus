@@ -164,9 +164,13 @@ def test_group_construction() -> None:
         transformer_group.iter_concurrent_producers(source=NumberProducer(0, 4))
     )
     assert len(transformers) == 2
+
+    # noinspection PyProtectedMember
+    from fluxus.core.transformer._simple import _BufferedProducer
+
     assert tuple(
         type(conduit).__name__ for conduit in transformers[0].chained_conduits
-    ) == ("_BufferedProducer", "DoublingTransformer")
+    ) == (_BufferedProducer.__name__, DoublingTransformer.__name__)
 
 
 def test_producer_group_construction() -> None:

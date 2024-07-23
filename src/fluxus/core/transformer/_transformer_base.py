@@ -88,18 +88,6 @@ class BaseTransformer(
         :return: the concurrent producers for all concurrent paths of this transformer
         """
 
-    @abstractmethod
-    def aiter_concurrent_producers(
-        self, *, source: SerialProducer[T_SourceProduct_arg]
-    ) -> AsyncIterator[SerialProducer[T_TransformedProduct_ret]]:
-        """
-        Generate serial producers which, run concurrently, will produce all transformed
-        products.
-
-        :param source: the source producer whose products to transform
-        :return: the concurrent producers for all concurrent paths of this transformer
-        """
-
     def process(
         self, input: Iterable[T_SourceProduct_arg]
     ) -> list[T_TransformedProduct_ret]:
@@ -259,13 +247,6 @@ class SerialTransformer(
     def iter_concurrent_producers(
         self, *, source: SerialProducer[T_SourceProduct_arg]
     ) -> Iterator[SerialProducer[T_TransformedProduct_ret]]:
-        """[see superclass]"""
-        yield source >> self
-
-    @final
-    async def aiter_concurrent_producers(
-        self, *, source: SerialProducer[T_SourceProduct_arg]
-    ) -> AsyncIterator[SerialProducer[T_TransformedProduct_ret]]:
         """[see superclass]"""
         yield source >> self
 
