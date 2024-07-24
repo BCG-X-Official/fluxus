@@ -117,11 +117,12 @@ class _ChainedProducer(
 
     def produce(self) -> Iterator[T_TransformedProduct_ret]:
         """[see superclass]"""
-        return self.transformer.iter(self._producer)
+        return self.transformer.process(input=self._producer)
 
     def aproduce(self) -> AsyncIterator[T_TransformedProduct_ret]:
         """[see superclass]"""
-        return self.transformer.aiter(self._producer)
+        # noinspection PyTypeChecker
+        return self.transformer.aprocess(input=self._producer)
 
 
 @inheritdoc(match="[see superclass]")

@@ -88,42 +88,6 @@ class BaseTransformer(
         :return: the concurrent producers for all concurrent paths of this transformer
         """
 
-    def process(
-        self, input: Iterable[T_SourceProduct_arg]
-    ) -> list[T_TransformedProduct_ret]:
-        """
-        Transform the given products.
-
-        :param input: the products to transform
-        :return: the transformed products
-        """
-        from ...simple import SimpleProducer
-
-        return list(
-            SimpleProducer[self.input_type](input) >> self  # type: ignore[name-defined]
-        )
-
-    async def aprocess(
-        self, input: AsyncIterable[T_SourceProduct_arg]
-    ) -> list[T_TransformedProduct_ret]:
-        """
-        Transform the given products asynchronously.
-
-        :param input: the products to transform
-        :return: the transformed products
-        """
-        from ...simple import SimpleAsyncProducer
-
-        return [
-            product
-            async for product in (
-                SimpleAsyncProducer[self.input_type](  # type: ignore[name-defined]
-                    input
-                )
-                >> self
-            )
-        ]
-
     def __and__(
         self,
         other: (
@@ -238,6 +202,7 @@ class SerialTransformer(
     SerialSource[T_TransformedProduct_ret],
     BaseTransformer[T_SourceProduct_arg, T_TransformedProduct_ret],
     Generic[T_SourceProduct_arg, T_TransformedProduct_ret],
+    metaclass=ABCMeta,
 ):
     """
     A transformer that generates new products from the products of a producer.
@@ -252,15 +217,17 @@ class SerialTransformer(
 
     def process(
         self, input: Iterable[T_SourceProduct_arg]
-    ) -> list[T_TransformedProduct_ret]:
+    ) -> Iterator[T_TransformedProduct_ret]:
         """[see superclass]"""
-        return list(self.iter(input))
+        for product in input:
+            yield from self.transform(product)
 
-    async def aprocess(
+    def aprocess(
         self, input: AsyncIterable[T_SourceProduct_arg]
-    ) -> list[T_TransformedProduct_ret]:
+    ) -> AsyncIterator[T_TransformedProduct_ret]:
         """[see superclass]"""
-        return [product async for product in self.aiter(input)]
+        # noinspection PyTypeChecker
+        return async_flatten(self.atransform(product) async for product in input)
 
     @abstractmethod
     def transform(
@@ -286,30 +253,6 @@ class SerialTransformer(
         """
         for tx in self.transform(source_product):
             yield tx
-
-    def iter(
-        self, source: Iterable[T_SourceProduct_arg]
-    ) -> Iterator[T_TransformedProduct_ret]:
-        """
-        Generate new products, using an existing producer as input.
-
-        :param source: an existing producer to use as input (optional)
-        :return: the new products
-        """
-        for product in source:
-            yield from self.transform(product)
-
-    def aiter(
-        self, source: AsyncIterable[T_SourceProduct_arg]
-    ) -> AsyncIterator[T_TransformedProduct_ret]:
-        """
-        Generate new products asynchronously, using an existing producer as input.
-
-        :param source: an existing producer to use as input (optional)
-        :return: the new products
-        """
-        # noinspection PyTypeChecker
-        return async_flatten(self.atransform(product) async for product in source)
 
     @overload
     def __rshift__(
@@ -405,3 +348,34 @@ class ConcurrentTransformer(
     """
     A collection of one or more transformers, operating in parallel.
     """
+
+    def process(
+        self, input: Iterable[T_SourceProduct_arg]
+    ) -> Iterator[T_TransformedProduct_ret]:
+        """
+        Transform the given products.
+
+        :param input: the products to transform
+        :return: the transformed products
+        """
+        from ...simple import SimpleProducer
+
+        return iter(
+            SimpleProducer[self.input_type](input) >> self  # type: ignore[name-defined]
+        )
+
+    def aprocess(
+        self, input: AsyncIterable[T_SourceProduct_arg]
+    ) -> AsyncIterator[T_TransformedProduct_ret]:
+        """
+        Transform the given products asynchronously.
+
+        :param input: the products to transform
+        :return: the transformed products
+        """
+        from ...simple import SimpleAsyncProducer
+
+        return aiter(
+            SimpleAsyncProducer[self.input_type](input)  # type: ignore[name-defined]
+            >> self
+        )

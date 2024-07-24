@@ -25,7 +25,14 @@ from __future__ import annotations
 
 import logging
 from abc import ABCMeta, abstractmethod
-from collections.abc import AsyncIterable, Collection, Iterable, Iterator
+from collections.abc import (
+    AsyncIterable,
+    AsyncIterator,
+    Awaitable,
+    Collection,
+    Iterable,
+    Iterator,
+)
 from typing import Any, Generic, TypeVar, cast, final
 
 from pytools.api import inheritdoc
@@ -92,7 +99,7 @@ class Processor(
     @abstractmethod
     def process(
         self, input: Iterable[T_SourceProduct_arg]
-    ) -> list[T_Output_ret] | T_Output_ret:
+    ) -> Iterator[T_Output_ret] | T_Output_ret:
         """
         Generate new products from the given input.
 
@@ -101,9 +108,9 @@ class Processor(
         """
 
     @abstractmethod
-    async def aprocess(
+    def aprocess(
         self, input: AsyncIterable[T_SourceProduct_arg]
-    ) -> list[T_Output_ret] | T_Output_ret:
+    ) -> AsyncIterator[T_Output_ret] | Awaitable[T_Output_ret]:
         """
         Generate new products asynchronously from the given input.
 
