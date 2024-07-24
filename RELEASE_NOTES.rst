@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-*fluxus 1.1*
+*fluxus* 1.1
 ------------
 
 *fluxus* 1.1.0
