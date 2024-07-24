@@ -22,7 +22,7 @@ from __future__ import annotations
 
 import logging
 from abc import ABCMeta, abstractmethod
-from collections.abc import AsyncIterator, Collection, Iterator, Mapping
+from collections.abc import Collection, Iterator, Mapping
 from typing import Any, Generic, TypeVar, final
 
 from typing_extensions import Self
@@ -133,25 +133,6 @@ class Conduit(HasExpressionRepr, Generic[T_Output_ret], metaclass=ABCMeta):
         The number of concurrent conduits in this conduit.
         """
 
-    @abstractmethod
-    def iter_concurrent_conduits(self) -> Iterator[SerialConduit[T_Output_ret]]:
-        """
-        Iterate over the concurrent conduits that make up this conduit.
-
-        :return: an iterator over the concurrent conduits
-        """
-
-    async def aiter_concurrent_conduits(
-        self,
-    ) -> AsyncIterator[SerialConduit[T_Output_ret]]:
-        """
-        Asynchronously iterate over the concurrent conduits that make up this conduit.
-
-        :return: an asynchronous iterator over the concurrent conduits
-        """
-        for conduit in self.iter_concurrent_conduits():
-            yield conduit
-
     def draw(self, style: str = "graph") -> None:
         """
         Draw the flow.
@@ -179,6 +160,17 @@ class Conduit(HasExpressionRepr, Generic[T_Output_ret], metaclass=ABCMeta):
 
         :param ingoing: the ingoing conduits, if any
         :return: an iterator yielding connections between conduits
+        """
+
+    @abstractmethod
+    def get_isolated_conduits(self) -> Iterator[SerialConduit[T_Output_ret]]:
+        """
+        Get an iterator yielding the isolated conduits in this conduit.
+
+        An isolated conduit is a conduit that is not connected to any other conduit in
+        the flow.
+
+        :return: an iterator yielding the isolated conduits
         """
 
     def _repr_svg_(self) -> str:  # pragma: no cover
@@ -279,25 +271,8 @@ class SerialConduit(Conduit[T_Product_ret], Generic[T_Product_ret], metaclass=AB
         """
         return 1
 
-    def iter_concurrent_conduits(self) -> Iterator[Self]:
-        """
-        Yields ``self``, since this is a serial conduit and is not made up of concurrent
-        conduits.
-
-        :return: an iterator with ``self`` as the only element
-        """
-        yield self
-
-    async def aiter_concurrent_conduits(self: Self) -> AsyncIterator[Self]:
-        """
-        Yields ``self``, since this is a serial conduit and is not made up of concurrent
-        conduits.
-
-        :return: an asynchronous iterator with ``self`` as the only element
-        """
-        yield self
-
     @property
+    @abstractmethod
     def chained_conduits(self) -> Iterator[SerialConduit[T_Product_ret]]:
         """
         An iterator yielding the chained conduits that make up this conduit, starting
@@ -305,7 +280,6 @@ class SerialConduit(Conduit[T_Product_ret], Generic[T_Product_ret], metaclass=AB
 
         For atomic conduit, yields the conduit itself.
         """
-        yield self.final_conduit
 
     def get_repr_attributes(self) -> Mapping[str, Any]:
         """
@@ -350,7 +324,17 @@ class AtomicConduit(
         """
         return self
 
+    @property
+    @final
+    def chained_conduits(self) -> Iterator[SerialConduit[T_Product_ret]]:
+        """[see superclass]"""
+        yield self.final_conduit
+
     @final
     def get_final_conduits(self) -> Iterator[Self]:
+        """[see superclass]"""
+        yield self
+
+    def get_isolated_conduits(self) -> Iterator[SerialConduit[T_Product_ret]]:
         """[see superclass]"""
         yield self

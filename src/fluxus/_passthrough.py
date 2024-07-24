@@ -70,6 +70,11 @@ class Passthrough(SerialConduit[Any], metaclass=SingletonABCMeta):
         """[see superclass]"""
         raise NotImplementedError("Final conduit is not defined for passthroughs")
 
+    @property
+    def chained_conduits(self) -> Never:
+        """[see superclass]"""
+        raise NotImplementedError("Chained conduits are not defined for passthroughs")
+
     def get_final_conduits(self) -> Iterator[Never]:
         """
         Returns an empty iterator since passthroughs do not define a final conduit.
@@ -91,6 +96,16 @@ class Passthrough(SerialConduit[Any], metaclass=SingletonABCMeta):
 
         :param ingoing: the ingoing conduits (ignored)
         :return: nothing; passthroughs do not define connections
-        :raises NotImplementedError: passthroughs do not define connections
+        :raises NotImplementedError: connections are not defined for passthroughs
         """
         raise NotImplementedError("Connections are not defined for passthroughs")
+
+    def get_isolated_conduits(self) -> Never:
+        """
+        Fails with a :class:`NotImplementedError` since passthroughs are transparent in
+        flows and therefore isolated conduits are not defined.
+
+        :return: nothing; passthroughs do not define isolated conduits
+        :raises NotImplementedError: isolated conduits are not defined for passthroughs
+        """
+        raise NotImplementedError("Isolated conduits are not defined for passthroughs")
