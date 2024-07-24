@@ -9,7 +9,7 @@ from typing import Any, cast
 
 import pytest
 
-from fluxus import AsyncConsumer, Consumer, Passthrough, Producer, Transformer
+from fluxus import AsyncConsumer, Consumer, Flow, Passthrough, Producer, Transformer
 from fluxus.core import Conduit
 from fluxus.core.producer import ConcurrentProducer
 from fluxus.core.transformer import BaseTransformer, ConcurrentTransformer
@@ -63,6 +63,23 @@ class IncrementingTransformer(NumberTransformer):
 
     def transform(self, source_product: int) -> Iterator[int]:
         yield source_product + 1
+
+
+class Counter(NumberTransformer):
+    """
+    Ignores the input and outputs a number that increments each time transform is
+    called.
+    """
+
+    counter: int
+
+    def __init__(self, start: int) -> None:
+        self.counter = start
+
+    def transform(self, source_product: int) -> Iterator[int]:
+        value = self.counter
+        self.counter += 1
+        yield value
 
 
 class StringConsumer(Consumer[str, str]):
@@ -129,7 +146,7 @@ def test_group_construction() -> None:
     assert isinstance(producer_group, ConcurrentProducer)
     assert producer_group.n_concurrent_conduits == 2
     producers = cast(
-        tuple[NumberProducer, ...], tuple(producer_group.iter_concurrent_conduits())
+        tuple[NumberProducer, ...], tuple(producer_group.iter_concurrent_producers())
     )
     assert len(producers) == 2
     assert all(isinstance(prod, NumberProducer) for prod in producers)
@@ -143,9 +160,17 @@ def test_group_construction() -> None:
     )
     assert isinstance(transformer_group, ConcurrentTransformer)
     assert transformer_group.n_concurrent_conduits == 2
-    transformers = tuple(transformer_group.iter_concurrent_conduits())
+    transformers = tuple(
+        transformer_group.iter_concurrent_producers(source=NumberProducer(0, 4))
+    )
     assert len(transformers) == 2
-    assert isinstance(transformers[0], DoublingTransformer)
+
+    # noinspection PyProtectedMember
+    from fluxus.core.transformer._simple import _BufferedProducer
+
+    assert tuple(
+        type(conduit).__name__ for conduit in transformers[0].chained_conduits
+    ) == (_BufferedProducer.__name__, DoublingTransformer.__name__)
 
 
 def test_producer_group_construction() -> None:
@@ -196,25 +221,25 @@ def test_chain_of_groups() -> None:
     )
 
     expected_result = [
-        [2, 2, 3, 4],
-        [12, 22],
-        [1, 1, 2, 3],
-        [11, 21],
-        [1, 1, 1, 1, 2, 3, 3, 5],
-        [11, 21, 21, 41],
         [0, 0, 0, 0, 1, 2, 2, 4],
-        [10, 20, 20, 40],
-        [2, 3],
-        [12],
-        [1, 2],
-        [11],
-        [1, 1, 2, 3],
-        [11, 21],
         [0, 0, 1, 2],
+        [1, 1, 1, 1, 2, 3, 3, 5],
+        [1, 1, 2, 3],
+        [1, 1, 2, 3],
+        [1, 2],
+        [2, 2, 3, 4],
+        [2, 3],
         [10, 20],
+        [10, 20, 20, 40],
+        [11],
+        [11, 21],
+        [11, 21],
+        [11, 21, 21, 41],
+        [12],
+        [12, 22],
     ]
-    assert flow.run() == expected_result
-    assert asyncio.run(flow.arun()) == expected_result
+    assert sorted(flow.run()) == expected_result
+    assert sorted(asyncio.run(flow.arun())) == expected_result
 
 
 def test_expression() -> None:
@@ -491,6 +516,37 @@ def test_flow_construction() -> None:
             >> NumberConsumer()
         ).to_expression()
     )
+
+
+@pytest.mark.asyncio
+async def test_shared_conduits() -> None:
+    # This test ensures that shared conduits are not called more than once
+
+    def make_flow() -> Flow[list[list[int]]]:
+        return (
+            NumberProducer(0, 1)
+            >> Counter(start=10)
+            >> (
+                (Counter(start=100) >> (DoublingTransformer() & Passthrough()))
+                & (DoublingTransformer() >> (DoublingTransformer() & Passthrough()))
+                & Passthrough()
+            )
+            >> NumberConsumer()
+        )
+
+    # The expected result is a list of lists, where each list contains the values
+    # produced by a single path through the flow. The test is designed to confirm
+    # that each counter is evaluated only once.
+    expected_result = [
+        [100, 200],
+        [100],
+        [10, 20, 20, 40],
+        [10, 20],
+        [10],
+    ]
+
+    assert make_flow().run() == expected_result
+    assert await make_flow().arun() == expected_result
 
 
 def test_large_flows() -> None:

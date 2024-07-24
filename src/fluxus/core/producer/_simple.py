@@ -24,12 +24,12 @@ import functools
 import itertools
 import logging
 import operator
-from collections.abc import AsyncIterator, Collection, Iterator
+from collections.abc import Collection, Iterator
 from typing import Any, Generic, TypeVar, cast
 
 from pytools.api import as_tuple, inheritdoc
-from pytools.asyncio import async_flatten, iter_sync_to_async
 from pytools.expression import Expression
+from pytools.typing import get_common_generic_base
 
 from ... import Passthrough
 from .. import SerialConduit
@@ -97,6 +97,16 @@ class SimpleConcurrentProducer(
         )
 
     @property
+    def product_type(self) -> type[T_SourceProduct_ret]:
+        """[see superclass]"""
+        return get_common_generic_base(source.product_type for source in self.producers)
+
+    @property
+    def is_chained(self) -> bool:
+        """[see superclass]"""
+        return any(producer.is_chained for producer in self.producers)
+
+    @property
     def n_concurrent_conduits(self) -> int:
         """[see superclass]"""
         return sum(producer.n_concurrent_conduits for producer in self.producers)
@@ -114,23 +124,17 @@ class SimpleConcurrentProducer(
         for producer in self.producers:
             yield from producer.get_connections(ingoing=ingoing)
 
-    def iter_concurrent_conduits(
+    def get_isolated_conduits(self) -> Iterator[SerialConduit[T_SourceProduct_ret]]:
+        """[see superclass]"""
+        for producer in self.producers:
+            yield from producer.get_isolated_conduits()
+
+    def iter_concurrent_producers(
         self,
     ) -> Iterator[SerialProducer[T_SourceProduct_ret]]:
         """[see superclass]"""
         for prod in self.producers:
-            yield from prod.iter_concurrent_conduits()
-
-    def aiter_concurrent_conduits(
-        self,
-    ) -> AsyncIterator[SerialProducer[T_SourceProduct_ret]]:
-        """[see superclass]"""
-
-        # noinspection PyTypeChecker
-        return async_flatten(
-            prod.aiter_concurrent_conduits()
-            async for prod in iter_sync_to_async(self.producers)
-        )
+            yield from prod.iter_concurrent_producers()
 
     def to_expression(self, *, compact: bool = False) -> Expression:
         """[see superclass]"""

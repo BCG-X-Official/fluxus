@@ -25,13 +25,18 @@ from __future__ import annotations
 
 import logging
 from abc import ABCMeta, abstractmethod
-from collections.abc import AsyncIterable, Collection, Iterable, Iterator
-from typing import Any, Generic, TypeVar, cast
-
-from typing_extensions import Self
+from collections.abc import (
+    AsyncIterable,
+    AsyncIterator,
+    Awaitable,
+    Collection,
+    Iterable,
+    Iterator,
+)
+from typing import Any, Generic, TypeVar, cast, final
 
 from pytools.api import inheritdoc
-from pytools.typing import get_common_generic_base, issubclass_generic
+from pytools.typing import issubclass_generic
 
 from ._conduit import Conduit, SerialConduit
 
@@ -65,17 +70,11 @@ class Source(Conduit[T_Product_ret], Generic[T_Product_ret], metaclass=ABCMeta):
     """
 
     @property
+    @abstractmethod
     def product_type(self) -> type[T_Product_ret]:
         """
         The type of the products produced by this conduit.
         """
-        from .. import Passthrough
-
-        return get_common_generic_base(
-            cast(SerialSource[T_Product_ret], source).product_type
-            for source in self.iter_concurrent_conduits()
-            if not isinstance(source, Passthrough)
-        )
 
 
 class Processor(
@@ -100,7 +99,7 @@ class Processor(
     @abstractmethod
     def process(
         self, input: Iterable[T_SourceProduct_arg]
-    ) -> list[T_Output_ret] | T_Output_ret:
+    ) -> Iterator[T_Output_ret] | T_Output_ret:
         """
         Generate new products from the given input.
 
@@ -109,9 +108,9 @@ class Processor(
         """
 
     @abstractmethod
-    async def aprocess(
+    def aprocess(
         self, input: AsyncIterable[T_SourceProduct_arg]
-    ) -> list[T_Output_ret] | T_Output_ret:
+    ) -> AsyncIterator[T_Output_ret] | Awaitable[T_Output_ret]:
         """
         Generate new products asynchronously from the given input.
 
@@ -119,6 +118,7 @@ class Processor(
         :return: the generated output or outputs
         """
 
+    @abstractmethod
     def is_valid_source(
         self,
         source: SerialConduit[T_SourceProduct_arg],
@@ -133,20 +133,6 @@ class Processor(
         :return: ``True`` if the given conduit is valid source for this conduit,
             ``False`` otherwise
         """
-        from .. import Passthrough
-
-        if not isinstance(source, SerialSource):
-            return False
-
-        ingoing_product_type = source.product_type
-        return all(
-            issubclass_generic(
-                ingoing_product_type,
-                cast(Self, processor).input_type,
-            )
-            for processor in self.iter_concurrent_conduits()
-            if not isinstance(processor, Passthrough)
-        )
 
 
 class SerialSource(
@@ -177,6 +163,17 @@ class SerialProcessor(
     """
     A processor that processes products sequentially.
     """
+
+    @final
+    def is_valid_source(
+        self,
+        source: SerialConduit[T_SourceProduct_arg],
+    ) -> bool:
+        """[see superclass]"""
+        if not isinstance(source, SerialSource):
+            return False
+
+        return issubclass_generic(source.product_type, self.input_type)
 
     def get_connections(
         self, *, ingoing: Collection[SerialConduit[Any]]

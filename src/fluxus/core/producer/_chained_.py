@@ -21,11 +21,11 @@ Implementation of composition classes.
 from __future__ import annotations
 
 import logging
-from collections.abc import AsyncIterator, Iterator
+from collections.abc import AsyncIterator
 from typing import Generic, TypeVar, final
 
 from pytools.api import inheritdoc
-from pytools.asyncio import aenumerate, async_flatten
+from pytools.asyncio import async_flatten, iter_sync_to_async
 
 from ..._consumer import Consumer
 from ..._flow import Flow
@@ -99,14 +99,14 @@ class _ProducerFlow(
         return self._consumer
 
     @property
-    def _source(self) -> SerialProducer[T_SourceProduct_ret]:
+    def source(self) -> SerialProducer[T_SourceProduct_ret]:
         """
         The source producer.
         """
         return self._producer
 
     @property
-    def _processor(self) -> Consumer[T_SourceProduct_ret, T_Output_ret]:
+    def processor(self) -> Consumer[T_SourceProduct_ret, T_Output_ret]:
         """
         The final processor of this flow.
         """
@@ -156,9 +156,9 @@ class _ProducerGroupFlow(
         """
         super().__init__()
         invalid_producers = {
-            type(producer.final_conduit).__name__
-            for producer in producer.iter_concurrent_conduits()
-            if not consumer.is_valid_source(producer.final_conduit)
+            type(final_conduit).__name__
+            for final_conduit in producer.get_final_conduits()
+            if not consumer.is_valid_source(final_conduit)
         }
         if invalid_producers:
             raise TypeError(
@@ -181,12 +181,12 @@ class _ProducerGroupFlow(
         return self._consumer
 
     @property
-    def _source(self) -> BaseProducer[T_SourceProduct_ret]:
+    def source(self) -> BaseProducer[T_SourceProduct_ret]:
         """[see superclass]"""
         return self._producer
 
     @property
-    def _processor(self) -> Consumer[T_SourceProduct_ret, T_Output_ret]:
+    def processor(self) -> Consumer[T_SourceProduct_ret, T_Output_ret]:
         """[see superclass]"""
         return self._consumer
 
@@ -194,20 +194,6 @@ class _ProducerGroupFlow(
     def n_concurrent_conduits(self) -> int:
         """[see superclass]"""
         return self._producer.n_concurrent_conduits
-
-    def iter_concurrent_conduits(
-        self,
-    ) -> Iterator[_ProducerFlow[T_SourceProduct_ret, T_Output_ret]]:
-        """[see superclass]"""
-        for producer in self._producer.iter_concurrent_conduits():
-            yield _ProducerFlow(producer=producer, consumer=self._consumer)
-
-    async def aiter_concurrent_conduits(
-        self,
-    ) -> AsyncIterator[_ProducerFlow[T_SourceProduct_ret, T_Output_ret]]:
-        """[see superclass]"""
-        async for producer in self._producer.aiter_concurrent_conduits():
-            yield _ProducerFlow(producer=producer, consumer=self._consumer)
 
     @final
     def run(self) -> T_Output_ret:
@@ -242,7 +228,7 @@ def _consume(
     """
     return consumer.consume(
         (index, product)
-        for index, producer in enumerate(producer.iter_concurrent_conduits())
+        for index, producer in enumerate(producer.iter_concurrent_producers())
         for product in producer
     )
 
@@ -275,7 +261,7 @@ async def _aconsume(
         async_flatten(
             _annotate(producer_index, producer)
             async for producer_index, producer in (
-                aenumerate(producer.aiter_concurrent_conduits())
+                iter_sync_to_async(enumerate(producer.iter_concurrent_producers()))
             )
         )
     )

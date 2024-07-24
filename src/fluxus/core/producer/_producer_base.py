@@ -26,7 +26,7 @@ from collections.abc import AsyncIterator, Iterator
 from typing import Generic, TypeVar, cast, final
 
 from pytools.api import inheritdoc
-from pytools.asyncio import async_flatten
+from pytools.asyncio import async_flatten, iter_sync_to_async
 from pytools.typing import get_common_generic_base
 
 from ..._consumer import Consumer
@@ -57,7 +57,6 @@ T_Output_ret = TypeVar("T_Output_ret", covariant=True)
 #
 
 
-@inheritdoc(match="[see superclass]")
 class BaseProducer(Source[T_Product_ret], Generic[T_Product_ret], metaclass=ABCMeta):
     """
     A source that generates products from scratch – this is either a
@@ -81,12 +80,13 @@ class BaseProducer(Source[T_Product_ret], Generic[T_Product_ret], metaclass=ABCM
         """
 
     @abstractmethod
-    def iter_concurrent_conduits(self) -> Iterator[SerialProducer[T_Product_ret]]:
-        """[see superclass]"""
+    def iter_concurrent_producers(self) -> Iterator[SerialProducer[T_Product_ret]]:
+        """
+        Iterate over the concurrent producers that make up this (potentially)
+        composite producer.
 
-    @abstractmethod
-    def aiter_concurrent_conduits(self) -> AsyncIterator[SerialProducer[T_Product_ret]]:
-        """[see superclass]"""
+        :return: an iterator over the concurrent producers
+        """
 
     @final
     def __iter__(self) -> Iterator[T_Product_ret]:
@@ -107,7 +107,7 @@ class BaseProducer(Source[T_Product_ret], Generic[T_Product_ret], metaclass=ABCM
             # indicate the type for static type checks
             return cast(
                 ConcurrentProducer[T_Product_ret],
-                SimpleConcurrentProducer[  # type: ignore[misc]
+                SimpleConcurrentProducer[  # type: ignore[misc, operator]
                     get_common_generic_base((self.product_type, other.product_type))
                 ](self, other),
             )
@@ -141,13 +141,7 @@ class SerialProducer(
     It can run synchronously or asynchronously.
     """
 
-    def iter_concurrent_conduits(self) -> Iterator[SerialProducer[T_Product_ret]]:
-        """[see superclass]"""
-        yield self
-
-    async def aiter_concurrent_conduits(
-        self,
-    ) -> AsyncIterator[SerialProducer[T_Product_ret]]:
+    def iter_concurrent_producers(self) -> Iterator[SerialProducer[T_Product_ret]]:
         """[see superclass]"""
         yield self
 
@@ -191,7 +185,7 @@ class ConcurrentProducer(
 
         :return: an iterator of the new products
         """
-        for producer in self.iter_concurrent_conduits():
+        for producer in self.iter_concurrent_producers():
             yield from producer
 
     def aproduce(self) -> AsyncIterator[T_Product_ret]:
@@ -200,10 +194,8 @@ class ConcurrentProducer(
 
         :return: an async iterator of the new products
         """
-        # create tasks for each producer - these need to be coroutines that materialize
-        # the producers
-
         # noinspection PyTypeChecker
         return async_flatten(
-            producer.aproduce() async for producer in self.aiter_concurrent_conduits()
+            producer.aproduce()
+            async for producer in iter_sync_to_async(self.iter_concurrent_producers())
         )
