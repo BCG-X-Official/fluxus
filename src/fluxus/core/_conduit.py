@@ -22,7 +22,7 @@ from __future__ import annotations
 
 import logging
 from abc import ABCMeta, abstractmethod
-from collections.abc import AsyncIterator, Collection, Iterator, Mapping
+from collections.abc import Collection, Iterator, Mapping
 from typing import Any, Generic, TypeVar, final
 
 from typing_extensions import Self
@@ -270,24 +270,6 @@ class SerialConduit(Conduit[T_Product_ret], Generic[T_Product_ret], metaclass=AB
         conduit is not made up of concurrent conduits.
         """
         return 1
-
-    def iter_concurrent_conduits(self) -> Iterator[Self]:
-        """
-        Yields ``self``, since this is a serial conduit and is not made up of concurrent
-        conduits.
-
-        :return: an iterator with ``self`` as the only element
-        """
-        yield self
-
-    async def aiter_concurrent_conduits(self: Self) -> AsyncIterator[Self]:
-        """
-        Yields ``self``, since this is a serial conduit and is not made up of concurrent
-        conduits.
-
-        :return: an asynchronous iterator with ``self`` as the only element
-        """
-        yield self
 
     @property
     @abstractmethod
