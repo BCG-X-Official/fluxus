@@ -1,0 +1,31 @@
+fluxus.viz.base.FlowStyle
+=========================
+
+.. currentmodule:: fluxus.viz.base
+
+.. autoclass:: FlowStyle
+   :members:
+   :no-show-inheritance:
+   :inherited-members:
+   :special-members: __call__
+
+   
+   
+   .. rubric:: Method summary
+
+   .. autosummary::
+      :nosignatures:
+   
+      ~FlowStyle.finalize_drawing
+      ~FlowStyle.get_default_style_name
+      ~FlowStyle.get_named_styles
+      ~FlowStyle.render_flow
+      ~FlowStyle.start_drawing
+   
+   
+
+   
+   
+   
+
+   .. rubric:: Definitions

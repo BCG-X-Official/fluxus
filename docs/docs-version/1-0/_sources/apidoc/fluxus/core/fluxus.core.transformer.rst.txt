@@ -1,0 +1,46 @@
+fluxus.core.transformer
+=======================
+
+.. toctree::
+   :maxdepth: 1
+   :hidden:
+
+   self
+   
+.. automodule:: fluxus.core.transformer
+   :no-imported-members:
+
+   
+
+   
+   
+   =======
+   Classes
+   =======
+
+   .. autosummary::
+      :toctree: transformer
+      :template: custom-class-template.rst
+      :nosignatures:
+   
+      BaseTransformer
+      ConcurrentTransformer
+      SerialTransformer
+      SimpleConcurrentTransformer
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

@@ -1,0 +1,6 @@
+fluxus.functional.passthrough
+=============================
+
+.. currentmodule:: fluxus.functional
+
+.. autofunction:: passthrough

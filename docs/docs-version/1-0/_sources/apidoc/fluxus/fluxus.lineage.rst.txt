@@ -1,0 +1,46 @@
+fluxus.lineage
+==============
+
+.. toctree::
+   :maxdepth: 1
+   :hidden:
+
+   self
+   
+.. automodule:: fluxus.lineage
+   :no-imported-members:
+
+   
+
+   
+   
+   =======
+   Classes
+   =======
+
+   .. autosummary::
+      :toctree: lineage
+      :template: custom-class-template.rst
+      :nosignatures:
+   
+      HasLineage
+      LabelingProducer
+      LabelingTransformer
+      LineageOrigin
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

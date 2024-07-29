@@ -1,0 +1,6 @@
+fluxus.FlowWarning
+==================
+
+.. currentmodule:: fluxus
+
+.. autoexception:: FlowWarning

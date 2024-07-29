@@ -1,0 +1,35 @@
+fluxus.viz.FlowGraph
+====================
+
+.. currentmodule:: fluxus.viz
+
+.. autoclass:: FlowGraph
+   :members:
+   :no-show-inheritance:
+   :inherited-members:
+   :special-members: __call__
+
+   
+   
+   .. rubric:: Method summary
+
+   .. autosummary::
+      :nosignatures:
+   
+      ~FlowGraph.from_conduit
+      ~FlowGraph.to_dot
+   
+   
+
+   
+   
+   .. rubric:: Attribute summary
+
+   .. autosummary::
+   
+      ~FlowGraph.single_conduits
+      ~FlowGraph.connections
+   
+   
+
+   .. rubric:: Definitions

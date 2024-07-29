@@ -1,0 +1,6 @@
+fluxus.functional.chain
+=======================
+
+.. currentmodule:: fluxus.functional
+
+.. autofunction:: chain

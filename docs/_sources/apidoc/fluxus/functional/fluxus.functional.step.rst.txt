@@ -1,0 +1,6 @@
+fluxus.functional.step
+======================
+
+.. currentmodule:: fluxus.functional
+
+.. autofunction:: step

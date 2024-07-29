@@ -1,0 +1,44 @@
+fluxus.simple
+=============
+
+.. toctree::
+   :maxdepth: 1
+   :hidden:
+
+   self
+   
+.. automodule:: fluxus.simple
+   :no-imported-members:
+
+   
+
+   
+   
+   =======
+   Classes
+   =======
+
+   .. autosummary::
+      :toctree: simple
+      :template: custom-class-template.rst
+      :nosignatures:
+   
+      SimpleAsyncProducer
+      SimpleProducer
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

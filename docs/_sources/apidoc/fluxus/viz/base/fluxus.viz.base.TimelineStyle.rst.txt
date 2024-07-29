@@ -1,0 +1,31 @@
+fluxus.viz.base.TimelineStyle
+=============================
+
+.. currentmodule:: fluxus.viz.base
+
+.. autoclass:: TimelineStyle
+   :members:
+   :no-show-inheritance:
+   :inherited-members:
+   :special-members: __call__
+
+   
+   
+   .. rubric:: Method summary
+
+   .. autosummary::
+      :nosignatures:
+   
+      ~TimelineStyle.finalize_drawing
+      ~TimelineStyle.get_default_style_name
+      ~TimelineStyle.get_named_styles
+      ~TimelineStyle.render_timeline
+      ~TimelineStyle.start_drawing
+   
+   
+
+   
+   
+   
+
+   .. rubric:: Definitions

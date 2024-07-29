@@ -1,0 +1,38 @@
+fluxus.viz.FlowDrawer
+=====================
+
+.. currentmodule:: fluxus.viz
+
+.. autoclass:: FlowDrawer
+   :members:
+   :no-show-inheritance:
+   :inherited-members:
+   :special-members: __call__
+
+   
+   
+   .. rubric:: Method summary
+
+   .. autosummary::
+      :nosignatures:
+   
+      ~FlowDrawer.draw
+      ~FlowDrawer.get_default_style
+      ~FlowDrawer.get_named_styles
+      ~FlowDrawer.get_style
+      ~FlowDrawer.get_style_classes
+      ~FlowDrawer.get_style_kwargs
+   
+   
+
+   
+   
+   .. rubric:: Attribute summary
+
+   .. autosummary::
+   
+      ~FlowDrawer.style
+   
+   
+
+   .. rubric:: Definitions

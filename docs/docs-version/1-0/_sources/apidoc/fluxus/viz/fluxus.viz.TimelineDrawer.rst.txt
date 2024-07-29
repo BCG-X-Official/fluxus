@@ -1,0 +1,38 @@
+fluxus.viz.TimelineDrawer
+=========================
+
+.. currentmodule:: fluxus.viz
+
+.. autoclass:: TimelineDrawer
+   :members:
+   :no-show-inheritance:
+   :inherited-members:
+   :special-members: __call__
+
+   
+   
+   .. rubric:: Method summary
+
+   .. autosummary::
+      :nosignatures:
+   
+      ~TimelineDrawer.draw
+      ~TimelineDrawer.get_default_style
+      ~TimelineDrawer.get_named_styles
+      ~TimelineDrawer.get_style
+      ~TimelineDrawer.get_style_classes
+      ~TimelineDrawer.get_style_kwargs
+   
+   
+
+   
+   
+   .. rubric:: Attribute summary
+
+   .. autosummary::
+   
+      ~TimelineDrawer.style
+   
+   
+
+   .. rubric:: Definitions

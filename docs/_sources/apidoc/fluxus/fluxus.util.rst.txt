@@ -1,0 +1,42 @@
+fluxus.util
+===========
+
+.. toctree::
+   :maxdepth: 1
+   :hidden:
+
+   self
+   
+.. automodule:: fluxus.util
+   :no-imported-members:
+
+   
+
+   
+   
+   
+
+   
+   
+   =========
+   Functions
+   =========
+
+   .. autosummary::
+      :toctree: util
+      :nosignatures:
+   
+      simplify_repr_attributes
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

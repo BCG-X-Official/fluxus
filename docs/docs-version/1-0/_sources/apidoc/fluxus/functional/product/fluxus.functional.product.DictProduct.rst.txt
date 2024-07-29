@@ -1,0 +1,51 @@
+fluxus.functional.product.DictProduct
+=====================================
+
+.. currentmodule:: fluxus.functional.product
+
+.. autoclass:: DictProduct
+   :members:
+   :no-show-inheritance:
+   :inherited-members:
+   :special-members: __call__
+
+   
+   
+   .. rubric:: Method summary
+
+   .. autosummary::
+      :nosignatures:
+   
+      ~DictProduct.from_dict
+      ~DictProduct.get
+      ~DictProduct.get_lineage
+      ~DictProduct.get_lineage_attributes
+      ~DictProduct.items
+      ~DictProduct.keys
+      ~DictProduct.label
+      ~DictProduct.to_dict
+      ~DictProduct.to_expression
+      ~DictProduct.values
+   
+   
+
+   
+   
+   .. rubric:: Attribute summary
+
+   .. autosummary::
+   
+      ~DictProduct.KEY_END_TIME
+      ~DictProduct.KEY_START_TIME
+      ~DictProduct.precursor
+      ~DictProduct.product_attributes
+      ~DictProduct.product_labels
+      ~DictProduct.product_name
+      ~DictProduct.name
+      ~DictProduct.attributes
+      ~DictProduct.start_time
+      ~DictProduct.end_time
+   
+   
+
+   .. rubric:: Definitions

@@ -1,0 +1,46 @@
+fluxus.core.producer
+====================
+
+.. toctree::
+   :maxdepth: 1
+   :hidden:
+
+   self
+   
+.. automodule:: fluxus.core.producer
+   :no-imported-members:
+
+   
+
+   
+   
+   =======
+   Classes
+   =======
+
+   .. autosummary::
+      :toctree: producer
+      :template: custom-class-template.rst
+      :nosignatures:
+   
+      BaseProducer
+      ConcurrentProducer
+      SerialProducer
+      SimpleConcurrentProducer
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

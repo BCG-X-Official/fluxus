@@ -1,0 +1,41 @@
+fluxus.viz.TimelineTextStyle
+============================
+
+.. currentmodule:: fluxus.viz
+
+.. autoclass:: TimelineTextStyle
+   :members:
+   :no-show-inheritance:
+   :inherited-members:
+   :special-members: __call__
+
+   
+   
+   .. rubric:: Method summary
+
+   .. autosummary::
+      :nosignatures:
+   
+      ~TimelineTextStyle.finalize_drawing
+      ~TimelineTextStyle.get_default_style_name
+      ~TimelineTextStyle.get_named_styles
+      ~TimelineTextStyle.render_timeline
+      ~TimelineTextStyle.start_drawing
+   
+   
+
+   
+   
+   .. rubric:: Attribute summary
+
+   .. autosummary::
+   
+      ~TimelineTextStyle.COLUMN_ALIGNMENT
+      ~TimelineTextStyle.COLUMN_FORMATS
+      ~TimelineTextStyle.TABLE_HEADER
+      ~TimelineTextStyle.out
+      ~TimelineTextStyle.width
+   
+   
+
+   .. rubric:: Definitions
