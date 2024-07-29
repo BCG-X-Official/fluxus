@@ -65,7 +65,6 @@ T_TransformedProduct_ret = TypeVar("T_TransformedProduct_ret", covariant=True)
 #
 
 
-@inheritdoc(match="[see superclass]")
 class BaseTransformer(
     Processor[T_SourceProduct_arg, T_TransformedProduct_ret],
     Source[T_TransformedProduct_ret],
@@ -78,58 +77,16 @@ class BaseTransformer(
     """
 
     @abstractmethod
-    def iter_concurrent_conduits(
-        self,
-    ) -> Iterator[
-        SerialTransformer[T_SourceProduct_arg, T_TransformedProduct_ret] | Passthrough
-    ]:
-        """[see superclass]"""
-
-    @abstractmethod
-    def aiter_concurrent_conduits(
-        self,
-    ) -> AsyncIterator[
-        SerialTransformer[T_SourceProduct_arg, T_TransformedProduct_ret] | Passthrough
-    ]:
-        """[see superclass]"""
-
-    @final
-    def process(
-        self, input: Iterable[T_SourceProduct_arg]
-    ) -> list[T_TransformedProduct_ret]:
+    def iter_concurrent_producers(
+        self, *, source: SerialProducer[T_SourceProduct_arg]
+    ) -> Iterator[SerialProducer[T_TransformedProduct_ret]]:
         """
-        Transform the given products.
+        Generate serial producers which, run concurrently, will produce all transformed
+        products.
 
-        :param input: the products to transform
-        :return: the transformed products
+        :param source: the source producer whose products to transform
+        :return: the concurrent producers for all concurrent paths of this transformer
         """
-        from ...simple import SimpleProducer
-
-        return list(
-            SimpleProducer[self.input_type](input) >> self  # type: ignore[name-defined]
-        )
-
-    @final
-    async def aprocess(
-        self, input: AsyncIterable[T_SourceProduct_arg]
-    ) -> list[T_TransformedProduct_ret]:
-        """
-        Transform the given products asynchronously.
-
-        :param input: the products to transform
-        :return: the transformed products
-        """
-        from ...simple import SimpleAsyncProducer
-
-        return [
-            product
-            async for product in (
-                SimpleAsyncProducer[self.input_type](  # type: ignore[name-defined]
-                    input
-                )
-                >> self
-            )
-        ]
 
     def __and__(
         self,
@@ -141,8 +98,7 @@ class BaseTransformer(
         product_type: type[T_TransformedProduct_ret]
 
         if isinstance(other, Passthrough):
-            for transformer in self.iter_concurrent_conduits():
-                _validate_concurrent_passthrough(transformer)
+            _validate_concurrent_passthrough(self)
             input_type = self.input_type
             product_type = self.product_type
         elif not isinstance(other, BaseTransformer):
@@ -164,8 +120,7 @@ class BaseTransformer(
         self, other: Passthrough
     ) -> BaseTransformer[T_SourceProduct_arg, T_TransformedProduct_ret]:
         if isinstance(other, Passthrough):
-            for transformer in self.iter_concurrent_conduits():
-                _validate_concurrent_passthrough(transformer)
+            _validate_concurrent_passthrough(self)
 
             from . import SimpleConcurrentTransformer
 
@@ -232,9 +187,7 @@ class BaseTransformer(
             from ._chained_ import _ChainedConcurrentTransformedProducer
 
             # noinspection PyTypeChecker
-            return _ChainedConcurrentTransformedProducer(
-                source=other, transformer_group=self
-            )
+            return _ChainedConcurrentTransformedProducer(source=other, transformer=self)
         elif isinstance(other, BaseProducer):
             from ._chained_ import _ChainedConcurrentProducer
 
@@ -249,26 +202,32 @@ class SerialTransformer(
     SerialSource[T_TransformedProduct_ret],
     BaseTransformer[T_SourceProduct_arg, T_TransformedProduct_ret],
     Generic[T_SourceProduct_arg, T_TransformedProduct_ret],
+    metaclass=ABCMeta,
 ):
     """
     A transformer that generates new products from the products of a producer.
     """
 
     @final
-    def iter_concurrent_conduits(
-        self,
-    ) -> Iterator[SerialTransformer[T_SourceProduct_arg, T_TransformedProduct_ret]]:
+    def iter_concurrent_producers(
+        self, *, source: SerialProducer[T_SourceProduct_arg]
+    ) -> Iterator[SerialProducer[T_TransformedProduct_ret]]:
         """[see superclass]"""
-        yield self
+        yield source >> self
 
-    @final
-    async def aiter_concurrent_conduits(
-        self,
-    ) -> AsyncIterator[
-        SerialTransformer[T_SourceProduct_arg, T_TransformedProduct_ret]
-    ]:
+    def process(
+        self, input: Iterable[T_SourceProduct_arg]
+    ) -> Iterator[T_TransformedProduct_ret]:
         """[see superclass]"""
-        yield self
+        for product in input:
+            yield from self.transform(product)
+
+    def aprocess(
+        self, input: AsyncIterable[T_SourceProduct_arg]
+    ) -> AsyncIterator[T_TransformedProduct_ret]:
+        """[see superclass]"""
+        # noinspection PyTypeChecker
+        return async_flatten(self.atransform(product) async for product in input)
 
     @abstractmethod
     def transform(
@@ -294,30 +253,6 @@ class SerialTransformer(
         """
         for tx in self.transform(source_product):
             yield tx
-
-    def iter(
-        self, source: Iterable[T_SourceProduct_arg]
-    ) -> Iterator[T_TransformedProduct_ret]:
-        """
-        Generate new products, using an existing producer as input.
-
-        :param source: an existing producer to use as input (optional)
-        :return: the new products
-        """
-        for product in source:
-            yield from self.transform(product)
-
-    def aiter(
-        self, source: AsyncIterable[T_SourceProduct_arg]
-    ) -> AsyncIterator[T_TransformedProduct_ret]:
-        """
-        Generate new products asynchronously, using an existing producer as input.
-
-        :param source: an existing producer to use as input (optional)
-        :return: the new products
-        """
-        # noinspection PyTypeChecker
-        return async_flatten(self.atransform(product) async for product in source)
 
     @overload
     def __rshift__(
@@ -383,7 +318,7 @@ class SerialTransformer(
 
 
 def _validate_concurrent_passthrough(
-    conduit: SerialTransformer[Any, Any] | Passthrough
+    conduit: BaseTransformer[Any, Any] | Passthrough
 ) -> None:
     """
     Validate that the given conduit is valid as a concurrent conduit with a passthrough.
@@ -404,7 +339,6 @@ def _validate_concurrent_passthrough(
         )
 
 
-@inheritdoc(match="[see superclass]")
 class ConcurrentTransformer(
     BaseTransformer[T_SourceProduct_arg, T_TransformedProduct_ret],
     ConcurrentConduit[T_TransformedProduct_ret],
@@ -415,11 +349,33 @@ class ConcurrentTransformer(
     A collection of one or more transformers, operating in parallel.
     """
 
-    @property
-    def input_type(self) -> type[T_SourceProduct_arg]:
-        """[see superclass]"""
-        return get_common_generic_subclass(
-            transformer.input_type
-            for transformer in self.iter_concurrent_conduits()
-            if not isinstance(transformer, Passthrough)
+    def process(
+        self, input: Iterable[T_SourceProduct_arg]
+    ) -> Iterator[T_TransformedProduct_ret]:
+        """
+        Transform the given products.
+
+        :param input: the products to transform
+        :return: the transformed products
+        """
+        from ...simple import SimpleProducer
+
+        return iter(
+            SimpleProducer[self.input_type](input) >> self  # type: ignore[name-defined]
+        )
+
+    def aprocess(
+        self, input: AsyncIterable[T_SourceProduct_arg]
+    ) -> AsyncIterator[T_TransformedProduct_ret]:
+        """
+        Transform the given products asynchronously.
+
+        :param input: the products to transform
+        :return: the transformed products
+        """
+        from ...simple import SimpleAsyncProducer
+
+        return aiter(
+            SimpleAsyncProducer[self.input_type](input)  # type: ignore[name-defined]
+            >> self
         )

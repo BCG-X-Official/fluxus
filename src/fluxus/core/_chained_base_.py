@@ -68,26 +68,26 @@ class _ChainedConduit(
 
     @property
     @abstractmethod
-    def _source(self) -> Source[T_SourceProduct_ret]:
+    def source(self) -> Source[T_SourceProduct_ret]:
         """
         The source producer of this conduit.
         """
 
     @property
     @abstractmethod
-    def _processor(self) -> Processor[T_SourceProduct_ret, T_Output_ret]:
+    def processor(self) -> Processor[T_SourceProduct_ret, T_Output_ret]:
         """
         The second conduit in this chained conduit, processing the output of the
-        :attr:`._source` conduit.
+        :attr:`.source` conduit.
         """
 
     def get_final_conduits(self) -> Iterator[SerialConduit[T_Output_ret]]:
         """[see superclass]"""
-        if self._processor._has_passthrough:
+        if self.processor._has_passthrough:
             yield from cast(
-                Iterator[SerialConduit[T_Output_ret]], self._source.get_final_conduits()
+                Iterator[SerialConduit[T_Output_ret]], self.source.get_final_conduits()
             )
-        yield from self._processor.get_final_conduits()
+        yield from self.processor.get_final_conduits()
 
     def get_connections(
         self, *, ingoing: Collection[SerialConduit[Any]]
@@ -97,8 +97,8 @@ class _ChainedConduit(
 
         :return: an iterable of connections
         """
-        source = self._source
-        processor = self._processor
+        source = self.source
+        processor = self.processor
 
         # We first yield all connections from within the source
         yield from source.get_connections(ingoing=ingoing)
@@ -113,11 +113,16 @@ class _ChainedConduit(
         # Then we get all connections of the processor, including ingoing connections
         yield from processor.get_connections(ingoing=processor_ingoing)
 
+    def get_isolated_conduits(self) -> Iterator[SerialConduit[T_Output_ret]]:
+        """[see superclass]"""
+        # Chained conduits are never isolated
+        yield from ()
+
     def to_expression(self, *, compact: bool = False) -> Expression:
         """[see superclass]"""
-        return self._source.to_expression(
+        return self.source.to_expression(
             compact=compact
-        ) >> self._processor.to_expression(compact=compact)
+        ) >> self.processor.to_expression(compact=compact)
 
 
 class _SerialChainedConduit(
@@ -132,7 +137,7 @@ class _SerialChainedConduit(
 
     @property
     @abstractmethod
-    def _source(self) -> SerialSource[T_SourceProduct_ret]:
+    def source(self) -> SerialSource[T_SourceProduct_ret]:
         """[see superclass]"""
 
     @property
@@ -140,5 +145,5 @@ class _SerialChainedConduit(
         """
         The chained conduits in the flow leading up to this conduit.
         """
-        yield from self._source.chained_conduits
+        yield from self.source.chained_conduits
         yield self.final_conduit

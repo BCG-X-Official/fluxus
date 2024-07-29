@@ -20,19 +20,16 @@ Implementation of composition classes.
 
 from __future__ import annotations
 
-import asyncio
 import logging
-from abc import ABCMeta
-from collections.abc import AsyncIterable, AsyncIterator, Collection, Iterator
-from typing import Any, Generic, Literal, TypeVar, cast
+from collections.abc import AsyncIterator, Iterator
+from typing import Generic, TypeVar, final
 
 from pytools.api import inheritdoc
 from pytools.asyncio import async_flatten
 
-from ..._passthrough import Passthrough
 from .._base import Processor, Source
 from .._chained_base_ import _ChainedConduit, _SerialChainedConduit
-from .._conduit import AtomicConduit, SerialConduit
+from .._conduit import SerialConduit
 from ..producer import BaseProducer, ConcurrentProducer, SerialProducer
 from ._transformer_base import BaseTransformer, ConcurrentTransformer, SerialTransformer
 
@@ -46,7 +43,6 @@ log = logging.getLogger(__name__)
 # _ret for covariant type variables used in return positions
 # _arg for contravariant type variables used in argument positions
 
-T_Output_ret = TypeVar("T_Output_ret", covariant=True)
 T_Product_ret = TypeVar("T_Product_ret", covariant=True)
 T_TransformedProduct_ret = TypeVar("T_TransformedProduct_ret", covariant=True)
 T_SourceProduct_ret = TypeVar("T_SourceProduct_ret", covariant=True)
@@ -108,12 +104,12 @@ class _ChainedProducer(
         return self.transformer.product_type
 
     @property
-    def _source(self) -> SerialProducer[T_SourceProduct_ret]:
+    def source(self) -> SerialProducer[T_SourceProduct_ret]:
         """[see superclass]"""
         return self._producer
 
     @property
-    def _processor(
+    def processor(
         self,
     ) -> SerialTransformer[T_SourceProduct_ret, T_TransformedProduct_ret]:
         """[see superclass]"""
@@ -121,11 +117,12 @@ class _ChainedProducer(
 
     def produce(self) -> Iterator[T_TransformedProduct_ret]:
         """[see superclass]"""
-        return self.transformer.iter(self._producer)
+        return self.transformer.process(input=self._producer)
 
     def aproduce(self) -> AsyncIterator[T_TransformedProduct_ret]:
         """[see superclass]"""
-        return self.transformer.aiter(self._producer)
+        # noinspection PyTypeChecker
+        return self.transformer.aprocess(input=self._producer)
 
 
 @inheritdoc(match="[see superclass]")
@@ -169,12 +166,12 @@ class _ChainedTransformer(
         return self.second.product_type
 
     @property
-    def _source(self) -> SerialTransformer[T_SourceProduct_arg, T_SourceProduct_ret]:
+    def source(self) -> SerialTransformer[T_SourceProduct_arg, T_SourceProduct_ret]:
         """[see superclass]"""
         return self.first
 
     @property
-    def _processor(
+    def processor(
         self,
     ) -> SerialTransformer[T_SourceProduct_ret, T_TransformedProduct_ret]:
         """[see superclass]"""
@@ -231,12 +228,18 @@ class _ChainedConcurrentProducer(
         self.transformer = transformer
 
     @property
-    def _source(self) -> BaseProducer[T_SourceProduct_ret]:
+    @final
+    def product_type(self) -> type[T_TransformedProduct_ret]:
+        """[see superclass]"""
+        return self.transformer.product_type
+
+    @property
+    def source(self) -> BaseProducer[T_SourceProduct_ret]:
         """[see superclass]"""
         return self._producer
 
     @property
-    def _processor(self) -> Processor[T_SourceProduct_ret, T_TransformedProduct_ret]:
+    def processor(self) -> Processor[T_SourceProduct_ret, T_TransformedProduct_ret]:
         """[see superclass]"""
         return self.transformer
 
@@ -248,56 +251,13 @@ class _ChainedConcurrentProducer(
             * self.transformer.n_concurrent_conduits
         )
 
-    def iter_concurrent_conduits(
+    def iter_concurrent_producers(
         self,
     ) -> Iterator[SerialProducer[T_TransformedProduct_ret]]:
         """[see superclass]"""
 
-        def _iter_chained_producers(
-            tx: (
-                SerialTransformer[T_SourceProduct_ret, T_TransformedProduct_ret]
-                | Passthrough
-            ),
-        ) -> Iterator[SerialProducer[T_TransformedProduct_ret]]:
-            if isinstance(tx, Passthrough):
-                # Passthrough does not change the type, so we can cast the input type
-                # to the type of the transformed product
-                yield from cast(
-                    Iterator[SerialProducer[T_TransformedProduct_ret]],
-                    self._source.iter_concurrent_conduits(),
-                )
-            else:
-                for source in self._producer.iter_concurrent_conduits():
-                    yield _ChainedProducer(producer=source, transformer=tx)
-
-        for transformer in self.transformer.iter_concurrent_conduits():
-            yield from _iter_chained_producers(transformer)
-
-    def aiter_concurrent_conduits(
-        self,
-    ) -> AsyncIterator[SerialProducer[T_TransformedProduct_ret]]:
-        """[see superclass]"""
-
-        async def _aiter_chained_producers(
-            tx: (
-                SerialTransformer[T_SourceProduct_ret, T_TransformedProduct_ret]
-                | Passthrough
-            ),
-        ) -> AsyncIterator[SerialProducer[T_TransformedProduct_ret]]:
-            if isinstance(tx, Passthrough):
-                async for source in self._producer.aiter_concurrent_conduits():
-                    # Passthrough does not change the type, so we can cast the
-                    # input type to the type of the transformed product
-                    yield cast(SerialProducer[T_TransformedProduct_ret], source)
-            else:
-                async for source in self._producer.aiter_concurrent_conduits():
-                    yield _ChainedProducer(producer=source, transformer=tx)
-
-        # noinspection PyTypeChecker
-        return async_flatten(
-            _aiter_chained_producers(transformer)
-            async for transformer in self.transformer.aiter_concurrent_conduits()
-        )
+        for source in self._producer.iter_concurrent_producers():
+            yield from self.transformer.iter_concurrent_producers(source=source)
 
 
 @inheritdoc(match="[see superclass]")
@@ -327,71 +287,48 @@ class _ChainedConcurrentTransformedProducer(
     #: The source producer
     _producer: SerialProducer[T_SourceProduct_ret]
 
-    #: The transformer group to apply to the producer
-    transformer_group: BaseTransformer[T_SourceProduct_ret, T_Product_ret]
+    #: The transformer to apply to the producer
+    transformer: BaseTransformer[T_SourceProduct_ret, T_Product_ret]
 
     def __init__(
         self,
         *,
         source: SerialProducer[T_SourceProduct_ret],
-        transformer_group: BaseTransformer[T_SourceProduct_ret, T_Product_ret],
+        transformer: BaseTransformer[T_SourceProduct_ret, T_Product_ret],
     ) -> None:
         """
         :param source: the producer to use as input
-        :param transformer_group: the transformer group to apply to the producer
+        :param transformer: the transformer to apply to the producer
         """
         super().__init__()
         self._producer = source
-        self.transformer_group = transformer_group
+        self.transformer = transformer
 
     @property
-    def _source(self) -> SerialProducer[T_SourceProduct_ret]:
+    @final
+    def product_type(self) -> type[T_Product_ret]:
+        """[see superclass]"""
+        return self.transformer.product_type
+
+    @property
+    def source(self) -> SerialProducer[T_SourceProduct_ret]:
         """[see superclass]"""
         return self._producer
 
     @property
-    def _processor(self) -> BaseTransformer[T_SourceProduct_ret, T_Product_ret]:
+    def processor(self) -> BaseTransformer[T_SourceProduct_ret, T_Product_ret]:
         """[see superclass]"""
-        return self.transformer_group
+        return self.transformer
 
     @property
     def n_concurrent_conduits(self) -> int:
         """[see superclass]"""
-        return self.transformer_group.n_concurrent_conduits
+        return self.transformer.n_concurrent_conduits
 
-    def iter_concurrent_conduits(self) -> Iterator[SerialProducer[T_Product_ret]]:
+    def iter_concurrent_producers(self) -> Iterator[SerialProducer[T_Product_ret]]:
         """[see superclass]"""
 
-        # create one shared buffered producer for synchronous iteration
-        producer = _BufferedProducer(self._producer)
-
-        # for synchronous iteration, we need to materialize the source products
-        for transformer in self.transformer_group.iter_concurrent_conduits():
-            if isinstance(transformer, Passthrough):
-                # We cast to T_Product_ret, since the Passthrough does not change the
-                # type of the source
-                yield cast(SerialProducer[T_Product_ret], producer)
-            else:
-                yield producer >> transformer
-
-    async def aiter_concurrent_conduits(
-        self,
-    ) -> AsyncIterator[SerialProducer[T_Product_ret]]:
-        """[see superclass]"""
-
-        # Create parallel synchronized iterators for the source products
-        concurrent_producers = _AsyncBufferedProducer.create(
-            source=self._producer, n=self.transformer_group.n_concurrent_conduits
-        )
-
-        async for transformer in self.transformer_group.aiter_concurrent_conduits():
-            producer = next(concurrent_producers)
-            if isinstance(transformer, Passthrough):
-                # We cast to T_Product_ret, since the Passthrough does not change the
-                # type of the source
-                yield cast(SerialProducer[T_Product_ret], producer)
-            else:
-                yield producer >> transformer
+        yield from self.transformer.iter_concurrent_producers(source=self._producer)
 
 
 @inheritdoc(match="[see superclass]")
@@ -425,12 +362,23 @@ class _ChainedConcurrentTransformer(
         self.second = second
 
     @property
-    def _source(self) -> Source[T_SourceProduct_ret]:
+    def input_type(self) -> type[T_SourceProduct_arg]:
+        """[see superclass]"""
+        return self.first.input_type
+
+    @property
+    @final
+    def product_type(self) -> type[T_TransformedProduct_ret]:
+        """[see superclass]"""
+        return self.second.product_type
+
+    @property
+    def source(self) -> Source[T_SourceProduct_ret]:
         """[see superclass]"""
         return self.first
 
     @property
-    def _processor(self) -> Processor[T_SourceProduct_ret, T_TransformedProduct_ret]:
+    def processor(self) -> Processor[T_SourceProduct_ret, T_TransformedProduct_ret]:
         """[see superclass]"""
         return self.second
 
@@ -439,229 +387,14 @@ class _ChainedConcurrentTransformer(
         """[see superclass]"""
         return self.first.n_concurrent_conduits * self.second.n_concurrent_conduits
 
-    def iter_concurrent_conduits(
-        self,
-    ) -> Iterator[
-        SerialTransformer[T_SourceProduct_arg, T_TransformedProduct_ret] | Passthrough
-    ]:
+    @final
+    def is_valid_source(self, source: SerialConduit[T_SourceProduct_arg]) -> bool:
         """[see superclass]"""
-        for first in self.first.iter_concurrent_conduits():
-            if isinstance(first, Passthrough):
-                yield from cast(
-                    Iterator[
-                        SerialTransformer[T_SourceProduct_arg, T_TransformedProduct_ret]
-                    ],
-                    self.second.iter_concurrent_conduits(),
-                )
-            else:
-                for second in self.second.iter_concurrent_conduits():
-                    if isinstance(second, Passthrough):
-                        yield cast(
-                            SerialTransformer[
-                                T_SourceProduct_arg, T_TransformedProduct_ret
-                            ],
-                            first,
-                        )
-                    else:
-                        yield first >> second
+        return self.first.is_valid_source(source=source)
 
-    def aiter_concurrent_conduits(
-        self,
-    ) -> AsyncIterator[
-        SerialTransformer[T_SourceProduct_arg, T_TransformedProduct_ret] | Passthrough
-    ]:
+    def iter_concurrent_producers(
+        self, *, source: SerialProducer[T_SourceProduct_arg]
+    ) -> Iterator[SerialProducer[T_TransformedProduct_ret]]:
         """[see superclass]"""
-
-        async def _aiter(
-            first: (
-                SerialTransformer[T_SourceProduct_arg, T_SourceProduct_ret]
-                | Passthrough
-            )
-        ) -> AsyncIterator[
-            SerialTransformer[T_SourceProduct_arg, T_TransformedProduct_ret]
-            | Passthrough
-        ]:
-            if isinstance(first, Passthrough):
-                async for second in self.second.aiter_concurrent_conduits():
-                    yield cast(
-                        SerialTransformer[T_SourceProduct_arg, T_TransformedProduct_ret]
-                        | Passthrough,
-                        second,
-                    )
-            else:
-                async for second in self.second.aiter_concurrent_conduits():
-                    if isinstance(second, Passthrough):
-                        yield cast(
-                            SerialTransformer[
-                                T_SourceProduct_arg, T_TransformedProduct_ret
-                            ],
-                            first,
-                        )
-                    else:
-                        yield first >> second
-
-        # noinspection PyTypeChecker
-        return async_flatten(
-            _aiter(first) async for first in self.first.aiter_concurrent_conduits()
-        )
-
-
-@inheritdoc(match="[see superclass]")
-class _BaseBufferedProducer(
-    SerialProducer[T_Output_ret], Generic[T_Output_ret], metaclass=ABCMeta
-):
-    """
-    A producer that materializes the products of another producer
-    to allow multiple iterations over the same products.
-    """
-
-    source: SerialProducer[T_Output_ret]
-    _products: list[T_Output_ret] | None
-
-    def __init__(self, source: SerialProducer[T_Output_ret]) -> None:
-        """
-        :param source: the producer from which to buffer the products
-        """
-        self.source = source
-
-    @property
-    def product_type(self) -> type[T_Output_ret]:
-        """[see superclass]"""
-        return self.source.product_type
-
-    def get_final_conduits(self) -> Iterator[SerialConduit[T_Output_ret]]:
-        """[see superclass]"""
-        return self.source.get_final_conduits()
-
-    def get_connections(
-        self, *, ingoing: Collection[SerialConduit[Any]]
-    ) -> Iterator[tuple[SerialConduit[Any], SerialConduit[Any]]]:
-        """[see superclass]"""
-        return self.source.get_connections(ingoing=ingoing)
-
-
-@inheritdoc(match="[see superclass]")
-class _BufferedProducer(
-    AtomicConduit[T_Output_ret],
-    _BaseBufferedProducer[T_Output_ret],
-    Generic[T_Output_ret],
-):
-    """
-    A producer that materializes the products of another producer
-    to allow multiple iterations over the same products.
-    """
-
-    source: SerialProducer[T_Output_ret]
-    _products: list[T_Output_ret] | None = None
-
-    def produce(self) -> Iterator[T_Output_ret]:
-        """[see superclass]"""
-        if self._products is None:
-            self._products = list(self.source.produce())
-        return iter(self._products)
-
-
-class _AsyncBufferedProducer(
-    AtomicConduit[T_Output_ret],
-    _BaseBufferedProducer[T_Output_ret],
-    Generic[T_Output_ret],
-):
-    """
-    A producer that creates multiple synchronized iterators over the same products,
-    allowing multiple asynchronous iterations over the same products where each
-    iteration blocks until all iterators have processed the current item, ensuring
-    that the original producer is only iterated once.
-    """
-
-    products: AsyncIterator[T_Output_ret]
-    k: int
-
-    def __init__(
-        self,
-        *,
-        source: SerialProducer[T_Output_ret],
-        products: AsyncIterator[T_Output_ret],
-        k: int,
-    ) -> None:
-        super().__init__(source=source)
-        self.products = products
-        self.k = k
-
-    @classmethod
-    def create(
-        cls, source: SerialProducer[T_Output_ret], *, n: int
-    ) -> Iterator[_AsyncBufferedProducer[T_Output_ret]]:
-        """
-        Create multiple synchronized asynchronous producers over the products of the
-        given source producer.
-
-        :param source: the source producer
-        :param n: the number of synchronized producers to create
-        :return: the synchronized producers
-        """
-        return (
-            _AsyncBufferedProducer(source=source, products=products, k=k)
-            for k, products in enumerate(_async_iter_parallel(source.aproduce(), n))
-        )
-
-    def produce(self) -> Iterator[T_Output_ret]:
-        raise NotImplementedError(
-            "Not implemented; use `aiter` to iterate asynchronously."
-        )
-
-    def aproduce(self) -> AsyncIterator[T_Output_ret]:
-        return self.products
-
-
-#
-# Auxiliary constants, functions and classes
-#
-
-T = TypeVar("T")
-
-#: Tasks for the producer that need to be awaited before the producer is garbage
-#: collected
-_producer_tasks: set[asyncio.Task[Any]] = set()
-
-#: Sentinel to indicate the end of processing
-_END: Literal["END"] = cast(Literal["END"], "END")
-
-
-def _async_iter_parallel(
-    iterable: AsyncIterable[T], n: int
-) -> Iterator[AsyncIterator[T]]:
-    # Create a given number of asynchronous iterators that share the same items.
-
-    async def _shared_iterator(
-        queue: asyncio.Queue[T | Literal["END"]],
-    ) -> AsyncIterator[T]:
-        while True:
-            # Wait for the item to be available for this iterator
-            item = await queue.get()
-            if item is _END:
-                # The producer has finished
-                break
-            yield cast(T, item)
-
-    async def _producer() -> None:
-        # Iterate over the items in the source iterable
-        async for item in iterable:
-            # Add the item to all queues
-            for queue in queues:
-                await queue.put(item)
-        # Notify all consumers that the producer has finished
-        for queue in queues:
-            await queue.put(_END)
-
-    # Create a queue for each consumer
-    queues: list[asyncio.Queue[T | Literal["END"]]] = [
-        asyncio.Queue() for _ in range(n)
-    ]
-
-    # Start the producer task, and store a reference to it to prevent it from being
-    # garbage collected before it finishes
-    task = asyncio.create_task(_producer())
-    _producer_tasks.add(task)
-    task.add_done_callback(_producer_tasks.remove)
-
-    return (_shared_iterator(queue) for queue in queues)
+        for producer in self.first.iter_concurrent_producers(source=source):
+            yield from self.second.iter_concurrent_producers(source=producer)

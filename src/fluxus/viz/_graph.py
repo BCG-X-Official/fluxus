@@ -98,11 +98,7 @@ class FlowGraph:
             conduit.get_connections(ingoing=[])
         )
 
-        single_conduits: set[SerialConduit[Any]] = {
-            conduit
-            for conduit in conduit.iter_concurrent_conduits()
-            if conduit.is_atomic
-        }
+        single_conduits: set[SerialConduit[Any]] = set(conduit.get_isolated_conduits())
 
         return FlowGraph(connections=connections, single_conduits=single_conduits)
 
